@@ -1,0 +1,241 @@
+---
+layout: base.njk
+title: The plan is the product—pālana
+description: "Why pālana composes a readable plan—classification, transport, exact commands—before any operation runs, and how Enter proves the plan was real."
+---
+
+<h1>The plan is the product</h1>
+
+<p class="lede">Every file manager acts. pālana shows its work first—and the
+work it shows is, to the letter, the work it does.</p>
+
+<section>
+<h2 id="why">What other file managers hide<a class="hlink" href="#why">#</a></h2>
+
+<p>Drag a file from server A to server B in a network-capable Mac file manager
+and the bytes travel A → your laptop → B. The interface presents a direct
+operation while executing an indirect one. For a 100&nbsp;GB archive moving
+between ZFS pools, that indirection is slow, fragile, and baffling when it
+fails—because you didn't know your machine was in the middle.</p>
+
+<p>ZFS adds another hidden distinction. When services live in separate
+datasets, a "rename" across datasets is a full copy followed by a delete.
+Tools that flatten this into a rename can conceal substantial work until after
+it has started.</p>
+
+<p>pālana's answer is to change what happens, not how it looks. Between your keystroke and any
+mutation stands a plan: a readable statement of what will run, composed from
+probed facts, shown whole. Nothing mutates while a plan is on screen. Enter
+enacts it. Esc dismisses it, and nothing has happened. Dry-run is not a mode
+you remember to turn on. It is the default state of every operation.</p>
+</section>
+
+<section>
+<h2 id="anatomy">What a plan says<a class="hlink" href="#anatomy">#</a></h2>
+
+<figure class="plan">
+  <div class="plan-panel">
+    <div class="pp-head">
+      <span class="pp-phase">move · the plan</span>
+      <span class="pp-enter">⏎ enter runs</span>
+    </div>
+    <pre class="pp-body"><span class="note">⏎ press enter to run this plan · esc dismisses it</span>
+<strong>move · move to another machine</strong>
+<span class="faint">1 entry · 41.3 GB</span>
+<span class="alarm">will merge into archive-2025</span>
+<span class="faint">jodo:/tank/media/camera → koan:/rpool/cold</span>
+<span class="faint">how: rsync, run host-to-host · using the forwarded ssh key</span>
+
+$ rsync -a -s --partial --info=progress2 /tank/media/camera/archive-2025 koan:/rpool/cold/
+  runs only after the copy above is verified: $ rm -rf /tank/media/camera/archive-2025</pre>
+  </div>
+  <figcaption>A move, planned. Six facts, top to bottom—each one read from
+  the hosts, none of them decoration.</figcaption>
+</figure>
+
+<p><strong>What you asked, and what it actually is.</strong> The first line
+pairs your verb with the operation's real shape: <code>move · move to another
+machine</code>. You said move; the plan says what a move <em>is</em> here.</p>
+
+<p><strong>Size.</strong> <code>1 entry · 41.3 GB</code> is measured
+recursively on the host, not inferred from the directory inode. When a folder
+cannot be measured, the plan marks the result as a lower bound:
+<code>this is a floor—a folder couldn't be measured</code>.</p>
+
+<p><strong>What's in the way.</strong> Before a plan is offered, the
+destination is read. Anything standing where your files will land is named —
+<code>will merge into archive-2025</code>, or <code>will replace photos.db
+(1.2&nbsp;MB)</code>—in rust, before Enter, not in an error after. When the
+destination can't be checked, the plan says that instead:
+<code>couldn't check the destination—this may overwrite files there</code>.</p>
+
+<p><strong>The route.</strong> Source and destination as
+<code>host:path</code>, the same names your ssh config uses.</p>
+
+<p><strong>Transport.</strong> The plan names the tool, execution host, and
+authentication path. More on this <a href="#transport">below</a>.</p>
+
+<p><strong>The commands.</strong> Every step that will run, verbatim, with its
+gate stated inline. The delete—the dangerous half of a move—is declared
+<em>gated</em>: it does not run until the copy is verified. The gate isn't a
+comforting sentence in documentation. It's a property of the plan you're
+reading.</p>
+</section>
+
+<section>
+<h2 id="classifications">One key, three operations<a class="hlink" href="#classifications">#</a></h2>
+
+<p>Press <kbd>m</kbd> on the same 41.3&nbsp;GB folder in three different
+worlds, and read what comes back.</p>
+
+<p>The destination is <em>in the same dataset</em>:</p>
+
+<figure class="plan">
+  <div class="plan-panel">
+    <div class="pp-head">
+      <span class="pp-phase">move · the plan</span>
+      <span class="pp-enter">⏎ enter runs</span>
+    </div>
+    <pre class="pp-body"><strong>move · move on the same disk (instant)</strong>
+<span class="faint">1 entry · 41.3 GB</span>
+<span class="faint">jodo:/tank/media/camera → jodo:/tank/media/film</span>
+<span class="faint">how: runs locally on the one host involved</span>
+
+$ mv /tank/media/camera/archive-2025 /tank/media/film/</pre>
+  </div>
+  <figcaption>A true rename. One command, no data moved, done before your
+  finger lifts.</figcaption>
+</figure>
+
+<p>The destination is <em>another dataset on the same host</em>:</p>
+
+<figure class="plan">
+  <div class="plan-panel">
+    <div class="pp-head">
+      <span class="pp-phase">move · the plan</span>
+      <span class="pp-enter">⏎ enter runs</span>
+    </div>
+    <pre class="pp-body"><strong>move · copy then delete the original</strong>
+<span class="faint">1 entry · 41.3 GB</span>
+<span class="faint">jodo:/tank/media/camera → jodo:/rust/archive</span>
+<span class="faint">how: runs locally on the one host involved</span>
+
+$ rsync -a -s --partial --info=progress2 /tank/media/camera/archive-2025 /rust/archive/
+  runs only after the copy above is verified: $ rm -rf /tank/media/camera/archive-2025</pre>
+  </div>
+  <figcaption>Same host, same keystroke, different operation. A dataset
+  boundary sits between the panes, so this move copies 41.3&nbsp;GB and deletes
+  the source only after verification.</figcaption>
+</figure>
+
+<p>The destination is <em>another machine</em>—the plan at the
+<a href="#anatomy">top of this page</a>: a cross-host transfer, rsync running
+host-to-host, the delete gated on verification.</p>
+
+<p>Same keystroke, three shapes. The classification isn't guessed from paths —
+it's computed from dataset boundaries the Field actually probed. Different
+facts in, different plan out: the moment
+an operation stops being what it looks like is exactly the moment you most need
+to be told.</p>
+</section>
+
+<section>
+<h2 id="transport">The transport is named<a class="hlink" href="#transport">#</a></h2>
+
+<p>A plan doesn't just say <em>what</em>. It says <em>how</em>—which tool
+moves the bytes, which machine runs it, and who authenticates to whom.</p>
+
+<svg class="diagram" viewBox="0 0 520 210" role="img" aria-label="Your Mac sends the command to jodo; the bytes travel from jodo directly to koan.">
+  <rect x="30" y="30" width="110" height="44" rx="6" style="fill: var(--ground-deep); stroke: var(--hairline);"/>
+  <text x="85" y="57" text-anchor="middle">jodo</text>
+  <rect x="380" y="30" width="110" height="44" rx="6" style="fill: var(--ground-deep); stroke: var(--hairline);"/>
+  <text x="435" y="57" text-anchor="middle">koan</text>
+  <rect x="205" y="140" width="110" height="44" rx="6" style="fill: var(--ground-deep); stroke: var(--hairline);"/>
+  <text x="260" y="167" text-anchor="middle">your Mac</text>
+  <line x1="146" y1="52" x2="368" y2="52" style="stroke: var(--accent); stroke-width: 2;"/>
+  <polygon points="368,46 380,52 368,58" style="fill: var(--accent);"/>
+  <text x="260" y="40" text-anchor="middle" class="d-accent">the bytes · 41.3 GB</text>
+  <line x1="228" y1="140" x2="100" y2="80" style="stroke: var(--ink-faint); stroke-width: 1; stroke-dasharray: 4 3;"/>
+  <text x="212" y="108" class="d-faint">the order:</text>
+  <text x="212" y="124" class="d-faint">rsync, run on jodo</text>
+</svg>
+
+<p>The fast path forwards your SSH agent: jodo authenticates to koan directly,
+your key never leaves your Mac, and the bytes go host to host while your
+machine only orchestrates. When forwarding isn't available—or one end has no
+rsync—pālana falls back, and the plan says so in the same plain line:</p>
+
+<div class="howlines">how: runs locally on the one host involved<br>
+how: rsync, run host-to-host · using the forwarded ssh key<br>
+how: rsync, run from this Mac · using this Mac's ssh keys<br>
+how: tar stream, proxied through this Mac · no rsync at one end<br>
+how: tar stream, run from this Mac · using this Mac's ssh keys<br>
+how: zfs send/receive, run host-to-host · using the forwarded ssh key<br>
+how: zfs send/receive, proxied through this Mac</div>
+
+<p>The engine selects among seven routes from probed facts: host reachability,
+available rsync versions, and whether both ends are whole ZFS datasets. The
+plan makes that selection visible. If it says "proxied through this Mac," your
+laptop is in the byte path and the route states why.</p>
+</section>
+
+<section>
+<h2 id="the-echo">Run and verify<a class="hlink" href="#the-echo">#</a></h2>
+
+<p>The plan panel is not a dialog styled to look technical. It is a real
+terminal surface, and when Enter fires, the enactment echoes into it live—the
+same commands the plan showed, now with their actual output streaming under
+them.</p>
+
+<figure class="plan">
+  <div class="plan-panel">
+    <div class="pp-head">
+      <span class="pp-phase">move · done</span>
+    </div>
+    <pre class="pp-body"><span class="cmd">$ rsync -a -s --partial --info=progress2 /tank/media/camera/archive-2025 koan:/rpool/cold/</span>
+ 41,334,982,656 100%  112.43MB/s    0:05:51 (xfr#3412, to-chk=0/3413)
+<span class="note">step 1 finished (exit 0)</span>
+<span class="note">check on jodo: $ find /tank/media/camera/archive-2025 | wc -l</span>
+<span class="note">check on koan: $ find /rpool/cold/archive-2025 | wc -l</span>
+<span class="note">counted 3413 at source, 3413 at destination—match</span>
+<span class="cmd">$ rm -rf /tank/media/camera/archive-2025</span>
+<span class="note">step 2 finished (exit 0)</span>
+<span class="note">done—every step ran and checked out</span></pre>
+  </div>
+  <figcaption>The run, live. The delete was gated—and here is the gate
+  opening: two count commands, one on each host, shown like everything else.</figcaption>
+</figure>
+
+<p>The transfer finishes. Then the verification runs —
+not a spinner, two more commands you can read, counting what landed against
+what left. Only when the counts match does the gated delete run. If they
+didn't match, it wouldn't. (Mid-run, <kbd>⌃c</kbd> cancels; a plan that hasn't
+been enacted is dismissed with <kbd>esc</kbd> and costs nothing.)</p>
+
+<p>This is the whole trust story, and it's deliberately short: the interface
+claims "these are the commands," and the claim is checkable by watching them
+run.</p>
+</section>
+
+<section>
+<h2 id="paste-test">The paste test<a class="hlink" href="#paste-test">#</a></h2>
+
+<p>Every command in every plan passes one test: you could select it, paste it
+into your own terminal, and get the same result. That isn't a party trick. It
+falls out of two architectural commitments.</p>
+
+<p><strong>pālana wraps your own tools.</strong> There is no embedded SSH
+library, no parallel transport stack—the system <code>ssh</code>, the hosts'
+own <code>rsync</code> and <code>zfs</code>. A command that runs through pālana
+and a command you type by hand travel the same road with the same identity, so
+the plan can quote reality instead of approximating it.</p>
+
+<p><strong>The plan engine is a pure function.</strong> Facts in, plan out; it
+performs no I/O itself. That makes its classifications and commands directly
+testable.</p>
+
+<p>Read the plan, then press Enter. Every step is shown before it runs and its
+output appears in the same panel.</p>
+
+<p><a href="/#download">Try the beta →</a></p>
+</section>

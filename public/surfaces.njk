@@ -1,0 +1,121 @@
+---
+layout: base.njk
+title: Preview, shell, favorites, settings—pālana
+description: "Preview, a per-host shell, favorites, settings for your SSH config, one master zoom, and the operations log."
+---
+
+<h1>The surfaces</h1>
+
+<p class="lede">The panes are the main workspace. These views provide preview,
+shell access, favorites, settings, zoom, and an operations log.</p>
+
+<section>
+<h2 id="preview">v—preview<a class="hlink" href="#preview">#</a></h2>
+
+<p><kbd>v</kbd> turns the right pane into a preview that follows the left
+pane's cursor—walk your files with <kbd>j</kbd>/<kbd>k</kbd> and the
+preview keeps up. The right pane wears a <code>VIEW</code> chip and says so:
+<em>follows the left pane's cursor</em>. Focus locks to the left pane while
+previewing; <kbd>v</kbd> again or <kbd>esc</kbd> puts the right pane back the
+way it was.</p>
+
+<p>Preview behavior reflects where a file lives. Local files get the full treatment—text,
+and Quick Look for images, PDFs, and media. Remote <em>text</em> is fetched
+over the wire with a bounded read, so peeking at a config file on koan costs
+kilobytes, not the file. A remote binary stays an info card—pālana won't
+download megabytes just to render a thumbnail.</p>
+</section>
+
+<section>
+<h2 id="shell">⌘`—the live shell<a class="hlink" href="#shell">#</a></h2>
+
+<p>For tasks outside the file manager, <kbd>⌘`</kbd> opens a shell in the
+bottom panel: a terminal running plain <code>ssh koan</code> under
+your own config on a remote pane, or your login shell on a local one. One live
+session per host, kept warm until you quit the app.</p>
+
+<p>The keyboard handover is explicit, and the footer always names who has
+it: <em>the shell has the keyboard · ⌘` hands it to the panes · ⌘ shortcuts
+still work</em>. While the shell holds the keyboard, every key reaches it —
+including <kbd>esc</kbd>, because vim needs it—and <kbd>⌘`</kbd> is the way
+back. A shell that ends tells you, and how to resume: <code>shell on koan
+ended—⌘` starts a new one</code>.</p>
+
+<p>The plain backtick <kbd>`</kbd> is the smaller sibling: it engages the
+terminal panel's <em>tool reads</em>—the read-only strip where
+<kbd>d</kbd> <kbd>z</kbd> <kbd>s</kbd> <kbd>p</kbd> drop <code>df -h</code>,
+<code>zfs list</code>, <code>zpool status</code>, and <code>zpool list</code>
+from the focused host straight into the transcript. Questions, not
+mutations—nothing there needs a plan.</p>
+</section>
+
+<section>
+<h2 id="favorites">*—favorites<a class="hlink" href="#favorites">#</a></h2>
+
+<p><kbd>8</kbd> stars the directory under the cursor; <kbd>⌘8</kbd> stars the
+directory you're standing in; <kbd>*</kbd> opens the favorites panel. Its
+footer is its manual: <code>esc closes · 8 stars · * opens</code>.</p>
+
+<p>Favorites come in two scopes. A star is host-bound by default—koan's
+paths belong to koan. Promote one to global and it rides every host's menu:
+the pin glyph toggles it, or <kbd>⇧↑</kbd>/<kbd>⇧↓</kbd> from the keyboard —
+<em>promote to global—visible on all hosts</em>. The panel walks like
+everything else (<kbd>j</kbd>/<kbd>k</kbd>/<kbd>l</kbd>/<kbd>h</kbd>,
+<kbd>⏎</kbd> jumps), undoes with <kbd>⌘Z</kbd>, and its three-arrow header
+picks which pane a jump lands in: left, both, or right.</p>
+</section>
+
+<section>
+<h2 id="settings">⌘,—settings<a class="hlink" href="#settings">#</a></h2>
+
+<p>Four settings sections, in the app and mirrored in Apple's Settings scene.</p>
+
+<p><strong>Hosts.</strong> Your ssh config, as a surface: add a host (the
+form shows the exact block it will write), remove one (it shows the block it
+will strip), hide one from the menus without touching its block. The hide is
+a <code># palana: hide</code> comment in the file; typed addresses still work. A
+backup of your config is written beside it before every change, and
+<em>View config</em> shows the file read-only whenever you want the raw
+truth.</p>
+
+<p><strong>Transfers.</strong> <em>skip .DS_Store</em> and <em>skip
+AppleDouble files (._*)</em> keep Mac droppings out of your servers—they
+become <code>--exclude</code> flags you can read in every rsync plan. A
+free-form <em>more flags</em> field appends anything else (say,
+<code>--checksum</code>); the caption states the floor that's always there:
+<em>always on: -a, --partial resume · progress when the rsync speaks it</em>.
+And <em>ask before sending saved edits back</em> governs
+<a href="/moving-files/#round-trip">the round trip</a>.</p>
+
+<p><strong>Workbench.</strong> The destroy switch—<em>zfs destroy asks you
+to type it</em>, on by default: <em>on: the word destroy arms the verb · off:
+Enter shows the plan directly</em>. And the <em>ZFS mount &amp; unmount</em>
+block: the one narrow sudoers line that unlocks those two verbs, prefilled
+with the host's login when your config names it, with a copy button. What the
+line grants and why it's shaped that way:
+<a href="/sudo/">the mount grant</a>.</p>
+
+<p><strong>Appearance.</strong> System, Light, or Dark—<em>System follows
+the Mac; Light and Dark override it.</em> This site does the same, in the
+corner of the nav.</p>
+</section>
+
+<section>
+<h2 id="zoom">⌘+ ⌘− ⌘0—one master zoom<a class="hlink" href="#zoom">#</a></h2>
+
+<p>One factor sizes the panes, plan panel, terminal, and floating panels
+together, from 0.8× to 1.6×, and is remembered across launches.
+<kbd>⌘0</kbd> resets it. There are no per-surface font settings.</p>
+</section>
+
+<section>
+<h2 id="log">⇧⌘L—the operations log<a class="hlink" href="#log">#</a></h2>
+
+<p>Every <em>enacted</em> run—never mere gathering—appends to a plain
+text file, <code>operations.log</code>, in pālana's Application Support
+folder: a dated header naming the verb and the route, then the commands and
+their output, the same lines the panel echoed. <kbd>⇧⌘L</kbd> doesn't open a
+viewer—it points the focused pane at the log and lands the cursor on it,
+because you already have a file manager in front of you. Your history is a
+plain file, greppable like everything else you own.</p>
+</section>

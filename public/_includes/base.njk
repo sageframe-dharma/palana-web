@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title }}</title>
+  <meta name="description" content="{{ description }}">
+  <meta property="og:title" content="{{ title }}">
+  <meta property="og:description" content="{{ description }}">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/site.css">
+  <script>
+    // Before first paint: honor a chosen theme; otherwise the system decides.
+    (function () {
+      var t = localStorage.getItem('palana-theme');
+      if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+    })();
+  </script>
+</head>
+<body>
+  <header class="site-head">
+    <div class="row">
+      <a class="wordmark" href="/">pālana</a>
+      <nav class="site-nav">
+        {%- for item in [
+          { url: "/help/", label: "help" },
+          { url: "/the-plan/", label: "the plan" },
+          { url: "/keys/", label: "keys" },
+          { url: "/faq/", label: "faq" }
+        ] %}
+        <a href="{{ item.url }}"{% if page.url == item.url %} aria-current="page"{% endif %}>{{ item.label }}</a>
+        {%- endfor %}
+        <a href="https://github.com/sageframe-no-kaji/palana">github</a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="switch appearance">system</button>
+      </nav>
+    </div>
+  </header>
+  <main{% if wide %} class="wide"{% endif %}>
+    {{ content | safe }}
+  </main>
+  <footer class="site-foot">
+    <div class="row">
+      pālana is a <a href="https://atmarcus.net">Sageframe</a> project by Andrew Marcus,
+      built in public with the <a href="https://github.com/sageframe-no-kaji/ho-system">Ho System</a>.
+      Open source under <a href="https://github.com/sageframe-no-kaji/palana/blob/main/LICENSE">GPL-3.0</a>.
+    </div>
+  </footer>
+  <script>
+    // The app's appearance setting, echoed: system → light → dark → system.
+    (function () {
+      var button = document.getElementById('theme-toggle');
+      var order = ['system', 'light', 'dark'];
+      var current = localStorage.getItem('palana-theme') || 'system';
+      button.textContent = current;
+      button.addEventListener('click', function () {
+        current = order[(order.indexOf(current) + 1) % order.length];
+        if (current === 'system') {
+          localStorage.removeItem('palana-theme');
+          delete document.documentElement.dataset.theme;
+        } else {
+          localStorage.setItem('palana-theme', current);
+          document.documentElement.dataset.theme = current;
+        }
+        button.textContent = current;
+      });
+    })();
+  </script>
+</body>
+</html>

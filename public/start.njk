@@ -1,0 +1,210 @@
+---
+layout: base.njk
+title: The first five minutes—pālana
+description: "From zero to your first planned copy: hosts from your ~/.ssh/config, point a pane, read the plan, press Enter."
+---
+
+<h1>The first five minutes</h1>
+
+<p class="lede">From opening the app to your first completed plan. There is no
+separate account or host setup: pālana uses the SSH configuration you already
+have.</p>
+
+<section>
+<h2 id="open">Open it<a class="hlink" href="#open">#</a></h2>
+
+<p>The panes come back where you left them. On first launch they point
+nowhere, and say so: <code>nowhere—click to type host:path</code>. Nothing
+has touched a host yet—pālana opens on what it remembers and connects only
+when you ask for something that needs a connection.</p>
+
+<p>One host is always present: <code>local</code>, this Mac. Point a pane at
+<code>local:~</code> and you have a file manager before you have any servers
+at all.</p>
+</section>
+
+<section>
+<h2 id="the-window">The window, labeled<a class="hlink" href="#the-window">#</a></h2>
+
+<div class="anatomy-scroll">
+<div class="anatomy" role="img" aria-label="The pālana window: titlebar with pane verbs and app glyphs, two panes each with a header, rows and a bottom strip, the plan panel with its tool strip, and the window footer.">
+  <div class="a-titlebar">
+    <span class="a-traffic"><i></i><i></i><i></i></span>
+    <span class="a-cap a-center"><span class="g">◀</span> <span class="g">⇄</span> <span class="g">▶</span> <b class="mk">1</b></span>
+    <span class="a-right">
+      <span class="a-cap">पालन</span>
+      <span class="a-cap"><span class="g">★</span> <span class="g">▤</span> <span class="g">⚙</span> <span class="g">?</span> <b class="mk">2</b></span>
+    </span>
+  </div>
+  <div class="a-panes">
+    <div class="a-pane">
+      <div class="a-phead">
+        <span class="hist">‹ ›</span><b class="mk">3</b>
+        <span class="a-dot"></span><b class="mk">4</b>
+        <span class="addr"><b>jodo:</b><span>/tank/media/camera</span></span><b class="mk">5</b>
+        <span class="tail">★ ▾ <b class="mk">6</b></span>
+      </div>
+      <div class="a-cols"><span>name</span><span>size</span><span>modified</span></div>
+      <div class="a-rows">
+        <div class="a-row"><span>archive-2024</span><span class="sz">38.1 GB</span><span class="dt">jan 12</span></div>
+        <div class="a-row cursor"><span>archive-2025</span><b class="mk">7</b><span class="sz">41.3 GB</span><span class="dt">may 30</span></div>
+        <div class="a-row"><span><span class="mark-ds">▮</span> cold</span><span class="sz">—</span><span class="dt">jun 02</span></div>
+        <div class="a-row"><span>camera.db</span><span class="sz">1.2 MB</span><span class="dt">10:14</span></div>
+        <div class="a-row"><span>notes.md</span><span class="sz">18 kB</span><span class="dt">09:51</span></div>
+      </div>
+      <div class="a-pfoot"><span class="term">▬ <b class="mk">8</b></span></div>
+    </div>
+    <div class="a-pane dim">
+      <div class="a-phead">
+        <span class="hist">‹ ›</span>
+        <span class="a-dot"></span>
+        <span class="addr"><b>koan:</b><span>/rpool/sage/koan/cold</span></span>
+        <span class="tail">★ ▾</span>
+      </div>
+      <div class="a-cols"><span>name</span><span>size</span><span>modified</span></div>
+      <div class="a-rows">
+        <div class="a-row"><span>media</span><span class="sz">—</span><span class="dt">apr 18</span></div>
+        <div class="a-row"><span>parity.log</span><span class="sz">4.1 MB</span><span class="dt">jun 29</span></div>
+        <div class="a-row"><span>restore-test</span><span class="sz">—</span><span class="dt">feb 07</span></div>
+      </div>
+      <div class="a-pfoot"><span class="term">▬</span></div>
+    </div>
+  </div>
+  <div class="a-panel">
+    <div class="a-panel-head">
+      <span class="phase">move · the plan</span><b class="mk">9</b>
+      <span class="rail">a new verb rebuilds the plan · esc</span>
+      <span class="enter">⏎ enter runs</span>
+    </div>
+    <div class="a-panel-body">
+      <pre><b>move · move to another machine</b>
+<span class="faint">1 entry · 41.3 GB</span>
+<span class="faint">jodo:/tank/media/camera → koan:/rpool/sage/koan/cold</span>
+$ rsync -a -s --partial --info=progress2 …</pre>
+      <div class="a-strip">
+        <span class="a-chip umber">zfs…</span>
+        <span class="a-chip">df</span>
+        <span class="a-chip">zfs list</span>
+        <span class="a-chip">zpool status</span>
+        <span class="a-chip">zpool list</span>
+        <b class="mk" style="align-self: center;">10</b>
+      </div>
+    </div>
+  </div>
+  <div class="a-wfoot">
+    <span>214 entries</span>
+    <span class="acc">1 selected</span>
+    <b class="mk">11</b>
+    <span class="sp"></span>
+    <span>name ↑</span>
+    <span>? keys</span>
+  </div>
+</div>
+</div>
+
+<ol class="anatomy-legend">
+  <li><strong>The pane verbs.</strong> Point left where right points, swap the panes, point right where left points.</li>
+  <li><strong>The app's corner.</strong> Favorites (<kbd>*</kbd>), the host map (<kbd>F</kbd>), settings (<kbd>⌘,</kbd>), the keys (<kbd>?</kbd>).</li>
+  <li><strong>History.</strong> Back and forward through where this pane has been—<kbd>⌘←</kbd> <kbd>⌘→</kbd>.</li>
+  <li><strong>The focus dot.</strong> Green means this pane has the keyboard; the other pane dims slightly. <kbd>tab</kbd> switches.</li>
+  <li><strong>The address.</strong> One typeable field—click it and enter <code>host:path</code>; <code>~</code> is the remote user's home. <kbd>⇧⌘G</kbd> opens the same thing as a sheet.</li>
+  <li><strong>The star and the host menu.</strong> <code>★</code> favorites this location; <kbd>▾</kbd> lists every host your ssh config names, your favorites, and the ways in—type an address, edit the config, reload.</li>
+  <li><strong>The rows.</strong> The cursor row is highlighted; <kbd>space</kbd> selects; verbs act on the selection. A filled drive mark means the folder is a ZFS dataset mountpoint.</li>
+  <li><strong>The pane's bottom strip.</strong> The terminal popout opens the same panel as <kbd>`</kbd>.</li>
+  <li><strong>The plan panel.</strong> It shows the complete plan before Enter and live output after. The green Return control runs the plan.</li>
+  <li><strong>The workbench strip.</strong> The <code>zfs…</code> overview in umber, then the reads—<code>df</code>, <code>zfs list</code>, <code>zpool status</code>, <code>zpool list</code> (<kbd>⇧tab</kbd> engages them, then <kbd>d</kbd> <kbd>z</kbd> <kbd>s</kbd> <kbd>p</kbd>).</li>
+  <li><strong>The window footer.</strong> Counts and selection, the send direction while an operation is up, any pending prefix, the sort—and <code>? keys</code>, the standing reminder that the whole vocabulary is one keystroke away.</li>
+</ol>
+</section>
+
+<section>
+<h2 id="hosts">Your hosts are already there<a class="hlink" href="#hosts">#</a></h2>
+
+<p>pālana's host list <em>is</em> your <code>~/.ssh/config</code>—the same
+file your terminal uses, <code>Include</code> directives followed. If you can
+<code>ssh koan</code>, pālana already knows koan. There is no account to make
+and no registry to fill in.</p>
+
+<p>Every pane header carries a <kbd>▾</kbd> menu: your hosts (each as
+<code>host:~</code>), your favorites, then <em>type an address…</em>,
+<em>edit ~/.ssh/config…</em>, and <em>reload hosts</em>. The config is the
+control—edit it in your own editor, reload, done.</p>
+
+<p>Adding a machine pālana hasn't met? Settings (<kbd>⌘,</kbd>) → <em>Add a
+host</em> walks you through alias, hostname, user, port, and key, shows you
+the exact block it will write—<code>block that will be written:</code>—and
+backs up your config before touching it. If the first reach finds no usable
+key, pālana shows you the two commands to run (<code>ssh-keygen -t
+ed25519</code>, then <code>ssh-copy-id &lt;alias&gt;</code>) and waits. It
+never runs them for you—your keys are yours.</p>
+</section>
+
+<section>
+<h2 id="point">Point a pane<a class="hlink" href="#point">#</a></h2>
+
+<p>Click the pane's address and type <code>host:path</code>—the field's own
+hint says it all: <code>host:path—local: for this Mac, ~ for home</code>.
+<kbd>⇧⌘G</kbd> opens the same thing as a go-to sheet. One thing worth knowing
+on day one: <code>~</code> means the <em>remote</em> user's home, resolved on
+the host—not your Mac's.</p>
+
+<p>Or skip typing: <kbd>f</kbd> summons the <a href="/field/">field view</a> —
+your machines, their pools, their datasets, as remembered from last visit.
+Walk to a node with <kbd>j</kbd>/<kbd>k</kbd>, press <kbd>⏎</kbd>, and the
+pane is there.</p>
+</section>
+
+<section>
+<h2 id="walk">Walk around<a class="hlink" href="#walk">#</a></h2>
+
+<p><kbd>j</kbd>/<kbd>k</kbd> or the arrows move the cursor; <kbd>h</kbd> and
+<kbd>l</kbd> step out of and into directories; <kbd>⏎</kbd> enters a folder or
+opens a file; <kbd>tab</kbd> switches panes; <kbd>/</kbd> jumps—type a few
+letters, the cursor chases them. The full grammar is five rules and one page:
+<a href="/keys/">the keyboard</a>.</p>
+</section>
+
+<section>
+<h2 id="first-copy">Your first copy<a class="hlink" href="#first-copy">#</a></h2>
+
+<p>Left pane on <code>local:~/notes</code>, right pane on koan. Select a file
+with <kbd>space</kbd>, press <kbd>y</kbd>—and nothing copies. The plan panel
+opens instead:</p>
+
+<figure class="plan">
+  <div class="plan-panel">
+    <div class="pp-head">
+      <span class="pp-phase">copy · the plan</span>
+      <span class="pp-enter">⏎ enter runs</span>
+    </div>
+    <pre class="pp-body"><span class="note">⏎ press enter to run this plan · esc dismisses it</span>
+<strong>copy · copy to another machine</strong>
+<span class="faint">1 entry · 18 kB</span>
+<span class="faint">local:/Users/you/notes → koan:/rpool/sage/koan/notes</span>
+<span class="faint">how: rsync, run from this Mac · using this Mac's ssh keys</span>
+
+$ rsync -a -s --partial --info=progress2 /Users/you/notes/homelab.md koan:/rpool/sage/koan/notes/</pre>
+  </div>
+  <figcaption>What you asked, what it actually is, the route, the transport
+  with its auth path, and the exact command—before anything runs.</figcaption>
+</figure>
+
+<p>It is one rsync command, run from this Mac and authenticated by your agent.
+Press <kbd>⏎</kbd> to run it; its output streams into the panel and ends with
+<code>done—every step ran and checked out</code>. Press <kbd>esc</kbd> to
+dismiss the plan without running it.</p>
+
+<p>That's the whole loop, and it never changes shape: <strong>select the
+files, press the key, read the plan, press Enter.</strong> Moves, deletes,
+renames, ZFS snapshots—every mutation in pālana goes through this same
+gate.</p>
+</section>
+
+<section>
+<h2 id="next">Where next<a class="hlink" href="#next">#</a></h2>
+
+<p>Read <a href="/the-plan/">the plan is the product</a> to understand what
+the plan is really telling you—it's the page that explains why pālana is
+shaped the way it is. Then keep <a href="/keys/">the keyboard</a> open in a
+tab for a day. You'll stop needing it by evening.</p>
+</section>

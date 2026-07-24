@@ -1,0 +1,145 @@
+---
+layout: base.njk
+title: The keyboard—pālana
+description: "pālana's complete keyboard grammar—five rule groups, every key, and what each verb plans. Learn the rules and the keys generate themselves."
+---
+
+<h1>The keyboard</h1>
+
+<p class="lede">pālana is keyboard-first, with Mac conventions where they
+belong. Learn five rules instead of memorizing a large shortcut list. (New to
+the window itself? Start with
+<a href="/start/#the-window">the window, labeled</a>.)</p>
+
+<div class="rule-card">
+  <p><strong>1.</strong> A lowercase letter is a verb on files—and every verb opens a plan before anything runs.</p>
+  <p><strong>2.</strong> <kbd>⌘</kbd> belongs to the app, never to files.</p>
+  <p><strong>3.</strong> Bare keys keep their case—<kbd>G</kbd> is its own verb, not a shifted <kbd>g</kbd>.</p>
+  <p><strong>4.</strong> Prefixes create families—<kbd>c</kbd> copies file facts and <kbd>,</kbd> sorts.</p>
+  <p><strong>5.</strong> <kbd>esc</kbd> retreats one step at a time—a pending prefix first, the selection after.</p>
+</div>
+
+<p><kbd>⌥</kbd> is never claimed. Option-modified shortcuts pass through to
+macOS.</p>
+
+<section>
+<h2 id="navigate">Navigate<a class="hlink" href="#navigate">#</a></h2>
+
+<p>The vim set and the arrow set are both fully wired—use whichever your
+hands already know.</p>
+
+<table class="keys-table">
+  <tr id="k-cursor"><td class="k"><kbd>j</kbd> <kbd>k</kbd> <span class="sep">or</span> <kbd>↓</kbd> <kbd>↑</kbd></td><td>cursor down / up</td></tr>
+  <tr id="k-in-out"><td class="k"><kbd>h</kbd> <kbd>l</kbd> <span class="sep">or</span> <kbd>←</kbd> <kbd>→</kbd></td><td>parent directory / enter directory</td></tr>
+  <tr id="k-enter"><td class="k"><kbd>⏎</kbd></td><td>enter a folder—or open a file in its Mac app</td></tr>
+  <tr id="k-top-bottom"><td class="k"><kbd>g</kbd><kbd>g</kbd> <span class="sep">/</span> <kbd>G</kbd></td><td>top / bottom &nbsp;<span class="sep">(Home and End work too)</span></td></tr>
+  <tr id="k-page"><td class="k"><kbd>⌃d</kbd> <kbd>⌃u</kbd></td><td>half page down / up &nbsp;<span class="sep">(PgDn and PgUp for whole pages)</span></td></tr>
+  <tr id="k-select"><td class="k"><kbd>space</kbd></td><td>select the entry and advance</td></tr>
+  <tr id="k-select-all"><td class="k"><kbd>⌘A</kbd> <span class="sep">/</span> <kbd>esc</kbd></td><td>select all / clear</td></tr>
+  <tr id="k-switch"><td class="k"><kbd>tab</kbd></td><td>switch pane</td></tr>
+  <tr id="k-jump"><td class="k"><kbd>/</kbd></td><td>jump—type a name, the cursor chases it</td></tr>
+  <tr id="k-hidden"><td class="k"><kbd>.</kbd></td><td>show / hide hidden files</td></tr>
+</table>
+</section>
+
+<section>
+<h2 id="verbs">Verbs<a class="hlink" href="#verbs">#</a></h2>
+
+<p>Six lowercase letters state intent. None of them acts—each opens
+<a href="/the-plan/">the plan</a>, and Enter enacts it.</p>
+
+<table class="keys-table">
+  <tr id="k-y"><td class="k"><kbd>y</kbd></td><td><strong>copy</strong> to the other pane—the plan names the route: same host, cross-dataset, or host to host</td></tr>
+  <tr id="k-m"><td class="k"><kbd>m</kbd></td><td><strong>move</strong> to the other pane—the plan names what the move actually is: a same-disk rename, a copy-then-delete, or a transfer</td></tr>
+  <tr id="k-d"><td class="k"><kbd>d</kbd></td><td><strong>delete</strong>—the plan shows the exact <code>rm</code> before Enter releases it</td></tr>
+  <tr id="k-r"><td class="k"><kbd>r</kbd></td><td><strong>rename</strong>—opens the name field over the cursor entry; the plan guards against overwriting an existing name</td></tr>
+  <tr id="k-a"><td class="k"><kbd>a</kbd></td><td><strong>create</strong>—type a name; a trailing <code>/</code> makes it a directory</td></tr>
+  <tr id="k-t"><td class="k"><kbd>t</kbd></td><td><strong>touch</strong>—update modification times on the selection</td></tr>
+</table>
+
+<p>For <kbd>r</kbd> and <kbd>a</kbd>, the name field opens first and
+<kbd>⏎</kbd> does the whole job—commit the name, read the plan, done.</p>
+</section>
+
+<section>
+<h2 id="families">Families<a class="hlink" href="#families">#</a></h2>
+
+<p>A prefix key opens a family; the second key picks the member.</p>
+
+<table class="keys-table">
+  <tr id="k-clipboard"><td class="k"><kbd>c</kbd><kbd>c</kbd> <span class="sep">/</span> <kbd>c</kbd><kbd>d</kbd></td><td>copy the full path / the directory path</td></tr>
+  <tr id="k-clipboard-name"><td class="k"><kbd>c</kbd><kbd>f</kbd> <span class="sep">/</span> <kbd>c</kbd><kbd>n</kbd></td><td>copy the filename / the name without its extension</td></tr>
+  <tr id="k-sort"><td class="k"><kbd>,</kbd><kbd>n</kbd> <span class="sep">/</span> <kbd>,</kbd><kbd>s</kbd> <span class="sep">/</span> <kbd>,</kbd><kbd>m</kbd></td><td>sort by name / size / modified—the same key again flips the direction</td></tr>
+</table>
+</section>
+
+<section>
+<h2 id="surfaces">Surfaces<a class="hlink" href="#surfaces">#</a></h2>
+
+<p>Each secondary view opens from a key and closes when you are done. None
+creates persistent UI state.</p>
+
+<table class="keys-table">
+  <tr id="k-field"><td class="k"><kbd>f</kbd></td><td>the <a href="/field/">field view</a>—hosts, pools, datasets, as remembered</td></tr>
+  <tr id="k-host-map"><td class="k"><kbd>F</kbd></td><td>the host map—floats beside the window</td></tr>
+  <tr id="k-favorites"><td class="k"><kbd>*</kbd></td><td>the favorites panel</td></tr>
+  <tr id="k-preview"><td class="k"><kbd>v</kbd></td><td>preview—the right pane follows the left pane's cursor</td></tr>
+  <tr id="k-terminal"><td class="k"><kbd>`</kbd></td><td>the terminal panel—the tool letters light up</td></tr>
+  <tr id="k-shell"><td class="k"><kbd>⌘`</kbd></td><td>the live shell—<kbd>⌘`</kbd> moves the keyboard in and back out</td></tr>
+  <tr id="k-help"><td class="k"><kbd>?</kbd></td><td>the keys card—<kbd>?</kbd> again floats it as its own window</td></tr>
+  <tr id="k-settings"><td class="k"><kbd>⌘,</kbd></td><td>settings</td></tr>
+</table>
+</section>
+
+<section>
+<h2 id="app">App<a class="hlink" href="#app">#</a></h2>
+
+<p><kbd>⌘</kbd> talks to pālana itself, never to your files.</p>
+
+<table class="keys-table">
+  <tr id="k-refresh"><td class="k"><kbd>⌘R</kbd></td><td>refresh the focused pane</td></tr>
+  <tr id="k-history"><td class="k"><kbd>⌘←</kbd> <kbd>⌘→</kbd></td><td>back / forward through where the pane has been</td></tr>
+  <tr id="k-zoom"><td class="k"><kbd>⌘+</kbd> <kbd>⌘−</kbd> <kbd>⌘0</kbd></td><td>zoom in / out / reset—one master zoom sizes the whole surface</td></tr>
+  <tr id="k-clear"><td class="k"><kbd>⌘K</kbd></td><td>clear the terminal</td></tr>
+  <tr id="k-goto"><td class="k"><kbd>⇧⌘G</kbd></td><td>go to <code>host:path</code></td></tr>
+  <tr id="k-log"><td class="k"><kbd>⇧⌘L</kbd></td><td>the operations log—points the pane at the log file</td></tr>
+  <tr id="k-star"><td class="k"><kbd>8</kbd> <span class="sep">/</span> <kbd>⌘8</kbd></td><td>star the highlighted directory / star this folder</td></tr>
+</table>
+</section>
+
+<section>
+<h2 id="zfs">ZFS mode<a class="hlink" href="#zfs">#</a></h2>
+
+<p><kbd>Z</kbd> flips the focused pane from files to the host's
+<a href="/zfs/">dataset tree</a>. The verbs change with it—and every one of
+them still composes a plan you read before Enter.</p>
+
+<table class="keys-table">
+  <tr id="k-Z"><td class="k"><kbd>Z</kbd></td><td>enter / exit the dataset tree</td></tr>
+  <tr id="k-zfs-enter"><td class="k"><kbd>⏎</kbd> <span class="sep">/</span> <kbd>esc</kbd></td><td>open a mounted dataset in the pane / leave</td></tr>
+  <tr id="k-zfs-c"><td class="k"><kbd>c</kbd></td><td>new dataset—a child of where you stand</td></tr>
+  <tr id="k-zfs-x"><td class="k"><kbd>x</kbd></td><td>destroy the dataset</td></tr>
+  <tr id="k-zfs-r"><td class="k"><kbd>r</kbd></td><td>rename the dataset</td></tr>
+  <tr id="k-zfs-n"><td class="k"><kbd>n</kbd></td><td>snapshot—optionally every child dataset too</td></tr>
+  <tr id="k-zfs-k"><td class="k"><kbd>k</kbd></td><td>destroy a snapshot</td></tr>
+  <tr id="k-zfs-b"><td class="k"><kbd>b</kbd></td><td>roll back to a snapshot</td></tr>
+  <tr id="k-zfs-p"><td class="k"><kbd>p</kbd> <span class="sep">/</span> <kbd>i</kbd></td><td>set the mountpoint / clear it—the dataset inherits its parent's</td></tr>
+  <tr id="k-zfs-m"><td class="k"><kbd>m</kbd> <span class="sep">/</span> <kbd>u</kbd></td><td>mount / unmount—these two need <a href="/sudo/">the mount grant</a> on the host</td></tr>
+</table>
+</section>
+
+<section>
+<h2 id="terminal-reads">Terminal reads<a class="hlink" href="#terminal-reads">#</a></h2>
+
+<p>One keystroke asks the focused host a question; the answer lands in the
+terminal panel. Reads only—nothing here mutates.</p>
+
+<table class="keys-table">
+  <tr id="k-engage"><td class="k"><kbd>⇧tab</kbd></td><td>engage the tool reads</td></tr>
+  <tr id="k-reads"><td class="k"><kbd>d</kbd> <kbd>z</kbd> <kbd>s</kbd> <kbd>p</kbd></td><td><code>df</code> · <code>zfs list</code> · <code>zpool status</code> · <code>zpool list</code></td></tr>
+</table>
+</section>
+
+<p class="fineprint">The same vocabulary lives in the app: <kbd>?</kbd> summons
+the keys card, and <kbd>?</kbd> again floats it as a window you can keep beside
+your work.</p>

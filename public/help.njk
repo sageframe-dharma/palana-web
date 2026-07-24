@@ -1,0 +1,420 @@
+---
+layout: base.njk
+wide: true
+title: Help—pālana
+description: "The full pālana guide: install it, connect your machines, copy between servers, manage ZFS, fix refusals—and what's under the hood."
+---
+
+<div class="help-layout">
+
+<aside class="help-side" id="help-side">
+  <div class="group">Start here</div>
+  <a href="#what-it-is">What pālana is</a>
+  <a href="#install">Install it</a>
+  <a href="#connect">Connect your machines</a>
+  <div class="group">Everyday</div>
+  <a href="#get-around">Get around</a>
+  <a href="#copy-move">Copy &amp; move</a>
+  <a href="#other-verbs">Delete, rename, create</a>
+  <a href="#drag">Drag &amp; drop</a>
+  <a href="#edit-remote">Edit a remote file</a>
+  <a href="#preview-shell">Preview &amp; the shell</a>
+  <div class="group">Your machines</div>
+  <a href="#the-field">See the whole field</a>
+  <div class="group">ZFS</div>
+  <a href="#zfs">Datasets &amp; snapshots</a>
+  <div class="group">When it says no</div>
+  <a href="#refusals">Refusals &amp; fixes</a>
+  <div class="group">For the curious</div>
+  <a href="#under-the-hood">Under the hood</a>
+  <a href="#faq">FAQ</a>
+  <div class="group">Go deeper</div>
+  <a href="/start/">The first five minutes</a>
+  <a href="/start/#the-window">The window, labeled</a>
+  <a href="/the-plan/">The plan is the product</a>
+  <a href="/keys/">Every key</a>
+  <a href="/moving-files/">Moving files</a>
+  <a href="/zfs/">ZFS, natively</a>
+  <a href="/field/">The field</a>
+  <a href="/surfaces/">The surfaces</a>
+  <a href="/how-it-works/">How it works</a>
+  <a href="/sudo/">The mount grant</a>
+</aside>
+
+<div class="help-main">
+
+<h1>Help</h1>
+
+<p class="lede">A practical guide to the app: install it, connect hosts, move
+files, work with ZFS, and understand every plan before it runs.</p>
+
+<section class="help-section" id="what-it-is">
+<h2>What pālana is<a class="hlink" href="#what-it-is">#</a></h2>
+
+<p>pālana is a two-pane file manager for people with servers. Either pane can
+address any machine you can reach over SSH: your NAS on the left, your media
+host on the right, or your Mac in either pane. Browse, copy, move, and rename
+across those hosts from one window.</p>
+
+<p>Its central rule is simple:
+<strong>nothing runs until you've seen it.</strong> Press the copy key and
+pālana doesn't copy—it shows you the plan: what it's about to do in plain
+words, and the exact command underneath. Press Enter, and it runs precisely
+that, with live output. Press Esc, and nothing happened.</p>
+
+<p>If you can use SSH, you can use pālana. Terminal users will recognize the
+vim keys; everyone else can start with <a href="/start/#the-window">the
+window, labeled</a>.</p>
+</section>
+
+<section class="help-section" id="install">
+<h2>Install it<a class="hlink" href="#install">#</a></h2>
+
+<ol class="steps">
+  <li><strong>Download the <code>.dmg</code></strong> from the
+  <a href="https://github.com/sageframe-no-kaji/palana/releases/latest">releases
+  page</a>. It is signed and notarized for macOS.</li>
+  <li><strong>Drag pālana to Applications</strong> and open it. macOS 14 or
+  later.</li>
+  <li><strong>That's the install.</strong> Nothing goes on your servers —
+  pālana uses the <code>ssh</code> and <code>rsync</code> they already
+  have.</li>
+</ol>
+
+<div class="callout quiet">
+<p>Free and open source, GPL-3.0. Currently <strong>v0.4-beta</strong>; expect
+rough edges. Report broken or missing behavior in the
+<a href="https://github.com/sageframe-no-kaji/palana/issues">issue tracker</a>.</p>
+</div>
+</section>
+
+<section class="help-section" id="connect">
+<h2>Connect your machines<a class="hlink" href="#connect">#</a></h2>
+
+<p>There's no account and no server list to fill in. pālana reads
+<code>~/.ssh/config</code>—the file on your Mac that already knows your
+machines. If you can type <code>ssh koan</code> in a terminal and land on
+koan, then koan is already in pālana's menus. That's the whole model: your
+SSH setup <em>is</em> the setup.</p>
+
+<p>Never touched that file? Open Settings (<kbd>⌘,</kbd>) and click
+<em>Add a host</em>. It asks five small questions—a nickname, the address,
+your username—shows you the exact lines it will write, backs the file up,
+and writes them. If you don't have an SSH key yet, it shows you the two
+commands that make one and install it. It never runs them for you; your keys
+stay yours.</p>
+
+<p>Two things worth knowing on day one:</p>
+
+<p><strong><code>local</code> is a host.</strong> Point a pane at
+<code>local:~</code> and pālana is a regular file manager for your Mac —
+useful long before you have a rack.</p>
+
+<p><strong><code>~</code> means the server's home,</strong> not your Mac's.
+<code>koan:~</code> resolves to the home directory for the user your config
+uses on koan.</p>
+</section>
+
+<section class="help-section" id="get-around">
+<h2>Get around<a class="hlink" href="#get-around">#</a></h2>
+
+<p>Click the address at the top of a pane and type <code>host:path</code> —
+or press <kbd>⇧⌘G</kbd> for the same thing as a dialog. The <kbd>▾</kbd> at
+the pane's corner lists every host you have. After that, it's a file
+manager:</p>
+
+<table class="keys-table">
+  <tr><td class="k"><kbd>↑</kbd> <kbd>↓</kbd> <span class="sep">or</span> <kbd>j</kbd> <kbd>k</kbd></td><td>move the cursor—arrows and vim keys are both first-class</td></tr>
+  <tr><td class="k"><kbd>⏎</kbd></td><td>enter a folder, or open a file in its Mac app</td></tr>
+  <tr><td class="k"><kbd>←</kbd> <span class="sep">/</span> <kbd>h</kbd></td><td>up to the parent</td></tr>
+  <tr><td class="k"><kbd>tab</kbd></td><td>switch panes</td></tr>
+  <tr><td class="k"><kbd>/</kbd></td><td>jump—type a few letters, the cursor finds the file</td></tr>
+  <tr><td class="k"><kbd>space</kbd></td><td>select, and move to the next row</td></tr>
+  <tr><td class="k"><kbd>8</kbd></td><td>star a folder—<kbd>*</kbd> opens your favorites</td></tr>
+</table>
+
+<p>For the complete key map, see <a href="/keys/">the keyboard</a>.
+<kbd>?</kbd> opens the same reference inside the app.</p>
+</section>
+
+<section class="help-section" id="copy-move">
+<h2>Copy &amp; move<a class="hlink" href="#copy-move">#</a></h2>
+
+<p>Select files with <kbd>space</kbd>. Press <kbd>y</kbd> to copy them to the
+other pane, or <kbd>m</kbd> to move them. The panel at the bottom opens and
+shows the plan; nothing has run yet:</p>
+
+<figure class="plan">
+  <div class="plan-panel">
+    <div class="pp-head">
+      <span class="pp-phase">move · the plan</span>
+      <span class="pp-enter">⏎ enter runs</span>
+    </div>
+    <pre class="pp-body"><span class="note">⏎ press enter to run this plan · esc dismisses it</span>
+<strong>move · move to another machine</strong>
+<span class="faint">1 entry · 41.3 GB</span>
+<span class="faint">jodo:/tank/media/camera → koan:/rpool/cold</span>
+<span class="faint">how: rsync, run host-to-host · using the forwarded ssh key</span>
+
+$ rsync -a -s --partial --info=progress2 /tank/media/camera/archive-2025 koan:/rpool/cold/
+  runs only after the copy above is verified: $ rm -rf /tank/media/camera/archive-2025</pre>
+  </div>
+</figure>
+
+<p>Read the plan top to bottom. The first line classifies the operation; here,
+it is a move to another machine. A same-disk move is marked <em>instant</em>.
+A move that requires copying and deleting is named as such. The middle lines
+show size, destination conflicts, route, and transport. The final line is the
+exact command that will run.</p>
+
+<p>Press <kbd>⏎</kbd> and it runs right there, output streaming, progress bar
+moving, ending with <code>done—every step ran and checked out</code>. Press
+<kbd>esc</kbd> and it's as if you never asked.</p>
+
+<div class="callout">
+<p><strong>Between two servers, the fast path is server to server.</strong>
+Your Mac issues the command; it is not in the byte path. For a 41&nbsp;GB
+folder, that can be the difference between minutes and an afternoon.</p>
+</div>
+
+<p>Notice the last line of the plan too: on a move, the delete half is
+<em>gated</em>. pālana copies, then counts files on both ends, and only
+deletes the originals when the counts agree. You watch all of it happen —
+the counting is two visible commands, not a spinner. If you're interested in why plans work this way, read
+<a href="/the-plan/">the plan is the product</a>.</p>
+</section>
+
+<section class="help-section" id="other-verbs">
+<h2>Delete, rename, create<a class="hlink" href="#other-verbs">#</a></h2>
+
+<p>Same rhythm, different letters—every one shows its plan first.</p>
+
+<p><kbd>d</kbd> <strong>deletes</strong> the selection—the plan shows the
+exact <code>rm</code> before Enter releases it. <kbd>r</kbd>
+<strong>renames</strong> the file under the cursor: a name field opens, you
+type, <kbd>⏎ </kbd>—and the composed command checks the new name first, so
+a rename can never overwrite an existing file. <kbd>a</kbd>
+<strong>creates</strong>: type a name for a file, end with <code>/</code> for
+a folder. <kbd>t</kbd> <strong>touches</strong>—bumps the modification time,
+for when a tool downstream cares.</p>
+</section>
+
+<section class="help-section" id="drag">
+<h2>Drag &amp; drop<a class="hlink" href="#drag">#</a></h2>
+
+<p>Dragging works the way your hands expect, with one pālana twist: a drop
+never acts by itself—it composes the same plan the keys do, and waits for
+your Enter.</p>
+
+<p>Drag between panes to copy; hold <kbd>⌥</kbd> to move instead. Drop onto a
+folder row and the files land <em>inside that folder</em>. Drag in from
+Finder; drag out of a local pane to anywhere on your Mac—Mail, a browser
+upload, the Desktop.</p>
+</section>
+
+<section class="help-section" id="edit-remote">
+<h2>Edit a remote file<a class="hlink" href="#edit-remote">#</a></h2>
+
+<p>Press <kbd>⏎</kbd> on a config file sitting on a server, and it opens in
+whatever app you'd normally use. pālana notes, in one line, that it's
+watching: save the file, and it offers to send your edit back to the server —
+as a plan, naturally. Prefer zero friction? Flip one setting and save just
+means save: edits go back on their own.</p>
+
+<p>The exception that never changes: if the file changed on the server while
+you were editing, pālana always stops and asks before your version overwrites
+theirs.</p>
+</section>
+
+<section class="help-section" id="preview-shell">
+<h2>Preview &amp; the shell<a class="hlink" href="#preview-shell">#</a></h2>
+
+<p><kbd>v</kbd> turns the right pane into a preview that follows your cursor
+in the left—text files, images, PDFs. Remote text is fetched frugally (a
+bounded read, not the whole file); remote binaries stay a facts card instead
+of a surprise download.</p>
+
+<p><kbd>⌘`</kbd> opens a real terminal on the focused host, right under your
+panes—your actual ssh, one live session per host, kept warm. The footer
+always tells you who has the keyboard, and <kbd>⌘`</kbd> hands it back. For
+quick questions without a shell, <kbd>`</kbd> arms the read keys:
+<kbd>d</kbd> <kbd>z</kbd> <kbd>s</kbd> <kbd>p</kbd> drop <code>df</code>,
+<code>zfs list</code>, <code>zpool status</code>, <code>zpool list</code>
+into the panel.</p>
+</section>
+
+<section class="help-section" id="the-field">
+<h2>See the whole field<a class="hlink" href="#the-field">#</a></h2>
+
+<p>Press <kbd>f</kbd> and the map appears: every machine, its pools and
+datasets, what it can do (<code>zfs</code>? <code>rsync</code>? sudo?), and
+when you last looked—<code>reachable · 2 days ago</code>. Pick a node,
+press <kbd>⏎</kbd>, and a pane is there. Press <kbd>r</kbd> on any host to
+re-probe it fresh. <kbd>F</kbd> floats a deeper version—every mount on
+every machine—that you can park on a second display.</p>
+
+<p>pālana shows cached facts with their age and refreshes only when you ask.
+There is no polling or daemon. When pālana is closed, it has no background
+process.
+<a href="/field/">More on the field →</a></p>
+</section>
+
+<section class="help-section" id="zfs">
+<h2>Datasets &amp; snapshots<a class="hlink" href="#zfs">#</a></h2>
+
+<p>If your servers run ZFS, pālana speaks it natively. In a normal pane, a
+filled drive mark on a folder means it's a dataset's mountpoint—which is
+why pālana always knows whether your "move" is instant or actually a 40&nbsp;GB
+copy, and says so in the plan.</p>
+
+<p>Press <kbd>Z</kbd> and the pane becomes the host's dataset tree. Ten keys
+cover the lifecycle—<kbd>c</kbd> create, <kbd>n</kbd> snapshot,
+<kbd>b</kbd> roll back, <kbd>x</kbd> destroy, mountpoints, mount/unmount —
+and every one composes a plan you read first. Destroy asks you to type the
+word. The pool root is off limits, period. And when you move a <em>whole
+dataset</em> between ZFS machines, the plan upgrades itself to
+<code>zfs send | ssh | zfs receive</code>—block-level, dramatically faster
+than file-by-file.</p>
+
+<p>Two pointers: <a href="/zfs/">the full ZFS page</a> for the details, and
+<a href="/sudo/">the mount grant</a>—the one narrow sudoers line that
+unlocks mount/unmount, and why everything else needs no root at all.</p>
+</section>
+
+<section class="help-section" id="refusals">
+<h2>Refusals &amp; fixes<a class="hlink" href="#refusals">#</a></h2>
+
+<p>When an operation cannot run, pālana states the reason and, where possible,
+the fix.</p>
+
+<table class="keys-table">
+  <tr><td class="k"><code>no usable ssh key</code></td><td>the host wants a key you don't have installed—pālana shows the two commands (<code>ssh-keygen</code>, <code>ssh-copy-id</code>) and waits</td></tr>
+  <tr><td class="k"><code>unreachable</code></td><td>if <code>ssh &lt;host&gt;</code> fails in your terminal, it fails here identically—same ssh, same reason</td></tr>
+  <tr><td class="k"><code>mounting needs root</code></td><td>mount/unmount are the one thing needing sudo—the refusal includes the exact line to grant: <a href="/sudo/">the mount grant</a></td></tr>
+  <tr><td class="k"><code>won't work—kind mismatch</code></td><td>a file here, a folder there—named before the transfer, not after it half-runs</td></tr>
+  <tr><td class="k"><code>probe came back unreadable</code></td><td>an exotic userland answered strangely; stripped-down BusyBox boxes are supported, some vendor firmware refuses</td></tr>
+</table>
+
+<p>A host missing from a menu? <em>reload hosts</em> in the <kbd>▾</kbd> menu
+re-reads your config. A stale-looking map? <kbd>r</kbd> re-probes. More in
+<a href="/faq/">the FAQ page</a>.</p>
+</section>
+
+<section class="help-section" id="under-the-hood">
+<h2>Under the hood<a class="hlink" href="#under-the-hood">#</a></h2>
+
+<p>Implementation details for people who want to inspect the commands before
+they run.</p>
+
+<p><strong>It's your ssh, verbatim.</strong> No embedded SSH library. pālana
+spawns the system <code>ssh</code> binary, so your config, keys, agent,
+<code>ProxyJump</code>, everything, behave exactly as in your terminal—and
+holds one ControlMaster session per host, so after the first connection,
+commands run with near-zero overhead. Remote browsing uses the same SSH
+configuration, keys, and agent as your terminal.</p>
+
+<p><strong>The plan engine is a pure function.</strong> Facts in, plan out,
+no I/O—which makes it the most tested object in the codebase (the headless
+core sits above 97% line coverage). The GUI renders state and forwards
+intent; it is architecturally incapable of composing a shell command. What
+runs is what the engine planned, byte for byte.</p>
+
+<p><strong>Transfers use standard tools.</strong> <code>rsync -a -s
+--partial --info=progress2</code> host-to-host with agent forwarding when the
+probe proved it; a tar stream when one end lacks rsync; <code>zfs send -R
+… | zfs receive -u</code> for whole datasets (the <code>-u</code> is
+deliberate—mounting is root's on Linux, and a receive that auto-mounts
+returns an exit code that lies). Deletes gate on verification:
+<code>find | wc -l</code> on both ends, or dataset existence for receives,
+before anything destructive runs.</p>
+
+<p><strong>State is five plain files</strong> in
+<code>~/Library/Application&nbsp;Support/palana/</code>—topology cache,
+session, settings, favorites, and an append-only operations log. No database.
+Delete the cache whenever; the hosts are the system of record.</p>
+
+<p><strong>No daemon.</strong> There is no component that can outlive the
+window. Swift 6, strict concurrency, SwiftPM; GPL-3.0; and the entire design
+record—every architectural decision with its reasoning—is public in the
+repo's <code>ho-process/</code>. Full tour:
+<a href="/how-it-works/">how it works</a>.</p>
+</section>
+
+<section class="help-section" id="faq">
+<h2>FAQ<a class="hlink" href="#faq">#</a></h2>
+
+<div class="faq-fold">
+  <details>
+    <summary>Is it free?</summary>
+    <div class="a"><p>Yes. Free, open source, GPL-3.0. The beta is a signed,
+    notarized download—no App Store, no account, no telemetry.</p></div>
+  </details>
+  <details>
+    <summary>Mac only?</summary>
+    <div class="a"><p>Yes—pālana is a native Mac app, deliberately. The
+    <em>servers</em> can be anything you can ssh into: Linux, BSD, even
+    BusyBox firmware boxes.</p></div>
+  </details>
+  <details>
+    <summary>Does it install anything on my servers?</summary>
+    <div class="a"><p>No. It runs the <code>ssh</code>, <code>rsync</code>,
+    and (if present) <code>zfs</code> your servers already have. Nothing to
+    deploy, nothing to update, nothing listening.</p></div>
+  </details>
+  <details>
+    <summary>Is it watching my machines?</summary>
+    <div class="a"><p>No. It runs when you open it and stops when you close
+    it—no daemon, no polling. The map shows cached facts with the date of
+    their last probe.</p></div>
+  </details>
+  <details>
+    <summary>Do transfers go through my Mac?</summary>
+    <div class="a"><p>Between two servers, no—the fast path runs
+    server-to-server and your Mac only orchestrates. When the route
+    <em>does</em> pass through your Mac (a fallback, or you're one end), the
+    plan's <code>how:</code> line says so. You always know.</p></div>
+  </details>
+  <details>
+    <summary>SMB? SFTP-only hosts? Docker?</summary>
+    <div class="a"><p>No, no, and no—on purpose. SSH is the only transport,
+    and pālana manages files and datasets, not containers. It is for hosts you
+    administer, not arbitrary remote connections.</p></div>
+  </details>
+  <details>
+    <summary>Where's my data about pālana itself?</summary>
+    <div class="a"><p><code>~/Library/Application Support/palana/</code> —
+    plain JSON and a plain-text log, human-readable, safe to delete (except
+    your favorites, which you'd presumably miss).</p></div>
+  </details>
+  <details>
+    <summary>What's coming next?</summary>
+    <div class="a"><p>An operations queue (today, one plan runs at a time),
+    then more Workbench tools. The build is public—watch the
+    <a href="https://github.com/sageframe-no-kaji/palana">repo</a>.</p></div>
+  </details>
+</div>
+</section>
+
+</div>
+</div>
+
+<script>
+  // Scrollspy—light the sidebar link for the section in view.
+  (function () {
+    var links = document.querySelectorAll('#help-side a[href^="#"]');
+    var map = {};
+    links.forEach(function (a) { map[a.getAttribute('href').slice(1)] = a; });
+    var current = null;
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        if (current) current.classList.remove('active');
+        current = map[entry.target.id];
+        if (current) current.classList.add('active');
+      });
+    }, { rootMargin: '0px 0px -70% 0px' });
+    document.querySelectorAll('.help-section').forEach(function (s) {
+      observer.observe(s);
+    });
+  })();
+</script>

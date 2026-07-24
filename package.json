@@ -1,0 +1,12 @@
+{
+  "name": "palana-site",
+  "version": "0.1.0",
+  "description": "pālana help site—help.palana / palana.sageframe",
+  "scripts": {
+    "build": "npx @11ty/eleventy",
+    "dev": "npx @11ty/eleventy --serve"
+  },
+  "dependencies": {
+    "@11ty/eleventy": "^3.0.0"
+  }
+}

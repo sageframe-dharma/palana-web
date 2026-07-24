@@ -1,0 +1,368 @@
+---
+layout: base.njk
+wide: true
+title: pālana—the SSH file manager for people with servers
+description: "All your servers, side by side, in a keyboard-first Mac file manager—and nothing runs until you've read the exact command. Free, open source, ZFS native."
+---
+
+<svg width="0" height="0" style="position: absolute;" aria-hidden="true"><defs>
+  <g id="palana-leaf">
+    <path fill="currentColor" d="M378.65,89.8c77.78,66.39,7.45,192.67-88.92,185.28-5.17-.4-14.71-3.69-18.92-2.96-2.55.44-10.86,5.66-15.01,7-9.83,3.19-24.27,4.85-34.02,1.01-16.02-6.31.93-18.04,10.26-19.78,6.67-1.24,15.02.71,21.67-.3,14.92-2.25,35.14-27.68,40.97-40.9,4.78-10.83,9.18-28.89,1.04-38.94-9.65-11.91-23.8-5.24-34.39,1.59-42.94,27.68-71.25,120.46-86.21,168.37-3.5,11.2-4.94,22.73-10.89,33.04-8.44,14.64-25.86,26.86-42.71,29.18l-1.76-2.01c5.13-9.03,7.96-19.16,10.46-29.23,21.59-87.12,32.01-222.47,104.07-283.3,41.74-35.23,100.32-45.63,144.35-8.06ZM323.16,173.26v-15.48c0-3.48,3.37-12.43,5.13-15.83,7.09-13.67,22.99-20.83,36.79-25.61-2.02-8.85-12.85-17.3-20.66-21.76-28.49-16.27-61.13-12.65-87.47,5.98-44.97,31.8-55.98,111.1-65.83,161.81-1.31,6.73-3.38,13.46-4.75,20.2l2,2.52c-.14-1.73-.07-3.29.56-4.94,15.2-40.18,37.54-93.27,78.11-113.58,14.29-7.15,35.96-12.4,48.77.07,2.34,2.27,3.23,7.39,7.34,6.63ZM288.72,265.11h15.97c5.31,0,20.66-5.49,26.12-7.82,45.88-19.59,68.16-82.77,44.97-127.18-.75-1.44-9.07-14.74-10.69-12.76-2.68,18.09-1.77,40.16-17.94,52.46-5.8,4.41-13.86,4.8-17.65,11.3-4.02,6.9-1.74,13.17-2.37,20.59-1.95,22.93-21.14,48.33-39.43,61.42l1.01,2Z"/>
+    <line x1="328.92" y1="172.46" x2="341.85" y2="149.19" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+  </g>
+</defs></svg>
+
+<div class="bleed hero-scene">
+<div class="bleed-inner">
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-brand">
+      <svg viewBox="70 30 400 290" aria-hidden="true"><use href="#palana-leaf"/></svg>
+      <span class="name">pālana</span>
+    </div>
+    <p class="eyebrow">A native Mac file manager for SSH hosts</p>
+    <h1>All your servers, side&nbsp;by&nbsp;side. <span class="serif">Nothing runs until you've read it.</span></h1>
+    <p class="hero-sub">pālana puts every machine you can ssh into beside
+    your local files. Browse, copy, and manage ZFS from a keyboard-first
+    dual-pane window that shows the exact command before it runs. When two
+    servers can talk directly, the bytes stay off your Mac.</p>
+    <p class="hero-tagline">Terminal tools. A readable interface.</p>
+    <div class="btn-row">
+      <a class="btn" href="https://github.com/sageframe-no-kaji/palana/releases/latest">Download the beta</a>
+      <a class="btn btn-quiet" href="/help/">Read the docs →</a>
+    </div>
+    <p class="hero-note">macOS 14+ · free &amp; open source, GPL-3.0 · signed
+    &amp; notarized · your servers need nothing new</p>
+    <div class="hero-badges">
+      <div class="hero-badge"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M8 14h8"/></svg></span>Keyboard-first</div>
+      <div class="hero-badge"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="m9 15 2 2 4-4"/></svg></span>Shows the plan</div>
+      <div class="hero-badge"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3 4 7l4 4"/><path d="M4 7h16"/><path d="m16 21 4-4-4-4"/><path d="M20 17H4"/></svg></span>Server-side, no round trip</div>
+      <div class="hero-badge"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg></span>ZFS native</div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="anatomy-scroll">
+    <div class="anatomy hero-mock" role="img" aria-label="The pālana window: two panes on two different servers, and the plan panel showing the exact command a move will run.">
+      <div class="a-titlebar">
+        <span class="a-traffic"><i></i><i></i><i></i></span>
+        <span class="a-cap a-center"><span class="g">◀</span> <span class="g">⇄</span> <span class="g">▶</span></span>
+        <span class="a-right">
+          <span class="a-cap">पालन</span>
+          <span class="a-cap"><span class="g">★</span> <span class="g">▤</span> <span class="g">⚙</span> <span class="g">?</span></span>
+        </span>
+      </div>
+      <div class="a-panes">
+        <div class="a-pane">
+          <div class="a-phead">
+            <span class="hist">‹ ›</span>
+            <span class="a-dot"></span>
+            <span class="addr"><b>jodo:</b><span>/tank/media/camera</span></span>
+            <span class="tail">★ ▾</span>
+          </div>
+          <div class="a-cols"><span>name</span><span>size</span><span>modified</span></div>
+          <div class="a-rows">
+            <div class="a-row"><span>archive-2024</span><span class="sz">38.1 GB</span><span class="dt">jan 12</span></div>
+            <div class="a-row cursor"><span>archive-2025</span><span class="sz">41.3 GB</span><span class="dt">may 30</span></div>
+            <div class="a-row"><span><span class="mark-ds">▮</span> cold</span><span class="sz">—</span><span class="dt">jun 02</span></div>
+            <div class="a-row"><span>camera.db</span><span class="sz">1.2 MB</span><span class="dt">10:14</span></div>
+            <div class="a-row"><span>notes.md</span><span class="sz">18 kB</span><span class="dt">09:51</span></div>
+          </div>
+          <div class="a-pfoot"><span class="term">▬</span></div>
+        </div>
+        <div class="a-pane dim">
+          <div class="a-phead">
+            <span class="hist">‹ ›</span>
+            <span class="a-dot"></span>
+            <span class="addr"><b>koan:</b><span>/rpool/cold</span></span>
+            <span class="tail">★ ▾</span>
+          </div>
+          <div class="a-cols"><span>name</span><span>size</span><span>modified</span></div>
+          <div class="a-rows">
+            <div class="a-row"><span>media</span><span class="sz">—</span><span class="dt">apr 18</span></div>
+            <div class="a-row"><span>parity.log</span><span class="sz">4.1 MB</span><span class="dt">jun 29</span></div>
+            <div class="a-row"><span>restore-test</span><span class="sz">—</span><span class="dt">feb 07</span></div>
+          </div>
+          <div class="a-pfoot"><span class="term">▬</span></div>
+        </div>
+      </div>
+      <div class="a-panel">
+        <div class="a-panel-head">
+          <span class="phase">move · the plan</span>
+          <span class="rail">a new verb rebuilds the plan · esc</span>
+        </div>
+        <div class="a-panel-body">
+          <pre><b>move · move to another machine</b>
+<span class="faint">1 entry · 41.3 GB</span>
+<span class="faint">jodo:/tank/media/camera → koan:/rpool/cold</span>
+$ rsync -a -s --partial --info=progress2 …</pre>
+        </div>
+      </div>
+      <div class="a-wfoot">
+        <span>214 entries</span>
+        <span class="acc">1 selected</span>
+        <span class="sp"></span>
+        <span>name ↑</span>
+        <span>? keys</span>
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
+</div>
+<div class="hero-decor" aria-hidden="true">
+  <svg class="hills" viewBox="0 0 1440 240" preserveAspectRatio="none">
+    <path d="M0 92 C 240 58 470 128 740 96 C 1010 64 1240 118 1440 84 L1440 240 L0 240 Z" style="fill: color-mix(in srgb, var(--ink) 5%, var(--ground));"/>
+    <path d="M0 152 C 300 108 620 176 900 138 C 1130 108 1310 154 1440 130 L1440 240 L0 240 Z" style="fill: color-mix(in srgb, var(--ink) 8%, var(--ground));"/>
+    <path d="M0 204 C 260 168 560 220 860 190 C 1110 165 1310 206 1440 182 L1440 240 L0 240 Z" style="fill: color-mix(in srgb, var(--ink) 12%, var(--ground));"/>
+  </svg>
+</div>
+<svg class="hero-watermark" viewBox="0 0 500 500" aria-hidden="true">
+  <defs>
+    <path id="watermark-icon-body" d="M412.8,34.2c112.3,95.8,10.8,278.2-128.4,267.5-7.5-.6-21.2-5.3-27.3-4.3-3.7.6-15.7,8.2-21.7,10.1-14.2,4.6-35,7-49.1,1.5-23.1-9.1,1.3-26,14.8-28.6,9.6-1.8,21.7,1,31.3-.4,21.5-3.3,50.7-40,59.1-59,6.9-15.6,13.3-41.7,1.5-56.2-13.9-17.2-34.4-7.6-49.7,2.3-62,40-102.9,173.9-124.5,243.1-5.1,16.2-7.1,32.8-15.7,47.7-12.2,21.1-37.3,38.8-61.7,42.1l-2.5-2.9c7.4-13,11.5-27.7,15.1-42.2,31.2-125.8,46.2-321.2,150.3-409,60.3-50.9,144.8-65.9,208.4-11.6ZM332.7,154.7v-22.3c0-5,4.9-17.9,7.4-22.9,10.2-19.7,33.2-30.1,53.1-37-2.9-12.8-18.6-25-29.8-31.4-41.1-23.5-88.3-18.3-126.3,8.6-64.9,45.9-80.8,160.4-95,233.6-1.9,9.7-4.9,19.4-6.9,29.2l2.9,3.6c-.2-2.5-.1-4.7.8-7.1,21.9-58,54.2-134.7,112.8-164,20.6-10.3,51.9-17.9,70.4,0,3.4,3.3,4.7,10.7,10.6,9.6ZM283,287.3h23.1c7.7,0,29.8-7.9,37.7-11.3,66.2-28.3,98.4-119.5,64.9-183.6-1.1-2.1-13.1-21.3-15.4-18.4-3.9,26.1-2.6,58-25.9,75.7-8.4,6.4-20,6.9-25.5,16.3-5.8,10-2.5,19-3.4,29.7-2.8,33.1-30.5,69.8-56.9,88.7l1.5,2.9Z"/>
+  </defs>
+  <use href="#watermark-icon-body" class="wm-body" fill="currentColor"/>
+  <path class="wm-leaf" d="M341,153.6 C 341,132 357,99 393.2,72 C 393,104 373,137 341,153.6 Z"/>
+  <path class="wm-stalk" d="M310,211 C 320,190 332,168 341,154" fill="none"/>
+  <line class="wm-vein" x1="341" y1="153.6" x2="359.7" y2="120"/>
+</svg>
+<img class="field-plant" src="/assets/plant.png" alt="" aria-hidden="true">
+<img class="field-plant tiny" src="/assets/plant.png" alt="" aria-hidden="true">
+</div>
+
+<div class="sec-head">
+  <p class="eyebrow">The central rule</p>
+  <h2>See the operation before it changes anything.</h2>
+  <p>pālana builds a plan first: the operation, the transfer route, and the
+  commands it will run. It waits for Enter. Everything else follows from
+  that constraint.</p>
+</div>
+
+<div class="frow">
+  <div class="frow-text">
+    <h3>See the command. Then run it.</h3>
+    <p>Press <kbd>m</kbd> and nothing moves. The plan opens. A move across
+    ZFS datasets is a copy followed by a verified delete, not a rename.
+    pālana states that before it runs, shows the command, and keeps the
+    delete gated until the copy checks out.</p>
+    <p>Press <kbd>⏎</kbd> to run it. Press <kbd>esc</kbd> to leave it alone.
+    <a href="/the-plan/">Read the plan model →</a></p>
+  </div>
+  <div class="frow-visual">
+    <figure class="plan">
+      <div class="plan-panel">
+        <div class="pp-head">
+          <span class="pp-phase">move · the plan</span>
+          <span class="pp-enter">⏎ enter runs</span>
+        </div>
+        <pre class="pp-body"><strong>move · copy then delete the original</strong>
+<span class="faint">1 entry · 41.3 GB</span>
+<span class="faint">jodo:/tank/media/camera → jodo:/rust/archive</span>
+<span class="faint">how: runs locally on the one host involved</span>
+
+$ rsync -a -s --partial --info=progress2 /tank/media/camera/archive-2025 /rust/archive/
+  runs only after the copy above is verified: $ rm -rf /tank/media/camera/archive-2025</pre>
+      </div>
+      <figcaption>The command, its route, and the condition for deletion.</figcaption>
+    </figure>
+  </div>
+</div>
+
+<div class="frow rev">
+  <div class="frow-text">
+    <h3>Your Mac starts the job. The servers move the data.</h3>
+    <p>For a copy between two servers, pālana forwards your SSH agent so
+    jodo authenticates to koan directly. Your key stays on your Mac. The
+    41&nbsp;GB moves host to host instead of across your Wi-Fi twice.</p>
+    <p>If a route must pass through your Mac—because it is one end, or as
+    a fallback—the plan's <code>how:</code> line says so. You do not choose
+    the transport. You do get to see it.
+    <a href="/moving-files/#cross-host">Cross-host moves →</a></p>
+  </div>
+  <div class="frow-visual">
+    <svg class="diagram" viewBox="0 0 520 210" role="img" aria-label="Your Mac sends the command to jodo; the bytes travel from jodo directly to koan.">
+      <rect x="30" y="30" width="110" height="44" rx="6" style="fill: var(--ground-deep); stroke: var(--hairline);"/>
+      <text x="85" y="57" text-anchor="middle">jodo</text>
+      <rect x="380" y="30" width="110" height="44" rx="6" style="fill: var(--ground-deep); stroke: var(--hairline);"/>
+      <text x="435" y="57" text-anchor="middle">koan</text>
+      <rect x="205" y="140" width="110" height="44" rx="6" style="fill: var(--ground-deep); stroke: var(--hairline);"/>
+      <text x="260" y="167" text-anchor="middle">your Mac</text>
+      <line x1="146" y1="52" x2="368" y2="52" style="stroke: var(--accent); stroke-width: 2;"/>
+      <polygon points="368,46 380,52 368,58" style="fill: var(--accent);"/>
+      <text x="260" y="40" text-anchor="middle" class="d-accent">the bytes · 41.3 GB</text>
+      <line x1="228" y1="140" x2="100" y2="80" style="stroke: var(--ink-faint); stroke-width: 1; stroke-dasharray: 4 3;"/>
+      <text x="212" y="108" class="d-faint">the order:</text>
+      <text x="212" y="124" class="d-faint">rsync, run on jodo</text>
+    </svg>
+  </div>
+</div>
+
+<div class="frow">
+  <div class="frow-text">
+    <h3>Dataset boundaries are visible.</h3>
+    <p>pālana marks dataset boundaries in the pane and changes the plan when
+    you cross one. Press <kbd>Z</kbd> for the host's dataset tree: create,
+    snapshot, roll back, and destroy. Every action opens a plan first.
+    Destruction also requires you to type the word.</p>
+    <p>Moving a whole dataset between ZFS machines uses
+    <code>zfs send | ssh | zfs receive</code> when it can—block-level and
+    typically much faster than a file-by-file transfer.
+    <a href="/zfs/">ZFS, natively →</a></p>
+  </div>
+  <div class="frow-visual">
+    <figure class="plan">
+      <div class="plan-panel">
+        <div class="pp-head">
+          <span class="pp-phase">move · the plan</span>
+          <span class="pp-enter">⏎ enter runs</span>
+        </div>
+        <pre class="pp-body"><strong>move · move to another machine</strong>
+<span class="faint">how: zfs send/receive, run host-to-host · using the forwarded ssh key</span>
+
+$ zfs snapshot -r tank/sage/jodo/kanyo@palana-20260716-101530
+$ zfs send -R -v tank/sage/jodo/kanyo@palana-20260716-101530 | ssh koan 'zfs receive -u rpool/sage/koan/kanyo'
+  runs only after the copy above is verified: $ zfs destroy -r tank/sage/jodo/kanyo</pre>
+      </div>
+      <figcaption>A snapshot, one stream, and cleanup only after verification.</figcaption>
+    </figure>
+  </div>
+</div>
+
+<div class="frow rev">
+  <div class="frow-text">
+    <h3>All your hosts. One key.</h3>
+    <p>Press <kbd>f</kbd> for your hosts, pools, datasets, capabilities, and
+    the date each host was last probed. <kbd>r</kbd> probes a host again in
+    place. <kbd>⏎</kbd> points a pane at it and closes the view.</p>
+    <p><kbd>F</kbd> opens the full map—every mount on every machine—for a
+    second display. <a href="/field/">See the field →</a></p>
+  </div>
+  <div class="frow-visual">
+    <div class="fieldmock" role="img" aria-label="The field view: hosts with reachability verdicts, capability tokens, and datasets.">
+      <div class="fm-title">the field</div>
+      <div class="fm-row"><span class="host">local</span><span class="verdict">this machine</span><span class="tokens">BSD · rsync</span></div>
+      <div class="fm-row"><span class="host">jodo</span><span class="verdict">reachable · 2 days ago</span><span class="tokens">GNU · zfs · rsync · sudo · 14 datasets</span></div>
+      <div class="fm-ds"><span class="mark-ds">▮</span> tank/sage/jodo/kanyo—/tank/sage/jodo/kanyo</div>
+      <div class="fm-ds unmounted">▯ tank/scratch—· unmounted</div>
+      <div class="fm-row"><span class="host">koan</span><span class="verdict">reachable · just now</span><span class="tokens">GNU · zfs · rsync · 9 datasets</span></div>
+      <div class="fm-row"><span class="host">zencat</span><span class="verdict">reachable · 3 weeks ago</span><span class="tokens">BusyBox</span></div>
+      <div class="fm-row"><span class="host">chumon</span><span class="verdict">never visited</span><span class="tokens"></span></div>
+      <div class="fm-foot">↵ point · l toggle · r re-probe · esc dismiss</div>
+    </div>
+  </div>
+</div>
+
+<div class="band" id="keys-band">
+  <svg class="bhills" viewBox="0 0 1200 110" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 46 C 220 24 430 62 640 44 C 860 26 1050 58 1200 40 L1200 110 L0 110 Z" style="fill: color-mix(in srgb, var(--ink) 4%, var(--ground-deep));"/>
+    <path d="M0 78 C 260 58 540 92 820 72 C 1010 58 1120 80 1200 70 L1200 110 L0 110 Z" style="fill: color-mix(in srgb, var(--ink) 8%, var(--ground-deep));"/>
+  </svg>
+  <img class="plant left" src="/assets/plant.png" alt="" aria-hidden="true">
+  <img class="plant right" src="/assets/plant.png" alt="" aria-hidden="true">
+  <div class="bleed-inner">
+    <h2>A small key grammar.</h2>
+    <p>Arrows work. So do the vim keys. Six lowercase verbs, a few prefixes,
+    and a consistent set of rules make the rest of the keyboard learnable.</p>
+    <div class="keys-row">
+      <span><kbd>j</kbd> <kbd>k</kbd> <kbd>h</kbd> <kbd>l</kbd> move</span>
+      <span><kbd>y</kbd> copy</span>
+      <span><kbd>m</kbd> move</span>
+      <span><kbd>d</kbd> delete</span>
+      <span><kbd>/</kbd> jump</span>
+      <span><kbd>f</kbd> the field</span>
+      <span><kbd>?</kbd> everything</span>
+    </div>
+    <p><a href="/keys/">Read the key map →</a></p>
+  </div>
+</div>
+
+<div class="sec-head">
+  <h2>The rest of the tool.</h2>
+</div>
+
+<div class="cards">
+  <div class="card"><span class="tag">⌥ drop</span><h3>Drag and drop, with a plan</h3><p>Between panes, from Finder, or into folder rows. A drop builds a plan like any other verb. Hold ⌥ to make it a move.</p></div>
+  <div class="card"><span class="tag">⏎ save</span><h3>Edit remote files in your own editor</h3><p>Open a server's config in your Mac app; saving offers to send it back. If the file changed remotely, it always asks first.</p></div>
+  <div class="card"><span class="tag">v</span><h3>Preview follows selection</h3><p>The right pane tracks the cursor in the left: text, images, and PDFs. Remote reads stay small.</p></div>
+  <div class="card"><span class="tag">⌘`</span><h3>Your shell, per host</h3><p>Your actual ssh runs in the bottom panel: one warm session per machine, with keyboard handover shown.</p></div>
+  <div class="card"><span class="tag">*</span><h3>Favorites, local or global</h3><p>Favorites belong to a host by default. Promote one to global and it appears in every host menu.</p></div>
+  <div class="card"><span class="tag">⌘,</span><h3>Add hosts without editing config</h3><p>The form shows the exact block it will write to ~/.ssh/config, after backing the file up.</p></div>
+  <div class="card"><span class="tag">⌘+ ⌘−</span><h3>One master zoom</h3><p>The whole surface scales together, 0.8× to 1.6×. Light and dark, both warm, matching the app.</p></div>
+  <div class="card"><span class="tag">⇧⌘L</span><h3>A plain-text log</h3><p>Every executed operation appends to a text file in Application Support. It is yours to grep.</p></div>
+  <div class="card"><span class="tag">esc</span><h3>Errors that explain the fix</h3><p>When something cannot happen, pālana states the reason and usually puts the fix beside it.</p></div>
+</div>
+
+<div class="bleed darkband">
+  <div class="bleed-inner">
+    <h2>No background process.</h2>
+    <p>pālana runs when you open it and stops when you close it. No daemon,
+    no launch agent, no polling, no telemetry—there is no component that
+    <em>could</em> outlive the window. <strong>Closed means closed.</strong></p>
+    <div class="grid">
+      <p><strong class="accent">Dry-run by default.</strong> A plan on screen changes nothing. Enter runs it. Esc does not.</p>
+      <p><strong class="accent">Deletion follows verification.</strong> The destructive half of a move runs only after visible count checks agree on both ends.</p>
+      <p><strong class="accent">Commands remain portable.</strong> Every command works from your terminal because pālana uses your own ssh underneath.</p>
+      <p><strong class="accent">State without surveillance.</strong> The field map records what pālana found and when. It refreshes only when you ask.</p>
+    </div>
+    <p style="margin-top: 1.5rem; font-size: 14px;"><strong>pālana</strong>
+    (पालन)—Sanskrit: to tend, to sustain.</p>
+  </div>
+</div>
+
+<div class="sec-head">
+  <p class="eyebrow">Implementation</p>
+  <h2>Built in the open.</h2>
+</div>
+
+<div class="frow">
+  <div class="frow-text">
+    <p>Swift 6, strict concurrency, SwiftPM. The logic lives in
+    <strong>PalanaCore</strong>, a headless library with more than 97% test
+    coverage. The app renders state and forwards intent. It cannot compose
+    a shell command on its own. All host contact goes through the system
+    <code>ssh</code> binary via <code>Process</code>, with one ControlMaster
+    session per host. There is no embedded SSH stack to audit.</p>
+    <p>The command line remains first-class. Every plan is a command you can
+    paste. The operations log and state files are plain text you can grep.
+    A real shell sits under the panes. The GUI drives the same tools you do.</p>
+    <p>The design record is public in the repo's <code>ho-process/</code>:
+    architectural decisions, their reasoning, and the code they scoped.
+    <a href="/how-it-works/">How it works →</a></p>
+  </div>
+  <div class="frow-visual">
+    <div class="codeblock">$ git clone https://github.com/sageframe-no-kaji/palana.git
+$ cd palana &amp;&amp; swift build
+<span class="c"># swift test runs the whole battery—the core holds a 90% coverage floor</span></div>
+  </div>
+</div>
+
+<div class="sec-head" id="download">
+  <p class="eyebrow">Get pālana</p>
+  <h2>Free to use. Free to inspect.</h2>
+</div>
+
+<div class="getit">
+  <div class="card">
+    <span class="tag">direct download</span>
+    <h3>pālana for Mac</h3>
+    <div class="price">Free</div>
+    <ul>
+      <li>v0.4-beta—signed &amp; notarized <code>.dmg</code></li>
+      <li>macOS 14 or later</li>
+      <li>Nothing to install on your servers</li>
+      <li>Beta feedback shapes the 1.0</li>
+    </ul>
+    <a class="btn" href="https://github.com/sageframe-no-kaji/palana/releases/latest">Download →</a>
+  </div>
+  <div class="card">
+    <span class="tag">open source</span>
+    <h3>GitHub</h3>
+    <div class="price">GPL-3.0</div>
+    <ul>
+      <li>Full source—<code>swift build</code> and go</li>
+      <li>The public build record (<code>ho-process/</code>)</li>
+      <li>Issues and feedback welcome</li>
+      <li>Copyleft-protected, forever</li>
+    </ul>
+    <a class="btn btn-quiet" href="https://github.com/sageframe-no-kaji/palana">View on GitHub →</a>
+  </div>
+</div>

@@ -1,0 +1,133 @@
+---
+layout: base.njk
+title: How it works—pālana
+description: "pālana's architecture: one path to hosts, a headless core, a pure plan engine, and no daemon."
+---
+
+<h1>How it works</h1>
+
+<p class="lede">This page explains the boundaries behind pālana's behavior:
+which code can contact hosts, which code can compose commands, and where local
+state lives.</p>
+
+<section>
+<h2 id="two-halves">A headless core, a thin surface<a class="hlink" href="#two-halves">#</a></h2>
+
+<p><strong>PalanaCore</strong> is a headless Swift library that owns everything
+true—the topology, directory reads, plan engine, and transports—and
+carries a 90% test-coverage floor. <strong>Palana</strong>, the app you see, is
+a thin surface over it: it renders state, forwards intent, and decides nothing.
+It never composes a shell command, never classifies an operation, never touches
+a host. If the app disappeared tomorrow, everything pālana knows and everything
+pālana can do would still be sitting in the core, fully tested.</p>
+
+<svg class="diagram" viewBox="0 0 520 310" role="img" aria-label="The Surface sits on PalanaCore; inside the core, the Field, Listing, Plan Engine and Transports all pass through the Conduit, the single door to the hosts.">
+  <rect x="60" y="16" width="400" height="46" rx="6" style="fill: var(--ground-deep); stroke: var(--hairline);"/>
+  <text x="260" y="38" text-anchor="middle">the Surface—panes · plan panel · field view</text>
+  <text x="260" y="54" text-anchor="middle" class="d-faint" font-size="11">renders state, forwards intent, decides nothing</text>
+  <rect x="60" y="86" width="400" height="136" rx="6" style="fill: none; stroke: var(--hairline);"/>
+  <text x="78" y="108" class="d-accent">PalanaCore</text>
+  <rect x="78" y="122" width="86" height="36" rx="4" style="fill: var(--ground-deep); stroke: var(--hairline);"/>
+  <text x="121" y="144" text-anchor="middle" font-size="11">the Field</text>
+  <rect x="172" y="122" width="86" height="36" rx="4" style="fill: var(--ground-deep); stroke: var(--hairline);"/>
+  <text x="215" y="144" text-anchor="middle" font-size="11">the Listing</text>
+  <rect x="266" y="122" width="86" height="36" rx="4" style="fill: var(--ground-deep); stroke: var(--hairline);"/>
+  <text x="309" y="144" text-anchor="middle" font-size="11">plan engine</text>
+  <rect x="360" y="122" width="86" height="36" rx="4" style="fill: var(--ground-deep); stroke: var(--hairline);"/>
+  <text x="403" y="144" text-anchor="middle" font-size="11">transports</text>
+  <rect x="78" y="168" width="368" height="44" rx="4" style="fill: var(--ground-deep); stroke: var(--accent);"/>
+  <text x="262" y="186" text-anchor="middle" font-size="11">the Conduit—the single door</text>
+  <text x="262" y="202" text-anchor="middle" class="d-faint" font-size="11">your <tspan style="font-weight:600">ssh</tspan> · one ControlMaster session per host</text>
+  <line x1="260" y1="222" x2="260" y2="250" style="stroke: var(--ink-faint); stroke-width: 1;"/>
+  <text x="150" y="274" text-anchor="middle" class="d-faint">jodo</text>
+  <text x="260" y="274" text-anchor="middle" class="d-faint">koan</text>
+  <text x="370" y="274" text-anchor="middle" class="d-faint">chumon …</text>
+  <text x="260" y="298" text-anchor="middle" class="d-faint" font-size="11">ssh—your config, your keys, your agent</text>
+</svg>
+
+<p>Two lines in that picture carry most of the architecture. The boundary
+between surface and core is the only thing the app can see across. The Conduit
+is the only door to the hosts. Both exist for the same reason: a boundary you
+can point at is a boundary you can test.</p>
+</section>
+
+<section>
+<h2 id="conduit">The Conduit<a class="hlink" href="#conduit">#</a></h2>
+
+<p>Every fact discovered, every directory read, every byte moved passes through
+one component that does nothing but run the <code>ssh</code> already on your
+Mac. No other component spawns a process toward a host, ever.</p>
+
+<p>pālana wraps the system SSH binary instead of embedding an SSH library. An
+embedded library would need its own key handling, config parsing, and ProxyJump
+semantics. Using the system binary means your <code>~/.ssh/config</code>,
+keys, agent, and ProxyJump apply identically, and there is no parallel
+transport stack to audit.</p>
+
+<p>The Conduit holds one ControlMaster session per host—opened on first use,
+reused after, closed on quit—so per-command overhead is near zero once a host
+is warm. That's why a pane refresh over SSH feels local.</p>
+</section>
+
+<section>
+<h2 id="core">The core, in four sentences<a class="hlink" href="#core">#</a></h2>
+
+<p><strong>The Field</strong> owns the map: hosts parsed from your ssh config,
+per-host facts—reachability, ZFS topology, userland flavor—discovered on
+demand and remembered. <strong>The Listing</strong> reads directories, one
+command per read; it never writes. <strong>The plan engine</strong> is a pure
+function from gathered facts to a <a href="/the-plan/">Plan</a>—no I/O of its
+own, which makes it the most testable object in the system, and it had better
+be, because it is the part that must never lie. <strong>The Transports</strong>
+run exactly the commands the plan composed—no improvisation between your
+Enter and the wire—and own the verification that gates the dangerous
+steps.</p>
+
+<p><strong>The Workbench</strong> is the fifth piece: a plugin API that hands a
+tool the Conduit, the Field, and a surface slot—and never the core's
+internals. The ZFS tool is its first, shipped proof.</p>
+</section>
+
+<section>
+<h2 id="state">Where your state lives<a class="hlink" href="#state">#</a></h2>
+
+<p>No database. A database would make the cache look like a system of record,
+and it isn't one—the hosts are. Local state is two human-readable JSON files
+in <code>~/Library/Application Support/palana/</code>, safe to delete at any
+time:</p>
+
+<p><code>field-cache.json</code>—the last-known topology, timestamped: what
+the Field remembers from your last visit, rendered as remembered until you ask
+it to look again. <code>session.json</code>—pane hosts and paths, window
+state: the workbench as you left it.</p>
+
+<p>On launch, panes return to their previous locations and cached topology is
+clearly dated. Nothing contacts a host until you request an action that needs
+one.</p>
+</section>
+
+<section>
+<h2 id="no-daemon">No daemon, on purpose<a class="hlink" href="#no-daemon">#</a></h2>
+
+<p>pālana runs when you open it and stops when you close it. There is no
+helper, launch agent, or background process. Discovery has no polling loop.
+That is a deliberate constraint: closing the app stops its orchestration.</p>
+
+<p>While a transfer runs, pālana is running it. Close the window mid-run and
+the orchestration stops with it.
+The plan told you which machine the command runs on; a host-to-host rsync is
+jodo's process, interrupted like any ssh session would be—and
+<code>--partial</code> is in the flags so an interrupted transfer resumes
+instead of starting over.</p>
+</section>
+
+<section>
+<h2 id="in-public">Built in public<a class="hlink" href="#in-public">#</a></h2>
+
+<p>pālana is open source under GPL-3.0, and so is its process: the
+<code>ho-process/</code> directory in the repo is the full build record—seed,
+system design, and every bounded session that followed, written before the code
+they scoped.
+<a href="https://github.com/sageframe-no-kaji/palana/blob/main/ho-process/kamae-2-palana-system-design.md">The
+system design</a> holds every decision on this page with its rationale.</p>
+</section>

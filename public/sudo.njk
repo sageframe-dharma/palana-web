@@ -1,0 +1,93 @@
+---
+layout: base.njk
+title: The mount grant—pālana
+description: "The one narrow sudoers line that unlocks pālana's zfs mount and unmount verbs—what it grants, why it's passwordless, and why it's optional."
+---
+
+<h1>The mount grant</h1>
+
+<p class="lede">One sudoers line grants two verbs: <kbd>m</kbd> mount and
+<kbd>u</kbd> unmount. Other dataset operations use your existing ZFS
+delegation and do not require root.</p>
+
+<section>
+<h2 id="why">Why mount needs root<a class="hlink" href="#why">#</a></h2>
+
+<p>On Linux, <code>zfs allow</code> delegates the dataset verbs to your user —
+create, destroy, rename, snapshot, rollback, the properties. Mount and unmount
+it cannot delegate: mounting a filesystem categorically belongs to root. So
+pālana splits the work along that exact line. Everything delegable runs as
+you. Two commands—<code>zfs mount</code> and <code>zfs unmount</code>—ask
+for sudo, and nothing else ever does.</p>
+</section>
+
+<section>
+<h2 id="the-line">The grant, exactly<a class="hlink" href="#the-line">#</a></h2>
+
+<div class="howlines">&lt;user&gt; ALL=(root) NOPASSWD: /usr/sbin/zfs mount *, /usr/sbin/zfs unmount *</div>
+
+<p>Mount and unmount, only. Never a blanket <code>zfs</code>. The string lives
+in one place in PalanaCore and is pinned by tests, so what the app shows you
+can never silently drift toward a wider grant than these two verbs.</p>
+
+<p>You don't need to copy it from here—the same line, prefilled, lives in
+Settings › Workbench with a copy button, and in the refusal itself when a
+mount verb hits the wall.</p>
+</section>
+
+<section>
+<h2 id="install">Putting it in place<a class="hlink" href="#install">#</a></h2>
+
+<p>Replace <code>&lt;user&gt;</code> with the login pālana connects as on that
+host—when your ssh config names a <code>User</code> for the alias, the
+in-app copy is already filled in. Check the path with <code>which zfs</code>:
+it's <code>/sbin/zfs</code> on some distros, and a sudoers command spec needs
+the absolute path. Add the line with <code>visudo</code> on the host, then
+reprobe the host in pālana—<kbd>f</kbd>, then <kbd>r</kbd> on its row. The
+verbs light up.</p>
+</section>
+
+<section>
+<h2 id="no-prompts">Why it never asks for a password<a class="hlink" href="#no-prompts">#</a></h2>
+
+<p>pālana runs its two privileged commands as <code>sudo -n</code>—never
+prompt. The ssh channel it works over has no terminal for a prompt to appear
+on, and pālana holds no secrets and will not collect one. Passwordless isn't
+laxness here; there is no human at that end of the channel to type into.</p>
+
+<p>Without the grant, the operation refuses and shows the required change:</p>
+
+<figure class="plan">
+  <div class="plan-panel">
+    <pre class="pp-body"><span class="alarm">mounting needs root on Linux—grant passwordless sudo for zfs, or use the shell</span>
+<span class="note">add to koan's sudoers (visudo), then reprobe:</span>
+<span class="note">&lt;user&gt; ALL=(root) NOPASSWD: /usr/sbin/zfs mount *, /usr/sbin/zfs unmount *</span>
+<span class="note">or mount from the shell—⌘` · full guide in Settings › Workbench</span></pre>
+  </div>
+  <figcaption>The refusal names the reason and includes the exact sudoers line
+  needed to enable the operation.</figcaption>
+</figure>
+</section>
+
+<section>
+<h2 id="optional">It's optional<a class="hlink" href="#optional">#</a></h2>
+
+<p>Grant nothing and pālana still does everything else—snapshot to rollback,
+create to destroy. It just won't offer mount and unmount on that host, and
+says why. When you do need to mount, <kbd>⌘`</kbd> opens
+<a href="/surfaces/#shell">a real shell</a> on the host and you do it your
+way, password and all.</p>
+</section>
+
+<section>
+<h2 id="safety">The shape of the risk<a class="hlink" href="#safety">#</a></h2>
+
+<p>Weigh what the line actually grants: two verbs, arguments visible in every
+plan. That is far less than a blanket <code>NOPASSWD: /usr/sbin/zfs</code>,
+which would hand root's whole zfs surface to your login—a real escalation
+risk, and the reason pālana will never show you that line. Lock it down
+further if you like; sudoers command specs take narrower patterns than
+<code>*</code>. And the gate holds regardless: every mount and unmount pālana
+runs is <a href="/the-plan/">a plan step you read before Enter</a>—the grant
+enables the verbs, it never skips the reading.</p>
+</section>

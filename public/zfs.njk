@@ -1,0 +1,148 @@
+---
+layout: base.njk
+title: ZFS, natively—pālana
+description: "The dataset tree behind every pane, ten mutation verbs that compose readable plans, dataset transfers with zfs send/receive, and the mount permission model."
+---
+
+<h1>ZFS, natively</h1>
+
+<p class="lede">Most tools see mountpoints and stop there. pālana knows which
+directory is a dataset, plans around the boundaries, and manages the datasets
+themselves—snapshot to rollback—through the same gate as everything else:
+a plan you read before Enter.</p>
+
+<section>
+<h2 id="boundaries">Boundaries you can see<a class="hlink" href="#boundaries">#</a></h2>
+
+<p>In an ordinary file pane, rows sitting exactly on a dataset's mountpoint
+wear a filled drive mark; a plain filesystem boundary wears a hollow one. That
+one glyph is the difference between a move that's an instant rename and a move
+that's 41&nbsp;GB of copying—which is why
+<a href="/the-plan/#classifications">the plan names the classification</a>
+every time.</p>
+</section>
+
+<section>
+<h2 id="the-tree">Z—the dataset tree<a class="hlink" href="#the-tree">#</a></h2>
+
+<p><kbd>Z</kbd> flips the focused pane from files to the host's dataset tree —
+same pane, same cursor keys, different subject. The header wears a
+<code>ZFS</code> chip so you always know which language the pane is speaking.
+Mounted datasets are solid; unmounted or legacy ones render dimmed with their
+state named—<code>· unmounted</code>, <code>legacy</code>—because grey is
+a fact, not a place. <kbd>⏎</kbd> on a mounted dataset drops you back into
+files at its mountpoint. <kbd>esc</kbd> or <kbd>Z</kbd> leaves the tree.</p>
+
+<p>Entry is honest, too: a pane pointed at this Mac gets
+<code>no zfs on this Mac</code>, and a host that's never been probed refuses
+with the reason rather than showing an empty tree.</p>
+</section>
+
+<section>
+<h2 id="verbs">Ten verbs, ten plans<a class="hlink" href="#verbs">#</a></h2>
+
+<p>Inside the tree, the verbs change with the subject—<a href="/keys/#zfs">ten
+keys</a> covering the dataset and snapshot lifecycle: create, destroy, rename;
+snapshot, destroy snapshot, roll back; set and clear the mountpoint; mount and
+unmount. Every one composes a plan. A snapshot, for instance:</p>
+
+<figure class="plan">
+  <div class="plan-panel">
+    <div class="pp-head">
+      <span class="pp-phase">zfs · the plan</span>
+      <span class="pp-enter">⏎ enter runs</span>
+    </div>
+    <pre class="pp-body"><span class="note">⏎ press enter to run this plan · esc dismisses it</span>
+<strong>zfs · zfs change</strong>
+<span class="faint">koan:rpool/sage/koan/cold</span>
+<span class="faint">how: runs locally on the one host involved</span>
+
+$ zfs snapshot rpool/sage/koan/cold@before-cleanup
+$ zfs list -H -o name -t snapshot -- rpool/sage/koan/cold@before-cleanup</pre>
+  </div>
+  <figcaption>Two steps: the snapshot, then its existence checked—the
+  verification is a visible command, not a spinner.</figcaption>
+</figure>
+
+<p>The prompts hand you the facts, too: rolling back or destroying a snapshot
+lists the dataset's actual snapshot names right in the panel, read off the
+wire, selectable—you copy instead of remembering. Recursive choices
+are spelled out where you make them: <em>snapshot every child dataset too</em>;
+<em>roll back past newer snapshots—destroys them</em>; <em>destroy its
+children and snapshots too—zfs counts both</em>.</p>
+
+<p>Two guardrails hold no matter what. Destroy, by default, makes you type the
+word—<em>the word destroy arms the verb</em>—a setting you can turn off
+once you trust yourself. And the pool root is out of bounds entirely:
+<code>destroy refuses rpool—that is the pool root; pālana manages datasets,
+never the pool itself</code>.</p>
+</section>
+
+<section>
+<h2 id="send">Move datasets with send/receive<a class="hlink" href="#send">#</a></h2>
+
+<p>When a move's source is a whole dataset and the destination host speaks
+ZFS, file-by-file transfer is the wrong tool—so the plan reaches for the
+block-level one:</p>
+
+<figure class="plan">
+  <div class="plan-panel">
+    <div class="pp-head">
+      <span class="pp-phase">move · the plan</span>
+      <span class="pp-enter">⏎ enter runs</span>
+    </div>
+    <pre class="pp-body"><span class="note">⏎ press enter to run this plan · esc dismisses it</span>
+<strong>move · move to another machine</strong>
+<span class="faint">1 entry · 412 GB</span>
+<span class="faint">jodo:/tank/sage/jodo/kanyo → koan:/rpool/sage/koan</span>
+<span class="faint">how: zfs send/receive, run host-to-host · using the forwarded ssh key</span>
+
+$ zfs snapshot -r tank/sage/jodo/kanyo@palana-20260716-101530
+$ zfs send -R -v tank/sage/jodo/kanyo@palana-20260716-101530 | ssh koan 'zfs receive -u rpool/sage/koan/kanyo'
+  runs only after the copy above is verified: $ zfs destroy -r rpool/sage/koan/kanyo@palana-20260716-101530
+  runs only after the copy above is verified: $ zfs destroy -r tank/sage/jodo/kanyo@palana-20260716-101530</pre>
+  </div>
+  <figcaption>Snapshot first—send needs a stable point. Then one pipe, host
+  to host. The cleanup and the source removal wait behind the gate.</figcaption>
+</figure>
+
+<p>Read the details—each one is doing a specific job. The <code>-R</code>
+carries the dataset's children and their snapshots. The <code>-v</code> is the
+progress bar—send's own cadence, parsed. The <code>receive -u</code> lands
+the dataset <em>unmounted</em>, deliberately: on Linux, mounting belongs to
+root even when the dataset's verbs are delegated, and a bare receive would
+land the data and then fail the mount—an exit code that lies about a
+transfer that worked. And the verification behind the gate is shaped for
+datasets: not file counts, but the destination answering that
+<code>rpool/sage/koan/kanyo</code> now exists.</p>
+</section>
+
+<section>
+<h2 id="mounts">Mount permissions<a class="hlink" href="#mounts">#</a></h2>
+
+<p>pālana never asks for root it doesn't name. The dataset verbs run under
+your own delegation—<code>zfs allow</code> on the datasets you manage. The one
+seam is mounting: on Linux it is root's alone, regardless of delegation. So
+<kbd>m</kbd> mount and <kbd>u</kbd> unmount compose with the escalation
+visible in the plan—<code>sudo -n zfs mount rpool/sage/koan/cold</code> —
+and require passwordless sudo for exactly those two commands. Without the
+grant, the refusal includes the reason and an exact sudoers line for the host.
+The full explanation—why it is passwordless and optional—is on one page:
+<a href="/sudo/">the mount grant</a>.</p>
+
+<p>The same seam is woven, visibly, wherever ZFS would mount implicitly: a
+mounted dataset being destroyed or re-mountpointed gets a <code>sudo -n zfs
+unmount</code> step ahead of the change—in the plan, where you can read it,
+never improvised at run time.</p>
+</section>
+
+<section>
+<h2 id="overview">The zfs overview<a class="hlink" href="#overview">#</a></h2>
+
+<p>The <code>zfs…</code> chip on the plan panel's tool strip floats a
+one-glance overview—the tree, ages, mount states—deliberately kept to a
+glance and a launcher: <em>a glance, nothing more. Z makes the focused pane
+the zfs surface</em>. From it, <kbd>⇧⌘←</kbd>/<kbd>⇧⌘→</kbd> point a pane at
+the selected dataset. The mutations live in the pane, where the cursor and the
+plan panel already are.</p>
+</section>

@@ -1,0 +1,123 @@
+---
+layout: base.njk
+title: Moving files—pālana
+description: "Copy, move, delete, rename, create, touch—and drag and drop. Every route the bytes can take, and how the plan names each one before it runs."
+---
+
+<h1>Moving files</h1>
+
+<p class="lede">Copy, move, delete, rename, create, touch, and drag and drop.
+Each operation composes <a href="/the-plan/">a plan</a> before it runs.</p>
+
+<section>
+<h2 id="verbs">The verbs<a class="hlink" href="#verbs">#</a></h2>
+
+<p><kbd>y</kbd> copies the selection to the other pane, <kbd>m</kbd> moves it,
+<kbd>d</kbd> deletes it. When nothing is selected, the verb takes the entry
+under the cursor. The plan opens; <kbd>⏎</kbd> enacts; <kbd>esc</kbd>
+dismisses. Pressing a different verb while a plan is up simply rebuilds the
+plan—stating an intent costs nothing until Enter.</p>
+
+<p><kbd>r</kbd> renames and <kbd>a</kbd> creates—both open a name field
+right in the panel, and <kbd>⏎</kbd> does the whole job: commit the name, get
+the plan. A trailing <code>/</code> on a created name makes a directory. The
+composed commands are guarded—a rename refuses to land on a name that
+already exists, so it can never silently replace a neighbor:</p>
+
+<figure class="plan">
+  <div class="plan-panel">
+    <div class="pp-head">
+      <span class="pp-phase">rename · the plan</span>
+      <span class="pp-enter">⏎ enter runs</span>
+    </div>
+    <pre class="pp-body"><strong>rename · move on the same disk (instant)</strong>
+<span class="faint">1 entry · 41.3 GB</span>
+<span class="faint">jodo:/tank/media/camera</span>
+<span class="faint">how: runs locally on the one host involved</span>
+
+$ test -e /tank/media/camera/archive-2026 && { echo refused: /tank/media/camera/archive-2026 exists >&2; exit 1; }; mv -- /tank/media/camera/archive-2025 /tank/media/camera/archive-2026
+$ test -e /tank/media/camera/archive-2026 && test ! -e /tank/media/camera/archive-2025</pre>
+  </div>
+  <figcaption>The guard is part of the command. If the new name already
+  exists, the plan refuses and <code>mv</code> does not run. The second step
+  verifies the result.</figcaption>
+</figure>
+
+<p><kbd>t</kbd> touches—updates modification times where the entries stand.
+It's the simplest plan in the app: one <code>touch --</code>, no gathering,
+because there's nothing to measure and nowhere to collide.</p>
+</section>
+
+<section>
+<h2 id="collisions">What's already there<a class="hlink" href="#collisions">#</a></h2>
+
+<p>Before a copy or move is offered, pālana reads the destination. Anything
+standing where your files will land is named in the plan, in rust:</p>
+
+<p><code>will replace photos.db (1.2 MB)</code>—a file will be overwritten,
+and the plan tells you how much of it there is. <code>will merge into
+archive-2025</code>—a directory of that name exists; the copy folds into it.
+<code>won't work—backup is a file here and a folder there</code>—a kind
+clash the transfer cannot survive, named before you waste the bytes. And when
+the destination can't be read at all: <code>couldn't check the destination —
+this may overwrite files there</code>. The plan never claims more certainty
+than it has.</p>
+</section>
+
+<section>
+<h2 id="drag-and-drop">Drag and drop<a class="hlink" href="#drag-and-drop">#</a></h2>
+
+<p>Dragging is just another way to state an intent—it composes the same
+plans the verbs do, and nothing enacts until you've read one.</p>
+
+<p><strong>Between panes</strong>, a drop plans a copy; hold <kbd>⌥</kbd> and
+it plans a move instead. <strong>Onto a folder row</strong>, the files land
+inside that folder, not the pane's directory—the row you're pointing at is
+the destination. <strong>From Finder</strong>, dropped files are resolved
+against a real directory listing before anything is planned, rather than
+reconstructed from the drag event. And a file dragged <em>out</em> of a local
+pane is a real file to the rest of the Mac: drop it on Mail, a browser upload,
+anywhere.</p>
+
+<p>If a drop cannot become a plan, pālana states why—for example,
+<code>drop refused—same location</code>—and does not compose a command.</p>
+</section>
+
+<section>
+<h2 id="cross-host">Cross-host—the bytes never touch your Mac<a class="hlink" href="#cross-host">#</a></h2>
+
+<p>When source and destination are two servers, the plan's transport line
+tells you the route. The fast path runs rsync <em>on the source host</em>,
+authenticated by your forwarded agent—the bytes travel jodo → koan and your
+machine only orchestrates. No forwarding? The plan falls back and says so:
+a tar stream proxied through this Mac. The plan names the route in either case.
+The full route vocabulary is on
+<a href="/the-plan/#transport">the plan page</a>.</p>
+
+<p>The dangerous half of a cross-host move—deleting the source—is gated:
+it appears in the plan marked <code>runs only after the copy above is
+verified</code>, and the verification is two visible count commands, one per
+host. <a href="/the-plan/#the-echo">Watch the gate open →</a></p>
+
+<p>When both ends are whole ZFS datasets, the plan offers
+<code>zfs send | ssh | zfs receive</code>, a block-level transfer that is often
+much faster for large moves.
+<a href="/zfs/#send">How datasets travel →</a></p>
+</section>
+
+<section>
+<h2 id="round-trip">Editing a remote file—the round trip<a class="hlink" href="#round-trip">#</a></h2>
+
+<p><kbd>⏎</kbd> on a remote file opens it in its Mac app—and pālana quietly
+registers a watch, telling you so in one line: <code>watching config.yaml—a
+save offers to send it back</code>. Edit, save, and the panel offers the
+return trip as a plan: <code>⏎ press enter to send it back to
+koan:/opt/services/kanyo · esc keeps the edit local</code>.</p>
+
+<p>If you'd rather saves just go back on their own, flip <em>ask before
+sending saved edits back</em> off in settings—the subtitle says exactly what
+you're choosing: <em>off: save is save—edits go back to the server on their
+own</em>. One exception never changes: if the remote file changed since you
+fetched it, pālana always asks, and names the conflict, before your edit
+overwrites someone else's.</p>
+</section>

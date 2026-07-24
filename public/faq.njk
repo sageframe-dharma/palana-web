@@ -1,0 +1,147 @@
+---
+layout: base.njk
+title: FAQ—pālana
+description: "The questions that actually come up: hosts that won't appear or connect, plans that refuse, what ~ means on a server, where state lives, and what pālana deliberately is not."
+---
+
+<h1>FAQ</h1>
+
+<p class="lede">The questions that actually come up. Click one to open it.</p>
+
+<div class="faq-fold">
+
+  <details id="host-missing">
+    <summary>Why isn't my host in the menu?</summary>
+    <div class="a">
+      <p>The menu is your <code>~/.ssh/config</code>, <code>Include</code>
+      directives followed. If the host is missing there, add it—by hand, or
+      with Settings → <em>Add a host</em>. If it's in the file but not the
+      menu, it's probably hidden: a <code># palana: hide</code> comment in its
+      block keeps it out of the menus (the toggle lives in Settings → Hosts).
+      A typed address still works.</p>
+      <p>Edited the file outside pālana? <em>reload hosts</em> in the
+      <kbd>▾</kbd> menu picks up the change.</p>
+    </div>
+  </details>
+
+  <details id="probe-fails">
+    <summary>My terminal can reach a host—why can't pālana?</summary>
+    <div class="a">
+      <p>It can, or neither can: pālana runs the same <code>ssh</code> your
+      terminal does, so if <code>ssh &lt;alias&gt;</code> works there, it
+      works here. Probe the host from the field view (<kbd>f</kbd>, then
+      <kbd>r</kbd> on the row) and read the sentence that comes back.</p>
+      <p><code>no usable ssh key—key setup needed</code> means auth:
+      generate a key if you don't have one (<code>ssh-keygen -t
+      ed25519</code>) and install it (<code>ssh-copy-id &lt;alias&gt;</code>)
+     —pālana shows these commands but never runs them.
+      <code>unreachable</code> means the network or the address.
+      <code>answered, but the probe came back unreadable</code> means an
+      unusual userland; stripped-down BusyBox boxes are supported, but some
+      vendor firmware does not return the data pālana needs.</p>
+    </div>
+  </details>
+
+  <details id="plan-refused">
+    <summary>Why did my plan refuse to run?</summary>
+    <div class="a">
+      <p>Because a required condition was not met. The refusal states what
+      blocked the operation before anything runs. A rename onto an existing
+      name refuses rather than replaces. A kind clash is named—<code>won't
+      work—backup is a file here and a folder there</code>. The pool root
+      is untouchable—<em>pālana manages datasets, never the pool
+      itself</em>. Mounting without sudo shows you
+      <a href="/sudo/">the exact grant it needs</a>.</p>
+      <p>Every refusal names its reason, and the reason is always checkable
+      in your own terminal.</p>
+    </div>
+  </details>
+
+  <details id="tilde">
+    <summary>What does <code>~</code> mean when a pane is on a server?</summary>
+    <div class="a">
+      <p>The <em>server's</em> home—<code>koan:~</code> is wherever
+      <code>$HOME</code> points for the user your SSH config logs in as on
+      koan. It is never your Mac's home folder.</p>
+    </div>
+  </details>
+
+  <details id="state">
+    <summary>Where does pālana keep its files—and can I delete them?</summary>
+    <div class="a">
+      <p><code>~/Library/Application Support/palana/</code>—a handful of
+      human-readable files: <code>field-cache.json</code> (the remembered
+      topology), <code>session.json</code> (where your panes were),
+      <code>settings.json</code>, <code>favorites.json</code>, and
+      <code>operations.log</code> (the history of enacted runs). No
+      database.</p>
+      <p>The cache and session are safe to delete any time—your hosts are
+      the system of record and everything re-derives from them. Delete
+      favorites or the log only if you don't want them.</p>
+    </div>
+  </details>
+
+  <details id="watching">
+    <summary>Is pālana talking to my machines when I'm not looking?</summary>
+    <div class="a">
+      <p>No. It runs when you open it and stops when you close it—there is
+      no daemon, launch agent, or polling loop. Discovery happens when you
+      probe or point, never on a timer.
+      <a href="/how-it-works/#no-daemon">Why this is a design commitment
+      →</a></p>
+    </div>
+  </details>
+
+  <details id="bytes">
+    <summary>Do my transfers pass through my Mac?</summary>
+    <div class="a">
+      <p>The plan tells you, every time, in its <code>how:</code> line.
+      Host-to-host with a forwarded agent: no—your Mac orchestrates and the
+      bytes travel server to server. Proxied fallback, or a transfer with
+      your Mac at one end: yes, and the plan says exactly that. The route is
+      never hidden; that's <a href="/the-plan/#transport">the point</a>.</p>
+    </div>
+  </details>
+
+  <details id="scope">
+    <summary>Is there a Linux or Windows version? What about SMB, SFTP, Docker?</summary>
+    <div class="a">
+      <p>No, deliberately. pālana is native Mac only—the cost is named and
+      accepted. SSH is the only transport: no SMB, NFS, or SFTP-server
+      browsing. This is a tool for hosts you administer, not arbitrary remote
+      connections. It sees files and datasets, not
+      containers. And it is not a sync tool or a monitor: no background
+      replication, no alerts, no graphs. Every operation is one you
+      enacted.</p>
+      <p>The <em>servers</em> can be anything you can ssh into—Linux, BSD,
+      even BusyBox firmware boxes.</p>
+    </div>
+  </details>
+
+  <details id="not-yet">
+    <summary>What's not built yet?</summary>
+    <div class="a">
+      <p>One plan enacts at a time—the operations queue is the first
+      post-release enhancement (plans are values; a queue is a list of
+      them). No search inside panes, no batch rename. The beta is early and
+      feedback shapes it:
+      <a href="https://github.com/sageframe-no-kaji/palana/issues">open an
+      issue</a> for what's broken, missing, or wrong-feeling.</p>
+    </div>
+  </details>
+
+</div>
+
+<script>
+  // A #hash link lands on its question opened.
+  (function () {
+    function openTarget() {
+      var id = location.hash.slice(1);
+      if (!id) return;
+      var item = document.getElementById(id);
+      if (item && item.tagName === 'DETAILS') item.open = true;
+    }
+    openTarget();
+    window.addEventListener('hashchange', openTarget);
+  })();
+</script>
