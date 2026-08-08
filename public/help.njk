@@ -39,6 +39,8 @@ description: "The full pālana guide: install it, connect your machines, copy be
   <a href="/surfaces/">The surfaces</a>
   <a href="/how-it-works/">How it works</a>
   <a href="/sudo/">The mount grant</a>
+  <a href="/compare/">How it compares</a>
+  <a href="/licensing/">The license, plainly</a>
 </aside>
 
 <div class="help-main">
@@ -56,7 +58,7 @@ address any machine you can reach over SSH: your NAS on the left, your media
 host on the right, or your Mac in either pane. Browse, copy, move, and rename
 across those hosts from one window.</p>
 
-<p>Its central rule is simple:
+<p>Its central rule:
 <strong>nothing runs until you've seen it.</strong> Press the copy key and
 pālana doesn't copy—it shows you the plan: what it's about to do in plain
 words, and the exact command underneath. Press Enter, and it runs precisely
@@ -82,7 +84,7 @@ window, labeled</a>.</p>
 </ol>
 
 <div class="callout quiet">
-<p>Free and open source, GPL-3.0. Currently <strong>v0.4-beta</strong>; expect
+<p>Free and open source, GPL-3.0. Currently <strong>{{ site.version }}</strong>; expect
 rough edges. Report broken or missing behavior in the
 <a href="https://github.com/sageframe-no-kaji/palana/issues">issue tracker</a>.</p>
 </div>
@@ -346,14 +348,23 @@ repo's <code>ho-process/</code>. Full tour:
 <div class="faq-fold">
   <details>
     <summary>Is it free?</summary>
-    <div class="a"><p>Yes. Free, open source, GPL-3.0. The beta is a signed,
-    notarized download—no App Store, no account, no telemetry.</p></div>
+    <div class="a"><p>The beta is free—a signed, notarized download, no App
+    Store, no account, no telemetry. At 1.0 the signed build becomes a
+    one-time $29 purchase; the source stays GPL-3.0 and free to compile,
+    forever. File a real issue during the beta and your 1.0 license is on me.
+    <a href="/licensing/">The license, plainly →</a></p></div>
   </details>
   <details>
     <summary>Mac only?</summary>
     <div class="a"><p>Yes—pālana is a native Mac app, deliberately. The
     <em>servers</em> can be anything you can ssh into: Linux, BSD, even
     BusyBox firmware boxes.</p></div>
+  </details>
+  <details>
+    <summary>Do I need ZFS?</summary>
+    <div class="a"><p>No. pālana is a full SSH file manager on any host. The
+    ZFS surfaces light up only where a host has ZFS—without it, you simply
+    never see them.</p></div>
   </details>
   <details>
     <summary>Does it install anything on my servers?</summary>

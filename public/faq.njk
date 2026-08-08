@@ -118,6 +118,38 @@ description: "The questions that actually come up: hosts that won't appear or co
     </div>
   </details>
 
+  <details id="no-zfs">
+    <summary>I don't run ZFS—is pālana still for me?</summary>
+    <div class="a">
+      <p>Yes. pālana is a complete SSH file manager on any host. ZFS is an
+      addition, not a requirement: the dataset tree, snapshots, and
+      send/receive appear on hosts that have ZFS and never on hosts that
+      don't. Nothing else changes.</p>
+    </div>
+  </details>
+
+  <details id="vs-others">
+    <summary>How is this different from Transmit or ForkLift?</summary>
+    <div class="a">
+      <p>They are protocol clients with wide reach—SMB, FTP, WebDAV, S3—and
+      they relay transfers through your Mac. pālana is SSH-only, shows the
+      exact command before anything runs, moves bytes host to host when the
+      hosts can talk, and speaks ZFS. The full chart, including the cells
+      they win: <a href="/compare/">how it compares</a>.</p>
+    </div>
+  </details>
+
+  <details id="price">
+    <summary>What does it cost?</summary>
+    <div class="a">
+      <p>The beta: nothing—a signed, notarized download. At 1.0 the signed
+      build becomes a one-time $29 purchase, no subscription, all 1.x updates
+      included. The source is GPL-3.0 either way: free to read, build, and
+      fork, forever. And during the beta, a real issue filed is a 1.0 license
+      earned. <a href="/licensing/">The license, plainly →</a></p>
+    </div>
+  </details>
+
   <details id="not-yet">
     <summary>What's not built yet?</summary>
     <div class="a">

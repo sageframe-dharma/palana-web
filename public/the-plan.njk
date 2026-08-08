@@ -182,10 +182,9 @@ laptop is in the byte path and the route states why.</p>
 <section>
 <h2 id="the-echo">Run and verify<a class="hlink" href="#the-echo">#</a></h2>
 
-<p>The plan panel is not a dialog styled to look technical. It is a real
-terminal surface, and when Enter fires, the enactment echoes into it live—the
-same commands the plan showed, now with their actual output streaming under
-them.</p>
+<p>The plan panel is a real terminal surface: when Enter fires, the enactment
+echoes into it live—the same commands the plan showed, now with their actual
+output streaming under them.</p>
 
 <figure class="plan">
   <div class="plan-panel">
@@ -212,17 +211,16 @@ what left. Only when the counts match does the gated delete run. If they
 didn't match, it wouldn't. (Mid-run, <kbd>⌃c</kbd> cancels; a plan that hasn't
 been enacted is dismissed with <kbd>esc</kbd> and costs nothing.)</p>
 
-<p>This is the whole trust story, and it's deliberately short: the interface
-claims "these are the commands," and the claim is checkable by watching them
-run.</p>
+<p>That is the whole trust story: the interface claims "these are the
+commands," and the claim is checkable by watching them run.</p>
 </section>
 
 <section>
 <h2 id="paste-test">The paste test<a class="hlink" href="#paste-test">#</a></h2>
 
 <p>Every command in every plan passes one test: you could select it, paste it
-into your own terminal, and get the same result. That isn't a party trick. It
-falls out of two architectural commitments.</p>
+into your own terminal, and get the same result. That falls out of two
+architectural commitments.</p>
 
 <p><strong>pālana wraps your own tools.</strong> There is no embedded SSH
 library, no parallel transport stack—the system <code>ssh</code>, the hosts'

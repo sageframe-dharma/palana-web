@@ -23,9 +23,10 @@ description: "All your servers, side by side, in a keyboard-first Mac file manag
     <p class="eyebrow">A native Mac file manager for SSH hosts</p>
     <h1>All your servers, side&nbsp;by&nbsp;side. <span class="serif">Nothing runs until you've read it.</span></h1>
     <p class="hero-sub">pālana puts every machine you can ssh into beside
-    your local files. Browse, copy, and manage ZFS from a keyboard-first
+    your local files. Browse, copy, and manage files from a keyboard-first
     dual-pane window that shows the exact command before it runs. When two
-    servers can talk directly, the bytes stay off your Mac.</p>
+    servers can talk directly, the bytes stay off your Mac. Where a host runs
+    ZFS, pālana speaks it natively—where none does, you'll never see it.</p>
     <p class="hero-tagline">Terminal tools. A readable interface.</p>
     <div class="btn-row">
       <a class="btn" href="https://github.com/sageframe-no-kaji/palana/releases/latest">Download the beta</a>
@@ -106,6 +107,7 @@ $ rsync -a -s --partial --info=progress2 …</pre>
       </div>
     </div>
     </div>
+    <p class="mock-note">Drawn to scale, not a screenshot—<a href="/start/#the-window">every area, labeled →</a></p>
   </div>
 </section>
 </div>
@@ -205,7 +207,8 @@ $ rsync -a -s --partial --info=progress2 /tank/media/camera/archive-2025 /rust/a
     Destruction also requires you to type the word.</p>
     <p>Moving a whole dataset between ZFS machines uses
     <code>zfs send | ssh | zfs receive</code> when it can—block-level and
-    typically much faster than a file-by-file transfer.
+    typically much faster than a file-by-file transfer. ZFS is an addition,
+    not a requirement—hosts without it get everything else unchanged.
     <a href="/zfs/">ZFS, natively →</a></p>
   </div>
   <div class="frow-visual">
@@ -220,6 +223,7 @@ $ rsync -a -s --partial --info=progress2 /tank/media/camera/archive-2025 /rust/a
 
 $ zfs snapshot -r tank/sage/jodo/kanyo@palana-20260716-101530
 $ zfs send -R -v tank/sage/jodo/kanyo@palana-20260716-101530 | ssh koan 'zfs receive -u rpool/sage/koan/kanyo'
+  runs only after the copy above is verified: $ zfs destroy -r rpool/sage/koan/kanyo@palana-20260716-101530
   runs only after the copy above is verified: $ zfs destroy -r tank/sage/jodo/kanyo</pre>
       </div>
       <figcaption>A snapshot, one stream, and cleanup only after verification.</figcaption>
@@ -303,8 +307,6 @@ $ zfs send -R -v tank/sage/jodo/kanyo@palana-20260716-101530 | ssh koan 'zfs rec
       <p><strong class="accent">Commands remain portable.</strong> Every command works from your terminal because pālana uses your own ssh underneath.</p>
       <p><strong class="accent">State without surveillance.</strong> The field map records what pālana found and when. It refreshes only when you ask.</p>
     </div>
-    <p style="margin-top: 1.5rem; font-size: 14px;"><strong>pālana</strong>
-    (पालन)—Sanskrit: to tend, to sustain.</p>
   </div>
 </div>
 
@@ -344,12 +346,13 @@ $ cd palana &amp;&amp; swift build
   <div class="card">
     <span class="tag">direct download</span>
     <h3>pālana for Mac</h3>
-    <div class="price">Free</div>
+    <div class="price">Free while in beta</div>
     <ul>
-      <li>v0.4-beta—signed &amp; notarized <code>.dmg</code></li>
+      <li>{{ site.version }} ({{ site.released }})—signed &amp; notarized <code>.dmg</code> · <a href="https://github.com/sageframe-no-kaji/palana/releases">release notes</a></li>
       <li>macOS 14 or later</li>
       <li>Nothing to install on your servers</li>
-      <li>Beta feedback shapes the 1.0</li>
+      <li>1.0 signed builds will be $29—the source stays free forever</li>
+      <li>File a real issue during the beta: your 1.0 license is on me</li>
     </ul>
     <a class="btn" href="https://github.com/sageframe-no-kaji/palana/releases/latest">Download →</a>
   </div>

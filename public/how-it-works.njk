@@ -92,14 +92,14 @@ internals. The ZFS tool is its first, shipped proof.</p>
 <h2 id="state">Where your state lives<a class="hlink" href="#state">#</a></h2>
 
 <p>No database. A database would make the cache look like a system of record,
-and it isn't one—the hosts are. Local state is two human-readable JSON files
-in <code>~/Library/Application Support/palana/</code>, safe to delete at any
-time:</p>
+and it isn't one—the hosts are. Local state is five plain files in
+<code>~/Library/Application Support/palana/</code>—settings, favorites, the
+append-only operations log, and the two that shape what you see on launch:</p>
 
 <p><code>field-cache.json</code>—the last-known topology, timestamped: what
 the Field remembers from your last visit, rendered as remembered until you ask
 it to look again. <code>session.json</code>—pane hosts and paths, window
-state: the workbench as you left it.</p>
+state: the workbench as you left it. Both are safe to delete at any time.</p>
 
 <p>On launch, panes return to their previous locations and cached topology is
 clearly dated. Nothing contacts a host until you request an action that needs

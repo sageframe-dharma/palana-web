@@ -15,7 +15,8 @@ a plan you read before Enter.</p>
 <h2 id="boundaries">Boundaries you can see<a class="hlink" href="#boundaries">#</a></h2>
 
 <p>In an ordinary file pane, rows sitting exactly on a dataset's mountpoint
-wear a filled drive mark; a plain filesystem boundary wears a hollow one. That
+carry a filled drive mark; a plain filesystem boundary carries a hollow one.
+That
 one glyph is the difference between a move that's an instant rename and a move
 that's 41&nbsp;GB of copying—which is why
 <a href="/the-plan/#classifications">the plan names the classification</a>
@@ -26,14 +27,14 @@ every time.</p>
 <h2 id="the-tree">Z—the dataset tree<a class="hlink" href="#the-tree">#</a></h2>
 
 <p><kbd>Z</kbd> flips the focused pane from files to the host's dataset tree —
-same pane, same cursor keys, different subject. The header wears a
+same pane, same cursor keys, different subject. The header shows a
 <code>ZFS</code> chip so you always know which language the pane is speaking.
 Mounted datasets are solid; unmounted or legacy ones render dimmed with their
 state named—<code>· unmounted</code>, <code>legacy</code>—because grey is
 a fact, not a place. <kbd>⏎</kbd> on a mounted dataset drops you back into
 files at its mountpoint. <kbd>esc</kbd> or <kbd>Z</kbd> leaves the tree.</p>
 
-<p>Entry is honest, too: a pane pointed at this Mac gets
+<p>Entry is straightforward, too: a pane pointed at this Mac gets
 <code>no zfs on this Mac</code>, and a host that's never been probed refuses
 with the reason rather than showing an empty tree.</p>
 </section>
@@ -100,14 +101,14 @@ block-level one:</p>
 $ zfs snapshot -r tank/sage/jodo/kanyo@palana-20260716-101530
 $ zfs send -R -v tank/sage/jodo/kanyo@palana-20260716-101530 | ssh koan 'zfs receive -u rpool/sage/koan/kanyo'
   runs only after the copy above is verified: $ zfs destroy -r rpool/sage/koan/kanyo@palana-20260716-101530
-  runs only after the copy above is verified: $ zfs destroy -r tank/sage/jodo/kanyo@palana-20260716-101530</pre>
+  runs only after the copy above is verified: $ zfs destroy -r tank/sage/jodo/kanyo</pre>
   </div>
   <figcaption>Snapshot first—send needs a stable point. Then one pipe, host
   to host. The cleanup and the source removal wait behind the gate.</figcaption>
 </figure>
 
-<p>Read the details—each one is doing a specific job. The <code>-R</code>
-carries the dataset's children and their snapshots. The <code>-v</code> is the
+<p>The <code>-R</code> carries the dataset's children and their snapshots.
+The <code>-v</code> is the
 progress bar—send's own cadence, parsed. The <code>receive -u</code> lands
 the dataset <em>unmounted</em>, deliberately: on Linux, mounting belongs to
 root even when the dataset's verbs are delegated, and a bare receive would
