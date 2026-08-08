@@ -1,0 +1,130 @@
+---
+layout: base.njk
+title: How it compares—pālana
+description: "pālana beside Transmit, ForkLift, and a bare terminal—including the cells the others win. Prices and behavior dated, corrections in public."
+---
+
+<h1>How it compares</h1>
+
+<p class="lede">I administered a homelab from a Mac and bought the
+alternatives first. Every one ended the same way: a terminal open beside it,
+because no window would answer the question that mattered—what, exactly, is
+about to run, and where. This chart keeps the cells the others win.</p>
+
+<section>
+<h2 id="chart">The chart<a class="hlink" href="#chart">#</a></h2>
+
+<div class="cmp-scroll">
+<table class="cmp">
+  <thead>
+    <tr>
+      <th></th>
+      <th class="me">pālana</th>
+      <th>Transmit&nbsp;5</th>
+      <th>ForkLift&nbsp;4</th>
+      <th>your terminal</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">The command, before it runs</th>
+      <td class="me">every plan, verbatim</td>
+      <td>no—protocol operations, not commands</td>
+      <td>no—protocol operations, not commands</td>
+      <td>you typed it</td>
+    </tr>
+    <tr>
+      <th scope="row">A copy between two servers</th>
+      <td class="me">host to host when the hosts can talk; the plan names the route</td>
+      <td>relayed through your Mac</td>
+      <td>relayed through your Mac</td>
+      <td>host to host, if you set it up</td>
+    </tr>
+    <tr>
+      <th scope="row">The delete half of a move</th>
+      <td class="me">gated—visible count checks must agree first</td>
+      <td>handled internally</td>
+      <td>handled internally</td>
+      <td>you count</td>
+    </tr>
+    <tr>
+      <th scope="row">ZFS</th>
+      <td class="me">boundaries in the pane; snapshots, rollback, send/receive as plans</td>
+      <td>none</td>
+      <td>none</td>
+      <td>by hand</td>
+    </tr>
+    <tr>
+      <th scope="row">Your <code>~/.ssh/config</code></th>
+      <td class="me">is the host list—the system <code>ssh</code> runs everything</td>
+      <td>its own connection stack</td>
+      <td>its own connection stack</td>
+      <td>verbatim</td>
+    </tr>
+    <tr>
+      <th scope="row">Beyond SSH—SMB, FTP, WebDAV, S3, cloud drives</th>
+      <td class="me">no—SSH only, deliberately</td>
+      <td>yes</td>
+      <td>yes</td>
+      <td>no</td>
+    </tr>
+    <tr>
+      <th scope="row">Source</th>
+      <td class="me">GPL-3.0, public repo and build record</td>
+      <td>closed</td>
+      <td>closed</td>
+      <td>open tools</td>
+    </tr>
+    <tr>
+      <th scope="row">Price</th>
+      <td class="me">free in beta · $29 at 1.0 · compiling it yourself stays free</td>
+      <td>$45</td>
+      <td>$19.95, one year of updates</td>
+      <td>free</td>
+    </tr>
+    <tr>
+      <th scope="row">Maturity</th>
+      <td class="me">{{ site.version }}</td>
+      <td>decades of releases</td>
+      <td>mature</td>
+      <td>eternal</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p class="fineprint">Prices and behavior as tested in {{ site.released }}—Transmit 5.x,
+ForkLift 4.4. If a cell has gone stale or was never right,
+<a href="https://github.com/sageframe-no-kaji/palana/issues">open an issue</a>;
+this page corrects in public.</p>
+
+<p>SFTP has no server-to-server primitive, so a protocol client has to relay
+the bytes itself. pālana routes around the protocol instead: it runs <code>rsync</code>
+or <code>zfs send</code> on the hosts themselves, over your own ssh—which is
+why the route can skip your Mac, and why the plan can quote the command.</p>
+</section>
+
+<section>
+<h2 id="others">Where the others are the right choice<a class="hlink" href="#others">#</a></h2>
+
+<p><strong>Transmit</strong>, if your remotes are buckets. S3, Backblaze,
+WebDAV, cloud drives—Panic has spent decades on that breadth and polish, and
+pālana will never chase it.</p>
+
+<p><strong>ForkLift</strong>, if you need protocol breadth on a budget—SMB
+shares, FTP servers, cloud mounts in one dual-pane window.</p>
+
+<p><strong>Marta</strong>, if your files are all local. Free, fast,
+keyboard-driven. No remote side at all.</p>
+
+<p><strong>muCommander or Double Commander</strong>, if you need open source
+<em>and</em> cross-platform. Neither is a native Mac app.</p>
+
+<p><strong>Your terminal</strong>, always. pālana never asks you to leave it:
+every plan is a command you can paste, and <kbd>⌘`</kbd> is a real shell on
+the focused host. If ssh and rsync by hand already give you everything you
+want, you are not the audience—until the day a move crosses a dataset
+boundary you didn't see.</p>
+
+<p><a href="/#download">Try the beta →</a></p>
+</section>
