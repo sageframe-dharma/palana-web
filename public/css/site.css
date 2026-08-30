@@ -71,34 +71,38 @@ body {
 
 /* ---- header / nav ---- */
 
-.site-head {
-  border-bottom: 1px solid var(--hairline);
-}
-
+/* no bar—the wordmark leads, the menu follows it on the left,
+   the theme toggle keeps to the far right */
 .site-head .row {
   max-width: 46rem;
   margin: 0 auto;
-  padding: 18px 24px;
+  padding: 22px 24px 10px;
   display: flex;
-  align-items: baseline;
-  gap: 24px;
+  align-items: flex-start;
+  gap: 28px;
 }
 
-.wordmark {
-  font-weight: 600;
-  font-size: 17px;
+.site-head.wide .row { max-width: 72rem; }
+
+/* the wordmark lockup—the mark is the p, the headline bar carries the ā */
+.wm-lockup {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
   color: var(--ink);
   text-decoration: none;
-  letter-spacing: 0.01em;
+  flex: none;
 }
-
-.wordmark:hover { color: var(--ink); }
+.wm-lockup:hover { color: var(--ink); }
+.wm-lockup svg { width: 35px; height: 41px; margin-top: -2px; flex: none; }
+.wm-lockup .wm-rest { font-size: 30px; font-weight: 600; letter-spacing: 0.005em; line-height: 1; margin-left: -4px; }
+.wm-lockup .wm-bar { position: absolute; left: 32px; right: 1px; top: 5px; height: 2px; background: currentColor; border-radius: 0.5px; }
 
 .site-nav {
   display: flex;
   gap: 18px;
-  margin-left: auto;
   align-items: baseline;
+  margin-top: 9px;
 }
 
 .site-nav a {
@@ -120,9 +124,38 @@ body {
   opacity: 0.7;
   cursor: pointer;
   transition: color 0.12s ease, opacity 0.12s ease;
+  margin-left: auto;
+  margin-top: 12px;
 }
 
 .theme-toggle:hover { color: var(--ink); opacity: 1; }
+
+/* the pocket—hamburger nav, small screens only */
+.nav-pocket { display: none; position: relative; margin-top: 5px; }
+.nav-pocket summary { list-style: none; cursor: pointer; color: var(--ink-faint); display: flex; }
+.nav-pocket summary::-webkit-details-marker { display: none; }
+.nav-pocket[open] summary { color: var(--ink); }
+.pocket-links {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 10px);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 10rem;
+  padding: 14px 18px;
+  background: var(--ground-deep);
+  border: 1px solid var(--hairline);
+  border-radius: 8px;
+  z-index: 50;
+}
+.pocket-links a { color: var(--ink); text-decoration: none; font-size: 15px; }
+.pocket-links a[aria-current="page"] { color: var(--accent); }
+
+@media (max-width: 720px) {
+  .site-nav { display: none; }
+  .nav-pocket { display: block; }
+}
 
 /* ---- main column ---- */
 
@@ -906,25 +939,15 @@ main.wide { max-width: 72rem; }
   stroke: var(--ground);
   stroke-width: 2.2;
   stroke-linecap: round;
+  opacity: 0.55;
 }
 
 .hero-watermark .wm-stalk {
-  stroke: color-mix(in srgb, var(--accent) 74%, var(--ground));
-  stroke-width: 5;
+  stroke: color-mix(in srgb, var(--accent) 85%, var(--ground));
+  stroke-width: 6.5;
   stroke-linecap: round;
 }
 
-.hero-brand {
-  display: flex;
-  align-items: flex-start;
-  margin-bottom: 1.75rem;
-}
-
-/* the wordmark lockup—the mark is the p, the headline bar carries the ā */
-.wm-lockup { position: relative; display: flex; align-items: flex-start; color: var(--ink); }
-.wm-lockup svg { width: 51px; height: 60px; margin-top: -3px; flex: none; }
-.wm-lockup .wm-rest { font-size: 44px; font-weight: 600; letter-spacing: 0.005em; line-height: 1; margin-left: -6px; }
-.wm-lockup .wm-bar { position: absolute; left: 47px; right: 1px; top: 7px; height: 3px; background: currentColor; border-radius: 0.5px; }
 
 .hero .eyebrow { font-size: 13px; letter-spacing: 0.15em; margin-bottom: 1.2rem; }
 
@@ -993,8 +1016,8 @@ main.wide { max-width: 72rem; }
   padding: 3.5rem 0 1.5rem;
 }
 
-/* window top-aligns with the eyebrow—offset by the lockup's height */
-.hero-visual { margin-top: 107px; }
+/* window top-aligns with the eyebrow */
+.hero-visual { margin-top: 22px; }
 
 .hero h1 {
   font-size: clamp(30px, 4.2vw, 42px);
@@ -1311,6 +1334,4 @@ main.wide { max-width: 72rem; }
 @media (max-width: 560px) {
   body { font-size: 15px; }
   h1 { font-size: 26px; }
-  .site-head .row { flex-wrap: wrap; gap: 10px 18px; }
-  .site-nav { margin-left: 0; }
 }
