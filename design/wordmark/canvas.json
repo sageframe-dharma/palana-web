@@ -1,0 +1,8 @@
+{
+  "artboards": [
+    { "file": "Main.dc.html", "x": 0, "y": 0, "w": 880, "h": 520, "title": "wordmark — ink p, green leaf" },
+    { "file": "Dark.dc.html", "x": 960, "y": 0, "w": 880, "h": 520, "title": "wordmark — dark" },
+    { "file": "GreenMark.dc.html", "x": 0, "y": 680, "w": 880, "h": 520, "title": "option — whole mark green" }
+  ],
+  "launch": { "view": "canvas" }
+}

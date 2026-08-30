@@ -836,6 +836,9 @@ main.wide { max-width: 72rem; }
   margin: 0 0 0.9rem;
 }
 
+/* the product name never uppercases—pālana is lowercase everywhere */
+.eyebrow .brand-lc { text-transform: none; }
+
 /* hero scene—ground, dunes, plants, watermark */
 .hero-scene {
   position: relative;
@@ -893,10 +896,10 @@ main.wide { max-width: 72rem; }
   height: auto;
   pointer-events: none;
   z-index: 2;
-  opacity: 0.32;
 }
 
-.hero-watermark .wm-body { color: color-mix(in srgb, var(--ink) 34%, var(--ground)); }
+/* the body fades; the leaf never does—solid green even over the window */
+.hero-watermark .wm-body { color: color-mix(in srgb, var(--ink) 34%, var(--ground)); opacity: 0.32; }
 .hero-watermark .wm-leaf { fill: var(--accent); }
 
 .hero-watermark .wm-vein {
@@ -913,13 +916,15 @@ main.wide { max-width: 72rem; }
 
 .hero-brand {
   display: flex;
-  align-items: center;
-  gap: 16px;
+  align-items: flex-start;
   margin-bottom: 1.75rem;
 }
 
-.hero-brand svg { width: 82px; height: 72px; color: color-mix(in srgb, var(--ink) 55%, var(--accent)); flex: none; }
-.hero-brand .name { font-size: 44px; font-weight: 600; letter-spacing: 0.005em; }
+/* the wordmark lockup—the mark is the p, the headline bar carries the ā */
+.wm-lockup { position: relative; display: flex; align-items: flex-start; color: var(--ink); }
+.wm-lockup svg { width: 51px; height: 60px; margin-top: -3px; flex: none; }
+.wm-lockup .wm-rest { font-size: 44px; font-weight: 600; letter-spacing: 0.005em; line-height: 1; margin-left: -6px; }
+.wm-lockup .wm-bar { position: absolute; left: 47px; right: 1px; top: 7px; height: 3px; background: currentColor; border-radius: 0.5px; }
 
 .hero .eyebrow { font-size: 13px; letter-spacing: 0.15em; margin-bottom: 1.2rem; }
 
@@ -989,7 +994,7 @@ main.wide { max-width: 72rem; }
 }
 
 /* window top-aligns with the eyebrow—offset by the lockup's height */
-.hero-visual { margin-top: 122px; }
+.hero-visual { margin-top: 107px; }
 
 .hero h1 {
   font-size: clamp(30px, 4.2vw, 42px);
