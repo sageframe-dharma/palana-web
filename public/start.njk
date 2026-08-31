@@ -1,7 +1,7 @@
 ---
 layout: base.njk
 title: The first five minutes—pālana
-description: "From zero to your first planned copy: hosts from your ~/.ssh/config, point a pane, read the plan, press Enter."
+description: "From zero to your first copy: hosts from your ~/.ssh/config, point a pane, read the command, press Enter—or drop to the shell."
 ---
 
 <h1>The first five minutes</h1>
@@ -111,7 +111,7 @@ $ rsync -a -s --partial --info=progress2 …</pre>
   <li><strong>The star and the host menu.</strong> <code>★</code> favorites this location; <kbd>▾</kbd> lists every host your ssh config names, your favorites, and the ways in—type an address, edit the config, reload.</li>
   <li><strong>The rows.</strong> The cursor row is highlighted; <kbd>space</kbd> selects; verbs act on the selection. A filled drive mark means the folder is a ZFS dataset mountpoint.</li>
   <li><strong>The pane's bottom strip.</strong> The terminal popout opens the same panel as <kbd>`</kbd>.</li>
-  <li><strong>The plan panel.</strong> It shows the complete plan before Enter and live output after. The green Return control runs the plan.</li>
+  <li><strong>The plan panel.</strong> It shows the complete plan before Enter and live output after. <kbd>⌘`</kbd> opens your shell on the focused host in this same panel.</li>
   <li><strong>The workbench strip.</strong> The <code>zfs…</code> overview in umber, then the reads—<code>df</code>, <code>zfs list</code>, <code>zpool status</code>, <code>zpool list</code> (<kbd>⇧tab</kbd> engages them, then <kbd>d</kbd> <kbd>z</kbd> <kbd>s</kbd> <kbd>p</kbd>).</li>
   <li><strong>The window footer.</strong> Counts and selection, the send direction while an operation is up, any pending prefix, the sort—and <code>? keys</code>: <kbd>?</kbd> opens the full key list.</li>
 </ol>
@@ -193,16 +193,27 @@ Press <kbd>⏎</kbd> to run it; its output streams into the panel and ends with
 <code>done—every step ran and checked out</code>. Press <kbd>esc</kbd> to
 dismiss the plan without running it.</p>
 
-<p>That's the whole loop, and it never changes shape: <strong>select the
-files, press the key, read the plan, press Enter.</strong> Moves, deletes,
-renames, ZFS snapshots—every mutation in pālana goes through this same
-gate.</p>
+<p>That's the loop: select the files, press the key, read the command, press
+Enter. Moves, deletes, renames, and ZFS snapshots all go through it.</p>
+</section>
+
+<section>
+<h2 id="shell">Drop to the shell<a class="hlink" href="#shell">#</a></h2>
+
+<p>When the command you want isn't one of pālana's verbs, <kbd>⌘`</kbd> opens
+your actual ssh on the focused host in the panel under the panes—one warm
+session per machine, kept between visits. The footer says who has the
+keyboard; <kbd>⌘`</kbd> gives it back to the panes. Anything a plan shows can
+be pasted there instead of run with Enter. For a quick look without a shell,
+<kbd>⇧tab</kbd> arms four read keys: <kbd>d</kbd> <kbd>z</kbd> <kbd>s</kbd>
+<kbd>p</kbd> for <code>df</code>, <code>zfs list</code>, <code>zpool
+status</code>, <code>zpool list</code>.</p>
 </section>
 
 <section>
 <h2 id="next">Where next<a class="hlink" href="#next">#</a></h2>
 
-<p>Read <a href="/the-plan/">the plan is the product</a>—why pālana is
+<p>Read <a href="/the-plan/">the command, before it runs</a>—why pālana is
 shaped the way it is. Then keep <a href="/keys/">the keyboard</a> open in a
 tab for the first day.</p>
 </section>

@@ -1,7 +1,7 @@
 ---
 layout: base.njk
 title: FAQ—pālana
-description: "Questions that come up: hosts that won't appear or connect, plans that refuse, what ~ means on a server, where state lives, and what pālana deliberately is not."
+description: "Questions that come up: hosts that won't appear or connect, plans that refuse, the shell, yazi and mc, what ~ means on a server, where state lives, and what pālana deliberately is not."
 ---
 
 <h1>FAQ</h1>
@@ -103,6 +103,18 @@ description: "Questions that come up: hosts that won't appear or connect, plans 
     </div>
   </details>
 
+  <details id="shell">
+    <summary>Can I just use the terminal?</summary>
+    <div class="a">
+      <p>Yes. <kbd>⌘`</kbd> opens your actual ssh on the focused host in the
+      panel under the panes—one warm session per machine, and <kbd>⌘`</kbd>
+      hands the keyboard back. Every plan is a command you can paste there.
+      pālana runs the same <code>ssh</code>, <code>rsync</code>, and
+      <code>zfs</code> you would; it composes the command, shows it, and runs
+      it in that same panel.</p>
+    </div>
+  </details>
+
   <details id="scope">
     <summary>Is there a Linux or Windows version? What about SMB, SFTP, Docker?</summary>
     <div class="a">
@@ -120,10 +132,20 @@ description: "Questions that come up: hosts that won't appear or connect, plans 
   <details id="no-zfs">
     <summary>I don't run ZFS—is pālana still for me?</summary>
     <div class="a">
-      <p>Yes. pālana is a complete SSH file manager on any host. ZFS is an
-      addition, not a requirement: the dataset tree, snapshots, and
-      send/receive appear on hosts that have ZFS and never on hosts that
-      don't. Nothing else changes.</p>
+      <p>Yes. The dataset tree, snapshots, and send/receive appear on hosts
+      that have ZFS. Everything else is the same on every host.</p>
+    </div>
+  </details>
+
+  <details id="vs-yazi">
+    <summary>How is this different from yazi, ranger, or mc?</summary>
+    <div class="a">
+      <p>Same shape—two panes, vim keys, a preview, a shell underneath—as
+      a native Mac app whose panes can each sit on a different host. pālana
+      adds the route between hosts, the command on screen before it runs,
+      and ZFS. If your work is on one machine at a time inside one terminal
+      window, those tools are the right pick.
+      <a href="/compare/">How it compares →</a></p>
     </div>
   </details>
 

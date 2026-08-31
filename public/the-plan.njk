@@ -1,13 +1,13 @@
 ---
 layout: base.njk
-title: The plan is the product—pālana
-description: "Why pālana composes a readable plan—classification, transport, exact commands—before any operation runs, and how Enter proves the plan was real."
+title: The command, before it runs—pālana
+description: "Why pālana composes the command—classification, route, transport, the exact text—before it runs, and how Enter runs precisely that in the terminal under the panes."
 ---
 
-<h1>The plan is the product</h1>
+<h1>The command, before it runs</h1>
 
-<p class="lede">Unlike other file managers, pālana shows the underlying
-commands before it runs them.</p>
+<p class="lede">pālana shows the command it will run, and then runs
+exactly that.</p>
 
 <section>
 <h2 id="why">What other file managers hide<a class="hlink" href="#why">#</a></h2>
@@ -23,9 +23,30 @@ datasets, a "rename" across datasets is a full copy followed by a delete.
 Tools that flatten this into a rename can conceal substantial work until after
 it has started.</p>
 
-<p>Between your keystroke and any mutation stands a plan: a readable statement of what will run, composed from
-probed facts, shown whole. Nothing mutates while a plan is on screen. Enter
-enacts it. Esc dismisses it, and nothing has happened. Dry-run is the default state.</p>
+<p>Between your keystroke and the command sits the plan: what will run, on
+which host, by which route, composed from facts the Field probed and shown
+whole. Enter runs it in the terminal under the panes. Esc closes it and
+nothing has run. If you already know the command, the plan is a receipt. If
+you don't, it is the command written out for your hosts and paths.</p>
+</section>
+
+<section>
+<h2 id="paste-test">The paste test<a class="hlink" href="#paste-test">#</a></h2>
+
+<p>Every command in every plan passes one test: select it, paste it into the
+<kbd>⌘`</kbd> shell or any terminal, and get the same result. Two
+architectural commitments make that hold.</p>
+
+<p><strong>pālana wraps your own tools.</strong> There is no embedded SSH
+library, no parallel transport stack—the system <code>ssh</code>, the hosts'
+own <code>rsync</code> and <code>zfs</code>. A command that runs through pālana
+and a command you type by hand run under the same identity and
+configuration, so the plan quotes the command exactly.</p>
+
+<p><strong>The plan engine is a pure function.</strong> Facts in, plan out; it
+performs no I/O itself. That makes its classifications and commands directly
+testable.</p>
+
 </section>
 
 <section>
@@ -204,24 +225,8 @@ been enacted is dismissed with <kbd>esc</kbd> and costs nothing.)</p>
 
 <p>The interface claims "these are the
 commands," and the claim is checkable by watching them run.</p>
-</section>
-
-<section>
-<h2 id="paste-test">The paste test<a class="hlink" href="#paste-test">#</a></h2>
-
-<p>Every command in every plan passes one test: you could select it, paste it
-into your own terminal, and get the same result. That falls out of two
-architectural commitments.</p>
-
-<p><strong>pālana wraps your own tools.</strong> There is no embedded SSH
-library, no parallel transport stack—the system <code>ssh</code>, the hosts'
-own <code>rsync</code> and <code>zfs</code>. A command that runs through pālana
-and a command you type by hand run under the same identity and
-configuration, so the plan quotes the command exactly.</p>
-
-<p><strong>The plan engine is a pure function.</strong> Facts in, plan out; it
-performs no I/O itself. That makes its classifications and commands directly
-testable.</p>
 
 <p><a href="/#download">Try the beta →</a></p>
 </section>
+
+
