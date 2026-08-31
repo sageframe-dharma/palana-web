@@ -27,7 +27,6 @@ description: "The full pālana guide: install it, connect your machines, copy be
   <a href="#refusals">Refusals &amp; fixes</a>
   <div class="group">For the curious</div>
   <a href="#under-the-hood">Under the hood</a>
-  <a href="#faq">FAQ</a>
   <div class="group">Go deeper</div>
   <a href="/start/">The first five minutes</a>
   <a href="/start/#the-window">The window, labeled</a>
@@ -40,7 +39,7 @@ description: "The full pālana guide: install it, connect your machines, copy be
   <a href="/how-it-works/">How it works</a>
   <a href="/sudo/">The mount grant</a>
   <a href="/compare/">How it compares</a>
-  <a href="/licensing/">The license, plainly</a>
+  <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0 License</a>
 </aside>
 
 <div class="help-main">
@@ -342,69 +341,7 @@ repo's <code>ho-process/</code>. Full tour:
 <a href="/how-it-works/">how it works</a>.</p>
 </section>
 
-<section class="help-section" id="faq">
-<h2>FAQ<a class="hlink" href="#faq">#</a></h2>
 
-<div class="faq-fold">
-  <details>
-    <summary>Is it free?</summary>
-    <div class="a"><p>The beta is free—a signed, notarized download, no App
-    Store, no account, no telemetry. At 1.0 the signed build becomes a
-    one-time $29 purchase; the source stays GPL-3.0 and free to compile,
-    forever. File a real issue during the beta and your 1.0 license is on me.
-    <a href="/licensing/">The license, plainly →</a></p></div>
-  </details>
-  <details>
-    <summary>Mac only?</summary>
-    <div class="a"><p>Yes—pālana is a native Mac app, deliberately. The
-    <em>servers</em> can be anything you can ssh into: Linux, BSD, even
-    BusyBox firmware boxes.</p></div>
-  </details>
-  <details>
-    <summary>Do I need ZFS?</summary>
-    <div class="a"><p>No. pālana is a full SSH file manager on any host. The
-    ZFS surfaces light up only where a host has ZFS—without it, you simply
-    never see them.</p></div>
-  </details>
-  <details>
-    <summary>Does it install anything on my servers?</summary>
-    <div class="a"><p>No. It runs the <code>ssh</code>, <code>rsync</code>,
-    and (if present) <code>zfs</code> your servers already have. Nothing to
-    deploy, nothing to update, nothing listening.</p></div>
-  </details>
-  <details>
-    <summary>Is it watching my machines?</summary>
-    <div class="a"><p>No. It runs when you open it and stops when you close
-    it—no daemon, no polling. The map shows cached facts with the date of
-    their last probe.</p></div>
-  </details>
-  <details>
-    <summary>Do transfers go through my Mac?</summary>
-    <div class="a"><p>Between two servers, no—the fast path runs
-    server-to-server and your Mac only orchestrates. When the route
-    <em>does</em> pass through your Mac (a fallback, or you're one end), the
-    plan's <code>how:</code> line says so. You always know.</p></div>
-  </details>
-  <details>
-    <summary>SMB? SFTP-only hosts? Docker?</summary>
-    <div class="a"><p>No, no, and no—on purpose. SSH is the only transport,
-    and pālana manages files and datasets, not containers. It is for hosts you
-    administer, not arbitrary remote connections.</p></div>
-  </details>
-  <details>
-    <summary>Where's my data about pālana itself?</summary>
-    <div class="a"><p><code>~/Library/Application Support/palana/</code> —
-    plain JSON and a plain-text log, human-readable, safe to delete (except
-    your favorites, which you'd presumably miss).</p></div>
-  </details>
-  <details>
-    <summary>What's coming next?</summary>
-    <div class="a"><p>An operations queue (today, one plan runs at a time),
-    then more Workbench tools. The build is public—watch the
-    <a href="https://github.com/sageframe-no-kaji/palana">repo</a>.</p></div>
-  </details>
-</div>
-</section>
 
 </div>
 </div>
