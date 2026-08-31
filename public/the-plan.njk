@@ -52,7 +52,7 @@ $ rsync -a -s --partial --info=progress2 /tank/media/camera/archive-2025 koan:/r
 
 <p><strong>What you asked, and what it actually is.</strong> The first line
 pairs your verb with the operation's real shape: <code>move · move to another
-machine</code>. You said move; the plan says what a move <em>is</em> here.</p>
+machine</code>.</p>
 
 <p><strong>Size.</strong> <code>1 entry · 41.3 GB</code> is measured
 recursively on the host, not inferred from the directory inode. When a folder
@@ -62,7 +62,7 @@ cannot be measured, the plan marks the result as a lower bound:
 <p><strong>What's in the way.</strong> Before a plan is offered, the
 destination is read. Anything standing where your files will land is named —
 <code>will merge into archive-2025</code>, or <code>will replace photos.db
-(1.2&nbsp;MB)</code>—in rust, before Enter, not in an error after. When the
+(1.2&nbsp;MB)</code>—in rust, before Enter. When the
 destination can't be checked, the plan says that instead:
 <code>couldn't check the destination—this may overwrite files there</code>.</p>
 
@@ -81,7 +81,7 @@ gate stated inline. The delete—the dangerous half of a move—is declared
 <h2 id="classifications">One key, three operations<a class="hlink" href="#classifications">#</a></h2>
 
 <p>Press <kbd>m</kbd> on the same 41.3&nbsp;GB folder in three different
-worlds, and read what comes back.</p>
+situations.</p>
 
 <p>The destination is <em>in the same dataset</em>:</p>
 
@@ -98,8 +98,7 @@ worlds, and read what comes back.</p>
 
 $ mv /tank/media/camera/archive-2025 /tank/media/film/</pre>
   </div>
-  <figcaption>A true rename. One command, no data moved, done before your
-  finger lifts.</figcaption>
+  <figcaption>A rename: one command, no data moved.</figcaption>
 </figure>
 
 <p>The destination is <em>another dataset on the same host</em>:</p>
@@ -127,11 +126,8 @@ $ rsync -a -s --partial --info=progress2 /tank/media/camera/archive-2025 /rust/a
 <a href="#anatomy">top of this page</a>: a cross-host transfer, rsync running
 host-to-host, the delete gated on verification.</p>
 
-<p>Same keystroke, three shapes. The classification isn't guessed from paths —
-it's computed from dataset boundaries the Field actually probed. Different
-facts in, different plan out: the moment
-an operation stops being what it looks like is the moment you most need
-to be told.</p>
+<p>The classification is computed from dataset boundaries the Field probed:
+different facts in, different plan out.</p>
 </section>
 
 <section>
@@ -197,12 +193,12 @@ output streaming under them.</p>
 <span class="note">step 2 finished (exit 0)</span>
 <span class="note">done—every step ran and checked out</span></pre>
   </div>
-  <figcaption>The run, live. The delete was gated—and here is the gate
-  opening: two count commands, one on each host, shown like everything else.</figcaption>
+  <figcaption>The delete was gated: two count commands, one per host, ran and
+  matched before it.</figcaption>
 </figure>
 
-<p>The transfer finishes. Then the verification runs —
-not a spinner, two more commands you can read, counting what landed against
+<p>The transfer finishes. Then the verification runs:
+two more commands you can read, counting what landed against
 what left. Only when the counts match does the gated delete run. (Mid-run, <kbd>⌃c</kbd> cancels; a plan that hasn't
 been enacted is dismissed with <kbd>esc</kbd> and costs nothing.)</p>
 
@@ -220,8 +216,8 @@ architectural commitments.</p>
 <p><strong>pālana wraps your own tools.</strong> There is no embedded SSH
 library, no parallel transport stack—the system <code>ssh</code>, the hosts'
 own <code>rsync</code> and <code>zfs</code>. A command that runs through pālana
-and a command you type by hand travel the same road with the same identity, so
-the plan can quote reality instead of approximating it.</p>
+and a command you type by hand run under the same identity and
+configuration, so the plan quotes the command exactly.</p>
 
 <p><strong>The plan engine is a pure function.</strong> Facts in, plan out; it
 performs no I/O itself. That makes its classifications and commands directly

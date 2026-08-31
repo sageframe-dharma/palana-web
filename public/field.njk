@@ -13,7 +13,7 @@ background.</p>
 <section>
 <h2 id="field-view">f—the field view<a class="hlink" href="#field-view">#</a></h2>
 
-<p><kbd>f</kbd> summons the topology as an in-window card: every host from
+<p><kbd>f</kbd> opens the topology as an in-window card: every host from
 your ssh config, this Mac first. Each row carries a verdict —
 <code>reachable · 2 days ago</code>, <code>never visited</code>,
 <code>unreachable</code>—and the host's capability tokens: its userland
@@ -29,37 +29,35 @@ host under the cursor—the row says <code>probing…</code>, then answers with
 fresh facts. A host that changed its userland, gained rsync, or came online
 is re-read in place.</p>
 
-<p>The card's own footer is the cheat sheet:
+<p>The card's footer lists the keys:
 <code>↵ / dbl-click point · l toggle · r re-probe · esc dismiss</code> —
 and one fixed line: <code>~ is the remote user's home · grey =
 unmounted, not a place</code>.</p>
 
-<p>Failures come back as sentences, not codes. A probe refused for key
+<p>Failures come back as plain sentences. A probe refused for key
 reasons says <code>no usable ssh key—key setup needed</code>; a host that
 answered gibberish says <code>answered, but the probe came back
 unreadable</code>.</p>
 </section>
 
 <section>
-<h2 id="memory">Remembered, and marked as remembered<a class="hlink" href="#memory">#</a></h2>
+<h2 id="memory">Cached, and dated<a class="hlink" href="#memory">#</a></h2>
 
 <p>Discovery happens on demand—when you probe, when you point, never on a
 timer. What the Field learned is cached locally as a plain JSON file, so the
-card opens instantly on the <em>remembered</em> shape of your field, each fact
-carrying its age. The cache records your last visit; it is not a live status
-feed. Delete it any time; the hosts are the system of record and the Field
+card opens instantly from the cache, each fact dated. The cache records your
+last visit; nothing refreshes it in the background. Delete it any time; the hosts are the system of record and the Field
 rebuilds from them.</p>
 
-<p>A dated cached result is more useful than a background status check that
-quietly changes the state of your machines.</p>
+<p>pālana caches and dates results instead of polling, because a background
+status check quietly changes the state of your machines.</p>
 </section>
 
 <section>
 <h2 id="host-map">F—the host map<a class="hlink" href="#host-map">#</a></h2>
 
 <p><kbd>F</kbd> floats the deeper map as its own window—one you can park on
-a second display while you work. Where the field view answers "where do I
-point a pane," the host map answers "what ground does each machine stand on":
+a second display while you work:
 every host with a <em>probe</em> button, its ZFS pools, and the full mount
 table—target, filesystem type, source, <code>ro</code> where read-only —
 plain mounts included, because not everything you manage is ZFS. System-mount

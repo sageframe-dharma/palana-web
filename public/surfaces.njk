@@ -19,10 +19,10 @@ preview keeps up. The right pane shows a <code>VIEW</code> chip and says so:
 previewing; <kbd>v</kbd> again or <kbd>esc</kbd> puts the right pane back the
 way it was.</p>
 
-<p>Preview behavior reflects where a file lives. Local files get the full treatment—text,
+<p>Preview behavior reflects where a file lives. Local files preview fully—text,
 and Quick Look for images, PDFs, and media. Remote <em>text</em> is fetched
-over the wire with a bounded read, so peeking at a config file on koan costs
-kilobytes, not the file. A remote binary stays an info card—pālana won't
+over the wire with a bounded read, so previewing a config file on koan costs
+kilobytes. A remote binary stays an info card—pālana won't
 download megabytes just to render a thumbnail.</p>
 </section>
 
@@ -44,7 +44,7 @@ including <kbd>esc</kbd>, because vim needs it—and <kbd>⌘`</kbd> is the way
 back. A shell that ends tells you, and how to resume: <code>shell on koan
 ended—⌘` starts a new one</code>.</p>
 
-<p>The plain backtick <kbd>`</kbd> is the smaller sibling: it engages the
+<p>The plain backtick <kbd>`</kbd> engages the
 terminal panel's <em>tool reads</em>—the read-only strip where
 <kbd>d</kbd> <kbd>z</kbd> <kbd>s</kbd> <kbd>p</kbd> drop <code>df -h</code>,
 <code>zfs list</code>, <code>zpool status</code>, and <code>zpool list</code>
@@ -56,7 +56,7 @@ from the focused host straight into the transcript. Reads only—nothing there n
 
 <p><kbd>8</kbd> stars the directory under the cursor; <kbd>⌘8</kbd> stars the
 directory you're standing in; <kbd>*</kbd> opens the favorites panel. Its
-footer is its manual: <code>esc closes · 8 stars · * opens</code>.</p>
+footer lists the keys: <code>esc closes · 8 stars · * opens</code>.</p>
 
 <p>Favorites come in two scopes. A star is host-bound by default—koan's
 paths belong to koan. Promote one to global and it rides every host's menu:
@@ -77,8 +77,7 @@ form shows the exact block it will write), remove one (it shows the block it
 will strip), hide one from the menus without touching its block. The hide is
 a <code># palana: hide</code> comment in the file; typed addresses still work. A
 backup of your config is written beside it before every change, and
-<em>View config</em> shows the file read-only whenever you want the raw
-truth.</p>
+<em>View config</em> shows the file read-only.</p>
 
 <p><strong>Transfers.</strong> <em>skip .DS_Store</em> and <em>skip
 AppleDouble files (._*)</em> keep Finder metadata off your servers—they
@@ -118,6 +117,6 @@ text file, <code>operations.log</code>, in pālana's Application Support
 folder: a dated header naming the verb and the route, then the commands and
 their output, the same lines the panel echoed. <kbd>⇧⌘L</kbd> doesn't open a
 viewer—it points the focused pane at the log and lands the cursor on it,
-because you already have a file manager in front of you. Your history is a
-plain file, greppable like everything else you own.</p>
+because you already have a file manager in front of you. The history is a plain
+text file you can grep.</p>
 </section>

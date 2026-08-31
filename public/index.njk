@@ -274,7 +274,7 @@ $ zfs send -R -v tank/sage/jodo/kanyo@palana-20260716-101530 | ssh koan 'zfs rec
       <span><kbd>d</kbd> delete</span>
       <span><kbd>/</kbd> jump</span>
       <span><kbd>f</kbd> the field</span>
-      <span><kbd>?</kbd> everything</span>
+      <span><kbd>?</kbd> all keys</span>
     </div>
     <p><a href="/keys/">Read the key map →</a></p>
   </div>
@@ -292,7 +292,7 @@ $ zfs send -R -v tank/sage/jodo/kanyo@palana-20260716-101530 | ssh koan 'zfs rec
   <div class="card"><span class="tag">*</span><h3>Favorites, local or global</h3><p>Favorites belong to a host by default. Promote one to global and it appears in every host menu.</p></div>
   <div class="card"><span class="tag">⌘,</span><h3>Add hosts without editing config</h3><p>The form shows the exact block it will write to ~/.ssh/config, after backing the file up.</p></div>
   <div class="card"><span class="tag">⌘+ ⌘−</span><h3>One master zoom</h3><p>The whole surface scales together, 0.8× to 1.6×. Light and dark, both warm, matching the app.</p></div>
-  <div class="card"><span class="tag">⇧⌘L</span><h3>A plain-text log</h3><p>Every executed operation appends to a text file in Application Support. It is yours to grep.</p></div>
+  <div class="card"><span class="tag">⇧⌘L</span><h3>A plain-text log</h3><p>Every executed operation appends to a plain-text file in Application Support you can grep.</p></div>
   <div class="card"><span class="tag">esc</span><h3>Errors that explain the fix</h3><p>When something cannot happen, pālana states the reason and usually puts the fix beside it.</p></div>
 </div>
 
@@ -306,7 +306,7 @@ $ zfs send -R -v tank/sage/jodo/kanyo@palana-20260716-101530 | ssh koan 'zfs rec
       <p><strong class="accent">Dry-run by default.</strong> A plan on screen changes nothing. Enter runs it. Esc does not.</p>
       <p><strong class="accent">Deletion follows verification.</strong> The destructive half of a move runs only after visible count checks agree on both ends.</p>
       <p><strong class="accent">Commands remain portable.</strong> Every command works from your terminal because pālana uses your own ssh underneath.</p>
-      <p><strong class="accent">State without surveillance.</strong> The field map records what pālana found and when. It refreshes only when you ask.</p>
+      <p><strong class="accent">No polling.</strong> The field map records what pālana found and when. It refreshes only when you ask.</p>
     </div>
   </div>
 </div>

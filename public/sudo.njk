@@ -15,7 +15,7 @@ delegation and do not require root.</p>
 
 <p>On Linux, <code>zfs allow</code> delegates the dataset verbs to your user —
 create, destroy, rename, snapshot, rollback, the properties. Mount and unmount
-it cannot delegate: mounting a filesystem categorically belongs to root. So
+it cannot delegate: mounting a filesystem belongs to root. So
 pālana splits the work along that exact line. Everything delegable runs as
 you. Two commands—<code>zfs mount</code> and <code>zfs unmount</code>—ask
 for sudo, and nothing else ever does.</p>
@@ -31,8 +31,7 @@ in one place in PalanaCore and is pinned by tests, so what the app shows you
 can never silently drift toward a wider grant than these two verbs.</p>
 
 <p>You don't need to copy it from here—the same line, prefilled, lives in
-Settings › Workbench with a copy button, and in the refusal itself when a
-mount verb hits the wall.</p>
+Settings › Workbench with a copy button, and in the refusal itself.</p>
 </section>
 
 <section>
@@ -52,8 +51,7 @@ verbs light up.</p>
 
 <p>pālana runs its two privileged commands as <code>sudo -n</code>—never
 prompt. The ssh channel it works over has no terminal for a prompt to appear
-on, and pālana holds no secrets and will not collect one. Passwordless isn't
-laxness here; there is no human at that end of the channel to type into.</p>
+on, and pālana holds no secrets and will not collect one.</p>
 
 <p>Without the grant, the operation refuses and shows the required change:</p>
 
@@ -80,11 +78,11 @@ way, password and all.</p>
 </section>
 
 <section>
-<h2 id="safety">The shape of the risk<a class="hlink" href="#safety">#</a></h2>
+<h2 id="safety">The risk<a class="hlink" href="#safety">#</a></h2>
 
-<p>Weigh what the line actually grants: two verbs, arguments visible in every
+<p>The line grants two verbs, arguments visible in every
 plan. That is far less than a blanket <code>NOPASSWD: /usr/sbin/zfs</code>,
-which would hand root's whole zfs surface to your login—a real escalation
+which would hand root's whole zfs surface to your login—an escalation
 risk, and the reason pālana will never show you that line. Lock it down
 further if you like; sudoers command specs take narrower patterns than
 <code>*</code>. And the gate holds regardless: every mount and unmount pālana

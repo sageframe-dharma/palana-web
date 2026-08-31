@@ -28,13 +28,13 @@ every time.</p>
 
 <p><kbd>Z</kbd> flips the focused pane from files to the host's dataset tree —
 same pane, same cursor keys, different subject. The header shows a
-<code>ZFS</code> chip so you always know which language the pane is speaking.
+<code>ZFS</code> chip so you always know which mode the pane is in.
 Mounted datasets are solid; unmounted or legacy ones render dimmed with their
 state named—<code>· unmounted</code>, <code>legacy</code>. A dimmed dataset
 can't be entered until it's mounted. <kbd>⏎</kbd> on a mounted dataset drops you back into
 files at its mountpoint. <kbd>esc</kbd> or <kbd>Z</kbd> leaves the tree.</p>
 
-<p>Entry is straightforward, too: a pane pointed at this Mac gets
+<p>A pane pointed at this Mac gets
 <code>no zfs on this Mac</code>, and a host that's never been probed refuses
 with the reason rather than showing an empty tree.</p>
 </section>
@@ -62,17 +62,17 @@ $ zfs snapshot rpool/sage/koan/cold@before-cleanup
 $ zfs list -H -o name -t snapshot -- rpool/sage/koan/cold@before-cleanup</pre>
   </div>
   <figcaption>Two steps: the snapshot, then its existence checked—the
-  verification is a visible command, not a spinner.</figcaption>
+  verification is a visible command.</figcaption>
 </figure>
 
-<p>The prompts hand you the facts, too: rolling back or destroying a snapshot
+<p>Rolling back or destroying a snapshot
 lists the dataset's actual snapshot names right in the panel, read off the
 wire, selectable—you copy instead of remembering. Recursive choices
 are spelled out where you make them: <em>snapshot every child dataset too</em>;
 <em>roll back past newer snapshots—destroys them</em>; <em>destroy its
 children and snapshots too—zfs counts both</em>.</p>
 
-<p>Two guardrails hold no matter what. Destroy, by default, makes you type the
+<p>Two guardrails always hold. Destroy, by default, makes you type the
 word—<em>the word destroy arms the verb</em>—a setting you can turn off.
 And the pool root is out of bounds entirely:
 <code>destroy refuses rpool—that is the pool root; pālana manages datasets,
@@ -83,7 +83,7 @@ never the pool itself</code>.</p>
 <h2 id="send">Move datasets with send/receive<a class="hlink" href="#send">#</a></h2>
 
 <p>When a move's source is a whole dataset and the destination host speaks
-ZFS, file-by-file transfer is the wrong tool—so the plan reaches for the
+ZFS, file-by-file transfer is the wrong tool—so the plan uses the
 block-level one:</p>
 
 <figure class="plan">
@@ -104,16 +104,16 @@ $ zfs send -R -v tank/sage/jodo/kanyo@palana-20260716-101530 | ssh koan 'zfs rec
   runs only after the copy above is verified: $ zfs destroy -r tank/sage/jodo/kanyo</pre>
   </div>
   <figcaption>Snapshot first—send needs a stable point. Then one pipe, host
-  to host. The cleanup and the source removal wait behind the gate.</figcaption>
+  to host. The cleanup and source removal run only after verification.</figcaption>
 </figure>
 
 <p>The <code>-R</code> carries the dataset's children and their snapshots.
 The <code>-v</code> is the
-progress bar—send's own cadence, parsed. The <code>receive -u</code> lands
+progress bar—send's own progress output, parsed. The <code>receive -u</code> lands
 the dataset <em>unmounted</em>, deliberately: on Linux, mounting belongs to
 root even when the dataset's verbs are delegated, and a bare receive would
-land the data and then fail the mount—an exit code that lies about a
-transfer that worked. And the verification behind the gate is shaped for
+land the data, fail the mount, and report failure for a transfer whose
+data landed. And the verification behind the gate is shaped for
 datasets: not file counts, but the destination answering that
 <code>rpool/sage/koan/kanyo</code> now exists.</p>
 </section>
@@ -123,7 +123,7 @@ datasets: not file counts, but the destination answering that
 
 <p>pālana never asks for root it doesn't name. The dataset verbs run under
 your own delegation—<code>zfs allow</code> on the datasets you manage. The one
-seam is mounting: on Linux it is root's alone, regardless of delegation. So
+exception is mounting: on Linux it is root's alone, regardless of delegation. So
 <kbd>m</kbd> mount and <kbd>u</kbd> unmount compose with the escalation
 visible in the plan—<code>sudo -n zfs mount rpool/sage/koan/cold</code> —
 and require passwordless sudo for exactly those two commands. Without the

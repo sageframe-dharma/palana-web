@@ -13,13 +13,12 @@ state lives.</p>
 <section>
 <h2 id="two-halves">A headless core, a thin surface<a class="hlink" href="#two-halves">#</a></h2>
 
-<p><strong>PalanaCore</strong> is a headless Swift library that owns everything
-true—the topology, directory reads, plan engine, and transports—and
+<p><strong>PalanaCore</strong> is a headless Swift library that owns the
+topology, directory reads, plan engine, and transports—and
 carries a 90% test-coverage floor. <strong>Palana</strong>, the app you see, is
 a thin surface over it: it renders state, forwards intent, and decides nothing.
 It never composes a shell command, never classifies an operation, never touches
-a host. If the app disappeared tomorrow, everything pālana knows and everything
-pālana can do would still be sitting in the core, fully tested.</p>
+a host.</p>
 
 <svg class="diagram" viewBox="0 0 520 310" role="img" aria-label="The Surface sits on PalanaCore; inside the core, the Field, Listing, Plan Engine and Transports all pass through the Conduit, the single door to the hosts.">
   <rect x="60" y="16" width="400" height="46" rx="6" style="fill: var(--ground-deep); stroke: var(--hairline);"/>
@@ -77,13 +76,12 @@ demand and remembered. <strong>The Listing</strong> reads directories, one
 command per read; it never writes. <strong>The plan engine</strong> is a pure
 function from gathered facts to a <a href="/the-plan/">Plan</a>—no I/O of its
 own, so its classifications and commands are directly testable. <strong>The Transports</strong>
-run exactly the commands the plan composed—no improvisation between your
-Enter and the wire—and own the verification that gates the dangerous
+run exactly the commands the plan composed and own the verification that gates the dangerous
 steps.</p>
 
 <p><strong>The Workbench</strong> is the fifth piece: a plugin API that hands a
 tool the Conduit, the Field, and a surface slot—and never the core's
-internals. The ZFS tool is its first, shipped proof.</p>
+internals. The ZFS tool is its first.</p>
 </section>
 
 <section>

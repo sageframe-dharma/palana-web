@@ -188,7 +188,7 @@ the counting is two visible commands, not a spinner. Why plans work this way:
 <section class="help-section" id="other-verbs">
 <h2>Delete, rename, create<a class="hlink" href="#other-verbs">#</a></h2>
 
-<p>Same rhythm, different letters—every one shows its plan first.</p>
+<p>Each of these opens its plan first.</p>
 
 <p><kbd>d</kbd> <strong>deletes</strong> the selection—the plan shows the
 exact <code>rm</code> before Enter releases it. <kbd>r</kbd>
@@ -230,9 +230,8 @@ theirs.</p>
 <h2>Preview &amp; the shell<a class="hlink" href="#preview-shell">#</a></h2>
 
 <p><kbd>v</kbd> turns the right pane into a preview that follows your cursor
-in the left—text files, images, PDFs. Remote text is fetched frugally (a
-bounded read, not the whole file); remote binaries stay a facts card instead
-of a surprise download.</p>
+in the left—text files, images, PDFs. Remote text is fetched with a bounded
+read; remote binaries show an info card instead of downloading.</p>
 
 <p><kbd>⌘`</kbd> opens a real terminal on the focused host, right under your
 panes—your actual ssh, one live session per host, kept warm. The footer
@@ -323,7 +322,7 @@ runs is what the engine planned, byte for byte.</p>
 probe proved it; a tar stream when one end lacks rsync; <code>zfs send -R
 … | zfs receive -u</code> for whole datasets (the <code>-u</code> is
 deliberate—mounting is root's on Linux, and a receive that auto-mounts
-returns an exit code that lies). Deletes gate on verification:
+reports failure even though the data landed). Deletes gate on verification:
 <code>find | wc -l</code> on both ends, or dataset existence for receives,
 before anything destructive runs.</p>
 

@@ -58,7 +58,7 @@ standing where your files will land is named in the plan, in rust:</p>
 and the plan tells you how much of it there is. <code>will merge into
 archive-2025</code>—a directory of that name exists; the copy folds into it.
 <code>won't work—backup is a file here and a folder there</code>—a kind
-clash the transfer cannot survive, named before you waste the bytes. And when
+clash the transfer cannot survive, named before the transfer starts. And when
 the destination can't be read at all: <code>couldn't check the destination —
 this may overwrite files there</code>. The plan never claims more certainty
 than it has.</p>
@@ -97,7 +97,7 @@ The full route vocabulary is on
 <p>The dangerous half of a cross-host move—deleting the source—is gated:
 it appears in the plan marked <code>runs only after the copy above is
 verified</code>, and the verification is two visible count commands, one per
-host. <a href="/the-plan/#the-echo">Watch the gate open →</a></p>
+host. <a href="/the-plan/#the-echo">See the verification run →</a></p>
 
 <p>When both ends are whole ZFS datasets, the plan offers
 <code>zfs send | ssh | zfs receive</code>, a block-level transfer that is often
