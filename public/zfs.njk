@@ -30,8 +30,8 @@ every time.</p>
 same pane, same cursor keys, different subject. The header shows a
 <code>ZFS</code> chip so you always know which language the pane is speaking.
 Mounted datasets are solid; unmounted or legacy ones render dimmed with their
-state named—<code>· unmounted</code>, <code>legacy</code>—because grey is
-a fact, not a place. <kbd>⏎</kbd> on a mounted dataset drops you back into
+state named—<code>· unmounted</code>, <code>legacy</code>. A dimmed dataset
+can't be entered until it's mounted. <kbd>⏎</kbd> on a mounted dataset drops you back into
 files at its mountpoint. <kbd>esc</kbd> or <kbd>Z</kbd> leaves the tree.</p>
 
 <p>Entry is straightforward, too: a pane pointed at this Mac gets
@@ -131,7 +131,7 @@ grant, the refusal includes the reason and an exact sudoers line for the host.
 The full explanation—why it is passwordless and optional—is on one page:
 <a href="/sudo/">the mount grant</a>.</p>
 
-<p>The same seam is woven, visibly, wherever ZFS would mount implicitly: a
+<p>The same rule applies wherever ZFS would mount implicitly: a
 mounted dataset being destroyed or re-mountpointed gets a <code>sudo -n zfs
 unmount</code> step ahead of the change—in the plan, where you can read it,
 never improvised at run time.</p>

@@ -6,8 +6,8 @@ description: "Why pālana composes a readable plan—classification, transport, 
 
 <h1>The plan is the product</h1>
 
-<p class="lede">Every file manager acts. pālana shows its work first—and the
-work it shows is, to the letter, the work it does.</p>
+<p class="lede">Unlike other file managers, pālana shows the underlying
+commands before it runs them.</p>
 
 <section>
 <h2 id="why">What other file managers hide<a class="hlink" href="#why">#</a></h2>
@@ -23,11 +23,9 @@ datasets, a "rename" across datasets is a full copy followed by a delete.
 Tools that flatten this into a rename can conceal substantial work until after
 it has started.</p>
 
-<p>pālana's answer is to change what happens, not how it looks. Between your keystroke and any
-mutation stands a plan: a readable statement of what will run, composed from
+<p>Between your keystroke and any mutation stands a plan: a readable statement of what will run, composed from
 probed facts, shown whole. Nothing mutates while a plan is on screen. Enter
-enacts it. Esc dismisses it, and nothing has happened. Dry-run is the default state of
-every operation, not a mode you turn on.</p>
+enacts it. Esc dismisses it, and nothing has happened. Dry-run is the default state.</p>
 </section>
 
 <section>
@@ -49,8 +47,7 @@ every operation, not a mode you turn on.</p>
 $ rsync -a -s --partial --info=progress2 /tank/media/camera/archive-2025 koan:/rpool/cold/
   runs only after the copy above is verified: $ rm -rf /tank/media/camera/archive-2025</pre>
   </div>
-  <figcaption>A move, planned. Six facts, top to bottom—each one read from
-  the hosts, none of them decoration.</figcaption>
+  <figcaption>A move, planned. Six facts, each read from the hosts.</figcaption>
 </figure>
 
 <p><strong>What you asked, and what it actually is.</strong> The first line
@@ -77,8 +74,7 @@ authentication path. More on this <a href="#transport">below</a>.</p>
 
 <p><strong>The commands.</strong> Every step that will run, verbatim, with its
 gate stated inline. The delete—the dangerous half of a move—is declared
-<em>gated</em>: it does not run until the copy is verified. The gate is a line in the plan, not a promise in the
-documentation.</p>
+<em>gated</em>: it does not run until the copy is verified.</p>
 </section>
 
 <section>
@@ -207,8 +203,7 @@ output streaming under them.</p>
 
 <p>The transfer finishes. Then the verification runs —
 not a spinner, two more commands you can read, counting what landed against
-what left. Only when the counts match does the gated delete run. If they
-didn't match, it wouldn't. (Mid-run, <kbd>⌃c</kbd> cancels; a plan that hasn't
+what left. Only when the counts match does the gated delete run. (Mid-run, <kbd>⌃c</kbd> cancels; a plan that hasn't
 been enacted is dismissed with <kbd>esc</kbd> and costs nothing.)</p>
 
 <p>The interface claims "these are the

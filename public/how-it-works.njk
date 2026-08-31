@@ -45,10 +45,9 @@ pālana can do would still be sitting in the core, fully tested.</p>
   <text x="260" y="298" text-anchor="middle" class="d-faint" font-size="11">ssh—your config, your keys, your agent</text>
 </svg>
 
-<p>Two lines in that picture carry most of the architecture. The boundary
-between surface and core is the only thing the app can see across. The Conduit
-is the only door to the hosts. Both exist for the same reason: a boundary you
-can point at is a boundary you can test.</p>
+<p>The boundary between surface and core is the only interface the app can
+see across. The Conduit is the only path to the hosts. Both boundaries are
+explicit so they can be tested.</p>
 </section>
 
 <section>
@@ -77,8 +76,7 @@ per-host facts—reachability, ZFS topology, userland flavor—discovered on
 demand and remembered. <strong>The Listing</strong> reads directories, one
 command per read; it never writes. <strong>The plan engine</strong> is a pure
 function from gathered facts to a <a href="/the-plan/">Plan</a>—no I/O of its
-own, which makes it the most testable object in the system, and it had better
-be, because it is the part that must never lie. <strong>The Transports</strong>
+own, so its classifications and commands are directly testable. <strong>The Transports</strong>
 run exactly the commands the plan composed—no improvisation between your
 Enter and the wire—and own the verification that gates the dangerous
 steps.</p>
