@@ -26,8 +26,8 @@ it has started.</p>
 <p>pālana's answer is to change what happens, not how it looks. Between your keystroke and any
 mutation stands a plan: a readable statement of what will run, composed from
 probed facts, shown whole. Nothing mutates while a plan is on screen. Enter
-enacts it. Esc dismisses it, and nothing has happened. Dry-run is not a mode
-you remember to turn on. It is the default state of every operation.</p>
+enacts it. Esc dismisses it, and nothing has happened. Dry-run is the default state of
+every operation, not a mode you turn on.</p>
 </section>
 
 <section>
@@ -77,9 +77,8 @@ authentication path. More on this <a href="#transport">below</a>.</p>
 
 <p><strong>The commands.</strong> Every step that will run, verbatim, with its
 gate stated inline. The delete—the dangerous half of a move—is declared
-<em>gated</em>: it does not run until the copy is verified. The gate isn't a
-comforting sentence in documentation. It's a property of the plan you're
-reading.</p>
+<em>gated</em>: it does not run until the copy is verified. The gate is a line in the plan, not a promise in the
+documentation.</p>
 </section>
 
 <section>
@@ -135,14 +134,14 @@ host-to-host, the delete gated on verification.</p>
 <p>Same keystroke, three shapes. The classification isn't guessed from paths —
 it's computed from dataset boundaries the Field actually probed. Different
 facts in, different plan out: the moment
-an operation stops being what it looks like is exactly the moment you most need
+an operation stops being what it looks like is the moment you most need
 to be told.</p>
 </section>
 
 <section>
 <h2 id="transport">The transport is named<a class="hlink" href="#transport">#</a></h2>
 
-<p>A plan doesn't just say <em>what</em>. It says <em>how</em>—which tool
+<p>A plan also says <em>how</em>: which tool
 moves the bytes, which machine runs it, and who authenticates to whom.</p>
 
 <svg class="diagram" viewBox="0 0 520 210" role="img" aria-label="Your Mac sends the command to jodo; the bytes travel from jodo directly to koan.">
@@ -212,7 +211,7 @@ what left. Only when the counts match does the gated delete run. If they
 didn't match, it wouldn't. (Mid-run, <kbd>⌃c</kbd> cancels; a plan that hasn't
 been enacted is dismissed with <kbd>esc</kbd> and costs nothing.)</p>
 
-<p>That is the whole trust story: the interface claims "these are the
+<p>The interface claims "these are the
 commands," and the claim is checkable by watching them run.</p>
 </section>
 
@@ -232,9 +231,6 @@ the plan can quote reality instead of approximating it.</p>
 <p><strong>The plan engine is a pure function.</strong> Facts in, plan out; it
 performs no I/O itself. That makes its classifications and commands directly
 testable.</p>
-
-<p>Read the plan, then press Enter. Every step is shown before it runs and its
-output appears in the same panel.</p>
 
 <p><a href="/#download">Try the beta →</a></p>
 </section>

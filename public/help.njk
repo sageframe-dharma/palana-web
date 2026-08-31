@@ -105,7 +105,7 @@ and writes them. If you don't have an SSH key yet, it shows you the two
 commands that make one and install it. It never runs them for you; your keys
 stay yours.</p>
 
-<p>Two things worth knowing on day one:</p>
+<p>Two things to keep in mind:</p>
 
 <p><strong><code>local</code> is a host.</strong> Point a pane at
 <code>local:~</code> and pālana is a regular file manager for your Mac —
@@ -178,10 +178,10 @@ Your Mac issues the command; it is not in the byte path. For a 41&nbsp;GB
 folder, that can be the difference between minutes and an afternoon.</p>
 </div>
 
-<p>Notice the last line of the plan too: on a move, the delete half is
+<p>The plan's last line, on a move: the delete half is
 <em>gated</em>. pālana copies, then counts files on both ends, and only
 deletes the originals when the counts agree. You watch all of it happen —
-the counting is two visible commands, not a spinner. If you're interested in why plans work this way, read
+the counting is two visible commands, not a spinner. Why plans work this way:
 <a href="/the-plan/">the plan is the product</a>.</p>
 </section>
 
@@ -219,8 +219,7 @@ upload, the Desktop.</p>
 <p>Press <kbd>⏎</kbd> on a config file sitting on a server, and it opens in
 whatever app you'd normally use. pālana notes, in one line, that it's
 watching: save the file, and it offers to send your edit back to the server —
-as a plan, naturally. Prefer zero friction? Flip one setting and save just
-means save: edits go back on their own.</p>
+as a plan. One setting makes save just save: edits go back on their own.</p>
 
 <p>The exception that never changes: if the file changed on the server while
 you were editing, pālana always stops and asks before your version overwrites
@@ -272,9 +271,9 @@ copy, and says so in the plan.</p>
 cover the lifecycle—<kbd>c</kbd> create, <kbd>n</kbd> snapshot,
 <kbd>b</kbd> roll back, <kbd>x</kbd> destroy, mountpoints, mount/unmount —
 and every one composes a plan you read first. Destroy asks you to type the
-word. The pool root is off limits, period. And when you move a <em>whole
+word. The pool root is off limits. And when you move a <em>whole
 dataset</em> between ZFS machines, the plan upgrades itself to
-<code>zfs send | ssh | zfs receive</code>—block-level, dramatically faster
+<code>zfs send | ssh | zfs receive</code>—block-level, much faster
 than file-by-file.</p>
 
 <p>Two pointers: <a href="/zfs/">the full ZFS page</a> for the details, and
@@ -311,8 +310,7 @@ they run.</p>
 spawns the system <code>ssh</code> binary, so your config, keys, agent,
 <code>ProxyJump</code>, everything, behave exactly as in your terminal—and
 holds one ControlMaster session per host, so after the first connection,
-commands run with near-zero overhead. Remote browsing uses the same SSH
-configuration, keys, and agent as your terminal.</p>
+commands run with near-zero overhead.</p>
 
 <p><strong>The plan engine is a pure function.</strong> Facts in, plan out,
 no I/O—which makes it the most tested object in the codebase (the headless
