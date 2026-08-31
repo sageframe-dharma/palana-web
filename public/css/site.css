@@ -931,19 +931,22 @@ main.wide { max-width: 72rem; }
   z-index: 2;
 }
 
-/* the body fades; the leaf never does—solid green even over the window */
-.hero-watermark .wm-body { color: color-mix(in srgb, var(--ink) 34%, var(--ground)); opacity: 0.32; }
-.hero-watermark .wm-leaf { fill: var(--accent); }
+/* the body fades; the leaf never does—solid green even over the window.
+   Leaf, stalk, and veins redrawn by hand in Illustrator (assets/watermark.svg
+   is the editable source); greens are theme mixes matching that drawing. */
+.hero-watermark .wm-body { color: color-mix(in srgb, var(--ink) 34%, var(--ground)); opacity: 0.3; }
+.hero-watermark .wm-leaf { fill: color-mix(in srgb, var(--accent) 92%, var(--ground)); }
 
-.hero-watermark .wm-vein {
+.hero-watermark .wm-veins line {
   stroke: var(--ground);
-  stroke-width: 2.2;
+  stroke-width: 1;
   stroke-linecap: round;
-  opacity: 0.55;
+  opacity: 0.6;
+  fill: none;
 }
 
 .hero-watermark .wm-stalk {
-  stroke: color-mix(in srgb, var(--accent) 85%, var(--ground));
+  stroke: color-mix(in srgb, var(--accent) 92%, var(--ground));
   stroke-width: 6.5;
   stroke-linecap: round;
 }
