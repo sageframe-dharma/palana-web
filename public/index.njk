@@ -1,32 +1,35 @@
 ---
 layout: base.njk
 wide: true
-title: pālana—the SSH file manager for people with servers
-description: "All your servers, side by side, in a keyboard-first Mac file manager—and nothing runs until you've read the exact command. Free, open source, ZFS native."
+title: pālana—two panes over ssh, your tools underneath
+description: "A native Mac file manager that drives your own ssh, rsync, and zfs across every host in ~/.ssh/config. Vim keys, a real shell under the panes, and the exact command on screen before it runs. Free, GPL-3.0."
 ---
 
 <div class="bleed hero-scene">
 <div class="bleed-inner">
 <section class="hero">
   <div class="hero-text">
-    <p class="eyebrow">A native Mac file manager for SSH hosts</p>
-    <h1>All your servers, side&nbsp;by&nbsp;side. <span class="serif">Nothing runs until you've read it.</span></h1>
-    <p class="hero-sub">pālana puts every machine you can ssh into beside
-    your local files. Browse, copy, and manage files from a keyboard-first
-    dual-pane window that shows the exact command before it runs. When two
-    servers can talk directly, the bytes stay off your Mac. Where a host runs
-    ZFS, pālana speaks it natively—where none does, you'll never see it.</p>
+    <p class="eyebrow">A native Mac file manager for people with servers</p>
+    <h1>Two panes over ssh. <span class="serif">Your tools underneath.</span></h1>
+    <p class="hero-sub">pālana points either pane at any host in your
+    <code>~/.ssh/config</code>—or at your Mac—and drives the tools the
+    servers already have. Browse, copy, and move with vim keys. A real shell
+    on the focused host sits under the panes; <kbd>⌘`</kbd> hands it the
+    keyboard and hands it back. Every command pālana composes is on screen
+    before it runs, and every one of them pastes into a terminal. Where a
+    host runs ZFS, datasets, snapshots, and send/receive are one key
+    away.</p>
     <p class="hero-tagline">Terminal tools. A readable interface.</p>
     <div class="btn-row">
       <a class="btn" href="https://github.com/sageframe-no-kaji/palana/releases/latest">Download the beta</a>
       <a class="btn btn-quiet" href="/help/">Read the docs →</a>
     </div>
     <p class="hero-note">macOS 14+ · free &amp; open source, GPL-3.0 · signed
-    &amp; notarized · your servers need nothing new</p>
+    &amp; notarized · nothing to install on your servers</p>
     <div class="hero-badges">
-      <div class="hero-badge"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M8 14h8"/></svg></span>Keyboard-first</div>
-      <div class="hero-badge"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="m9 15 2 2 4-4"/></svg></span>Shows the plan</div>
-      <div class="hero-badge"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3 4 7l4 4"/><path d="M4 7h16"/><path d="m16 21 4-4-4-4"/><path d="M20 17H4"/></svg></span>Server-side, no round trip</div>
+      <div class="hero-badge"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M8 14h8"/></svg></span>Vim keys</div>
+      <div class="hero-badge"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3 4 7l4 4"/><path d="M4 7h16"/><path d="m16 21 4-4-4-4"/><path d="M20 17H4"/></svg></span>Your ssh, verbatim</div>
+      <div class="hero-badge"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m6 9 3 3-3 3"/><path d="M12 15h6"/></svg></span>Shell under the panes</div>
       <div class="hero-badge"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg></span>ZFS native</div>
     </div>
   </div>
@@ -96,7 +99,7 @@ $ rsync -a -s --partial --info=progress2 …</pre>
       </div>
     </div>
     </div>
-    <p class="mock-note">Drawn to scale, not a screenshot—<a href="/start/#the-window">every area, labeled →</a></p>
+    <p class="mock-note"><a href="/start/#the-window">A drawn window, every area labeled →</a></p>
   </div>
 </section>
 </div>
@@ -133,22 +136,96 @@ $ rsync -a -s --partial --info=progress2 …</pre>
 </div>
 
 <div class="sec-head">
-  <p class="eyebrow">The central rule</p>
-  <h2>See the operation before it changes anything.</h2>
-  <p>pālana builds a plan first: the operation, the transfer route, and the
-  commands it will run. It waits for Enter. Everything else follows from
-  that constraint.</p>
+  <p class="eyebrow">The shape</p>
+  <h2>A file manager that runs your ssh.</h2>
+  <p>pālana has no connection stack of its own. It spawns the system
+  <code>ssh</code> binary, so your config, keys, agent, and
+  <code>ProxyJump</code> behave exactly as they do in your terminal, and it
+  holds one ControlMaster session per host so everything after the first
+  connection runs with near-zero overhead. Hosts come from
+  <code>~/.ssh/config</code>: if <code>ssh koan</code> lands you on koan,
+  koan is already in the menu. Transfers are <code>rsync -a -s --partial
+  --info=progress2</code>, a tar stream when one end lacks rsync, and
+  <code>zfs send | zfs receive</code> for whole datasets. Nothing goes on
+  the servers.</p>
 </div>
 
 <div class="frow">
   <div class="frow-text">
-    <h3>See the command. Then run it.</h3>
-    <p>Press <kbd>m</kbd> and nothing moves. The plan opens. A move across
-    ZFS datasets is a copy followed by a verified delete, not a rename.
-    pālana states that before it runs, shows the command, and keeps the
-    delete gated until the copy checks out.</p>
-    <p>Press <kbd>⏎</kbd> to run it. Press <kbd>esc</kbd> to leave it alone.
+    <h3>The shell is one key away.</h3>
+    <p><kbd>⌘`</kbd> opens your actual ssh on the focused host in the panel
+    under the panes—one warm session per machine. The footer shows who has
+    the keyboard; <kbd>⌘`</kbd> gives it back. Do the tedious part by hand,
+    then return to the panes. For a quick question without a shell,
+    <kbd>⇧tab</kbd> arms four read keys: <kbd>d</kbd> <kbd>z</kbd>
+    <kbd>s</kbd> <kbd>p</kbd> drop <code>df</code>, <code>zfs list</code>,
+    <code>zpool status</code>, and <code>zpool list</code> into the
+    panel.</p>
+  </div>
+  <div class="frow-visual">
+    <figure class="plan">
+      <div class="plan-panel">
+        <div class="pp-head">
+          <span class="pp-phase">shell · jodo</span>
+          <span class="pp-enter">⌘` hands the keyboard back</span>
+        </div>
+        <pre class="pp-body">tyro@jodo:/tank/media/camera$ zfs list -o name,used,avail -r tank/media
+NAME                 USED  AVAIL
+tank/media          79.4G  1.21T
+tank/media/camera   79.4G  1.21T
+tyro@jodo:/tank/media/camera$ █</pre>
+      </div>
+      <figcaption>shell has the keyboard · ⌘` returns it to the panes</figcaption>
+    </figure>
+  </div>
+</div>
+
+<div class="frow rev">
+  <div class="frow-text">
+    <h3>Every plan is a command you could have typed.</h3>
+    <p>Press <kbd>y</kbd> or <kbd>m</kbd> and the panel shows what will run,
+    on which host, by which route. <kbd>⏎</kbd> runs it with live output.
+    <kbd>esc</kbd> closes it. Or select the command line and paste it into
+    the shell below, or into a terminal on another machine, or into your
+    notes. pālana uses the same <code>ssh</code> and <code>rsync</code> you
+    do, so the command works anywhere you can reach the host.
     <a href="/the-plan/">Read the plan model →</a></p>
+  </div>
+  <div class="frow-visual">
+    <figure class="plan">
+      <div class="plan-panel">
+        <div class="pp-head">
+          <span class="pp-phase">move · the plan</span>
+          <span class="pp-enter">⏎ enter runs</span>
+        </div>
+        <pre class="pp-body"><strong>move · move to another machine</strong>
+<span class="faint">1 entry · 41.3 GB</span>
+<span class="faint">jodo:/tank/media/camera → koan:/rpool/cold</span>
+<span class="faint">how: rsync, run host-to-host · using the forwarded ssh key</span>
+
+$ rsync -a -s --partial --info=progress2 /tank/media/camera/archive-2025 koan:/rpool/cold/
+  runs only after the copy above is verified: $ rm -rf /tank/media/camera/archive-2025</pre>
+      </div>
+    </figure>
+  </div>
+</div>
+
+<div class="sec-head">
+  <p class="eyebrow">The plan</p>
+  <h2>The command is on screen before it runs.</h2>
+</div>
+
+<div class="frow">
+  <div class="frow-text">
+    <p>Press <kbd>m</kbd> and nothing moves. The panel opens with the
+    operation, the route, and the exact command. A move across dataset
+    boundaries is a copy followed by a verified delete; the plan says so,
+    and the <code>rm</code> line waits until <code>find | wc -l</code>
+    agrees on both ends—two commands you watch run. <kbd>⏎</kbd> runs the
+    plan. <kbd>esc</kbd> leaves it alone.</p>
+    <p>If you already know rsync, the plan is a receipt. If you are
+    learning, it is a worked example on your own hosts and paths, ready to
+    copy. <a href="/the-plan/">Read the plan model →</a></p>
   </div>
   <div class="frow-visual">
     <figure class="plan">
@@ -170,15 +247,57 @@ $ rsync -a -s --partial --info=progress2 /tank/media/camera/archive-2025 /rust/a
   </div>
 </div>
 
+<div class="sec-head">
+  <p class="eyebrow">ZFS</p>
+  <h2>Datasets, snapshots, and send/receive as file-manager verbs.</h2>
+</div>
+
 <div class="frow rev">
   <div class="frow-text">
-    <h3>Your Mac starts the job. The servers move the data.</h3>
-    <p>For a copy between two servers, pālana forwards your SSH agent so
-    jodo authenticates to koan directly. Your key stays on your Mac. The
-    41&nbsp;GB moves host to host instead of across your Wi-Fi twice.</p>
-    <p>If a route must pass through your Mac—because it is one end, or as
-    a fallback—the plan's <code>how:</code> line says so. pālana picks the
-    transport; the plan shows which one it picked.
+    <p>A filled drive mark on a folder is a dataset mountpoint, so pālana
+    knows whether a move is a rename or a 41&nbsp;GB copy and says which in
+    the plan. Press <kbd>Z</kbd> and the pane becomes the host's dataset
+    tree: create, snapshot, roll back, destroy, mount, unmount, set the
+    mountpoint. Move a whole dataset between two ZFS machines and the plan
+    upgrades itself to <code>zfs snapshot</code>, then <code>zfs send -R |
+    ssh | zfs receive -u</code>—block-level, host to host, cleanup after
+    the receive is verified. Destroy asks you to type the word. The pool
+    root is off limits. Hosts without ZFS get everything else.
+    <a href="/zfs/">ZFS, natively →</a></p>
+  </div>
+  <div class="frow-visual">
+    <figure class="plan">
+      <div class="plan-panel">
+        <div class="pp-head">
+          <span class="pp-phase">move · the plan</span>
+          <span class="pp-enter">⏎ enter runs</span>
+        </div>
+        <pre class="pp-body"><strong>move · move to another machine</strong>
+<span class="faint">how: zfs send/receive, run host-to-host · using the forwarded ssh key</span>
+
+$ zfs snapshot -r tank/sage/jodo/kanyo@palana-20260716-101530
+$ zfs send -R -v tank/sage/jodo/kanyo@palana-20260716-101530 | ssh koan 'zfs receive -u rpool/sage/koan/kanyo'
+  runs only after the copy above is verified: $ zfs destroy -r rpool/sage/koan/kanyo@palana-20260716-101530
+  runs only after the copy above is verified: $ zfs destroy -r tank/sage/jodo/kanyo</pre>
+      </div>
+      <figcaption>A snapshot, one stream, and cleanup after verification.</figcaption>
+    </figure>
+  </div>
+</div>
+
+<div class="sec-head">
+  <p class="eyebrow">Routing</p>
+  <h2>Your Mac gives the order. The servers move the bytes.</h2>
+</div>
+
+<div class="frow">
+  <div class="frow-text">
+    <p>For a copy between two servers, pālana forwards your agent so jodo
+    authenticates to koan directly. Your key stays on your Mac. The
+    41&nbsp;GB goes host to host instead of across your Wi-Fi twice. The
+    plan's <code>how:</code> line names the route it chose—host to host,
+    through your Mac because your Mac is one end, or through your Mac as
+    the fallback—and the transport it picked.
     <a href="/moving-files/#cross-host">Cross-host moves →</a></p>
   </div>
   <div class="frow-visual">
@@ -199,47 +318,20 @@ $ rsync -a -s --partial --info=progress2 /tank/media/camera/archive-2025 /rust/a
   </div>
 </div>
 
-<div class="frow">
-  <div class="frow-text">
-    <h3>Dataset boundaries are visible.</h3>
-    <p>pālana marks dataset boundaries in the pane and changes the plan when
-    you cross one. Press <kbd>Z</kbd> for the host's dataset tree: create,
-    snapshot, roll back, and destroy. Every action opens a plan first.
-    Destruction also requires you to type the word.</p>
-    <p>Moving a whole dataset between ZFS machines uses
-    <code>zfs send | ssh | zfs receive</code> when it can—block-level and
-    typically much faster than a file-by-file transfer. ZFS is an addition,
-    not a requirement—hosts without it get everything else unchanged.
-    <a href="/zfs/">ZFS, natively →</a></p>
-  </div>
-  <div class="frow-visual">
-    <figure class="plan">
-      <div class="plan-panel">
-        <div class="pp-head">
-          <span class="pp-phase">move · the plan</span>
-          <span class="pp-enter">⏎ enter runs</span>
-        </div>
-        <pre class="pp-body"><strong>move · move to another machine</strong>
-<span class="faint">how: zfs send/receive, run host-to-host · using the forwarded ssh key</span>
-
-$ zfs snapshot -r tank/sage/jodo/kanyo@palana-20260716-101530
-$ zfs send -R -v tank/sage/jodo/kanyo@palana-20260716-101530 | ssh koan 'zfs receive -u rpool/sage/koan/kanyo'
-  runs only after the copy above is verified: $ zfs destroy -r rpool/sage/koan/kanyo@palana-20260716-101530
-  runs only after the copy above is verified: $ zfs destroy -r tank/sage/jodo/kanyo</pre>
-      </div>
-      <figcaption>A snapshot, one stream, and cleanup only after verification.</figcaption>
-    </figure>
-  </div>
+<div class="sec-head">
+  <p class="eyebrow">The field</p>
+  <h2>Every host, its pools, and when you last looked.</h2>
 </div>
 
 <div class="frow rev">
   <div class="frow-text">
-    <h3>All your hosts. One key.</h3>
-    <p>Press <kbd>f</kbd> for your hosts, pools, datasets, capabilities, and
-    the date each host was last probed. <kbd>r</kbd> probes a host again in
-    place. <kbd>⏎</kbd> points a pane at it and closes the view.</p>
-    <p><kbd>F</kbd> opens the full map—every mount on every machine—for a
-    second display. <a href="/field/">See the field →</a></p>
+    <p>Press <kbd>f</kbd> for your hosts, their pools and datasets, what
+    each can do—<code>zfs</code>, <code>rsync</code>, sudo—and the date
+    each was last probed. <kbd>r</kbd> probes a host again in place.
+    <kbd>⏎</kbd> points a pane at it. <kbd>F</kbd> opens the full map,
+    every mount on every machine, for a second display. pālana records what
+    it found and when; it refreshes only when you ask.
+    <a href="/field/">See the field →</a></p>
   </div>
   <div class="frow-visual">
     <div class="fieldmock" role="img" aria-label="The field view: hosts with reachability verdicts, capability tokens, and datasets.">
@@ -266,7 +358,7 @@ $ zfs send -R -v tank/sage/jodo/kanyo@palana-20260716-101530 | ssh koan 'zfs rec
   <div class="bleed-inner">
     <h2>A small key grammar.</h2>
     <p>Arrows work. So do the vim keys. Six lowercase verbs, a few prefixes,
-    and a consistent set of rules make the rest of the keyboard learnable.</p>
+    and consistent rules cover the rest of the keyboard.</p>
     <div class="keys-row">
       <span><kbd>j</kbd> <kbd>k</kbd> <kbd>h</kbd> <kbd>l</kbd> move</span>
       <span><kbd>y</kbd> copy</span>
@@ -285,28 +377,27 @@ $ zfs send -R -v tank/sage/jodo/kanyo@palana-20260716-101530 | ssh koan 'zfs rec
 </div>
 
 <div class="cards">
-  <div class="card"><span class="tag">⌥ drop</span><h3>Drag and drop, with a plan</h3><p>Between panes, from Finder, or into folder rows. A drop builds a plan like any other verb. Hold ⌥ to make it a move.</p></div>
-  <div class="card"><span class="tag">⏎ save</span><h3>Edit remote files in your own editor</h3><p>Open a server's config in your Mac app; saving offers to send it back. If the file changed remotely, it always asks first.</p></div>
-  <div class="card"><span class="tag">v</span><h3>Preview follows selection</h3><p>The right pane tracks the cursor in the left: text, images, and PDFs. Remote reads stay small.</p></div>
-  <div class="card"><span class="tag">⌘`</span><h3>Your shell, per host</h3><p>Your actual ssh runs in the bottom panel: one warm session per machine, with keyboard handover shown.</p></div>
-  <div class="card"><span class="tag">*</span><h3>Favorites, local or global</h3><p>Favorites belong to a host by default. Promote one to global and it appears in every host menu.</p></div>
+  <div class="card"><span class="tag">⌥ drop</span><h3>Drag and drop, with a plan</h3><p>Between panes, from Finder, or onto a folder row. A drop composes a plan like any verb. Hold ⌥ to make it a move.</p></div>
+  <div class="card"><span class="tag">⏎ save</span><h3>Edit remote files in your own editor</h3><p>Open a server's config in your Mac app; saving offers to send it back. If the file changed remotely, it asks first.</p></div>
+  <div class="card"><span class="tag">v</span><h3>Preview follows selection</h3><p>The right pane tracks the cursor in the left: text, images, PDFs. Remote reads are bounded.</p></div>
+  <div class="card"><span class="tag">*</span><h3>Favorites, per host or global</h3><p>Favorites belong to a host by default. Promote one to global and it appears in every host menu.</p></div>
   <div class="card"><span class="tag">⌘,</span><h3>Add hosts without editing config</h3><p>The form shows the exact block it will write to ~/.ssh/config, after backing the file up.</p></div>
-  <div class="card"><span class="tag">⌘+ ⌘−</span><h3>One master zoom</h3><p>The whole surface scales together, 0.8× to 1.6×. Light and dark, both warm, matching the app.</p></div>
+  <div class="card"><span class="tag">⌘+ ⌘−</span><h3>One master zoom</h3><p>The whole surface scales together, 0.8× to 1.6×. Light and dark, both warm.</p></div>
   <div class="card"><span class="tag">⇧⌘L</span><h3>A plain-text log</h3><p>Every executed operation appends to a plain-text file in Application Support you can grep.</p></div>
-  <div class="card"><span class="tag">esc</span><h3>Errors that explain the fix</h3><p>When something cannot happen, pālana states the reason and usually puts the fix beside it.</p></div>
+  <div class="card"><span class="tag">esc</span><h3>Errors that name the fix</h3><p>When something cannot happen, pālana states the reason and usually puts the fix beside it.</p></div>
 </div>
 
 <div class="bleed darkband">
   <div class="bleed-inner">
     <h2>No background process.</h2>
     <p>pālana runs when you open it and stops when you close it. No daemon,
-    no launch agent, no polling, no telemetry—there is no component that
+    no launch agent, no polling, no telemetry. There is no component that
     <em>could</em> outlive the window.</p>
     <div class="grid">
-      <p><strong class="accent">Dry-run by default.</strong> A plan on screen changes nothing. Enter runs it. Esc does not.</p>
-      <p><strong class="accent">Deletion follows verification.</strong> The destructive half of a move runs only after visible count checks agree on both ends.</p>
-      <p><strong class="accent">Commands remain portable.</strong> Every command works from your terminal because pālana uses your own ssh underneath.</p>
-      <p><strong class="accent">No polling.</strong> The field map records what pālana found and when. It refreshes only when you ask.</p>
+      <p><strong class="accent">Your ssh, verbatim.</strong> No embedded SSH stack. The system binary, your config, your keys.</p>
+      <p><strong class="accent">The command, verbatim.</strong> What the plan shows is what runs, byte for byte.</p>
+      <p><strong class="accent">Deletion after verification.</strong> The destructive half of a move runs only after visible count checks agree on both ends.</p>
+      <p><strong class="accent">State in plain text.</strong> Five files in Application Support—topology cache, session, settings, favorites, an append-only log. No database. Delete the cache whenever; the hosts are the system of record.</p>
     </div>
   </div>
 </div>
@@ -319,16 +410,13 @@ $ zfs send -R -v tank/sage/jodo/kanyo@palana-20260716-101530 | ssh koan 'zfs rec
 <div class="frow">
   <div class="frow-text">
     <p>Swift 6, strict concurrency, SwiftPM. The logic lives in
-    <strong>PalanaCore</strong>, a headless library with more than 97% test
-    coverage. The app renders state and forwards intent. It cannot compose
-    a shell command on its own. All host contact goes through the system
-    <code>ssh</code> binary via <code>Process</code>, with one ControlMaster
-    session per host. There is no embedded SSH stack to audit.</p>
-    <p>The command line remains first-class. Every plan is a command you can
-    paste. The operations log and state files are plain text you can grep.
-    A real shell sits under the panes. The GUI drives the same tools you do.</p>
-    <p>The design record is public in the repo's <code>ho-process/</code>:
-    architectural decisions, their reasoning, and the code they scoped.
+    <strong>PalanaCore</strong>, a headless library above 97% test coverage.
+    The app renders state and forwards intent; it cannot compose a shell
+    command on its own. All host contact goes through the system
+    <code>ssh</code> binary via <code>Process</code>, one ControlMaster
+    session per host. The design record is public in the repo's
+    <code>ho-process/</code>: each architectural decision, its reasoning,
+    and the code it scoped.
     <a href="/how-it-works/">How it works →</a></p>
   </div>
   <div class="frow-visual">
@@ -340,7 +428,7 @@ $ cd palana &amp;&amp; swift build
 
 <div class="sec-head" id="download">
   <p class="eyebrow">Get <span class="brand-lc">pālana</span></p>
-  <h2>Free to use. Free to inspect.</h2>
+  <h2>Free to use. Free to read.</h2>
 </div>
 
 <div class="getit">
