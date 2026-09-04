@@ -103,8 +103,7 @@ SSH setup <em>is</em> the setup.</p>
 <em>Add a host</em>. It asks five small questions—a nickname, the address,
 your username—shows you the exact lines it will write, backs the file up,
 and writes them. If you don't have an SSH key yet, it shows you the two
-commands that make one and install it. It never runs them for you; your keys
-stay yours.</p>
+commands that make one and install it. It never runs them for you.</p>
 
 <p>Two things to keep in mind:</p>
 
@@ -179,9 +178,9 @@ Your Mac issues the command; it is not in the byte path. For a 41&nbsp;GB
 folder, that can be the difference between minutes and an afternoon.</p>
 </div>
 
-<p>The plan's last line, on a move: the delete half is
-<em>gated</em>. pālana copies, then counts files on both ends, and only
-deletes the originals when the counts agree. You watch all of it happen —
+<p>The plan's last line, on a move: the delete waits.
+pālana copies, then counts files on both ends, and deletes the originals
+only when the counts agree. You watch all of it happen —
 the counting is two visible commands, not a spinner. Why plans work this way:
 <a href="/the-plan/">the command, before it runs</a>.</p>
 </section>
@@ -273,7 +272,7 @@ cover the lifecycle—<kbd>c</kbd> create, <kbd>n</kbd> snapshot,
 <kbd>b</kbd> roll back, <kbd>x</kbd> destroy, mountpoints, mount/unmount —
 and every one composes a plan you read first. Destroy asks you to type the
 word. The pool root is off limits. And when you move a <em>whole
-dataset</em> between ZFS machines, the plan upgrades itself to
+dataset</em> between ZFS machines, the plan switches to
 <code>zfs send | ssh | zfs receive</code>—block-level, much faster
 than file-by-file.</p>
 
@@ -292,7 +291,7 @@ the fix.</p>
   <tr><td class="k"><code>no usable ssh key</code></td><td>the host wants a key you don't have installed—pālana shows the two commands (<code>ssh-keygen</code>, <code>ssh-copy-id</code>) and waits</td></tr>
   <tr><td class="k"><code>unreachable</code></td><td>if <code>ssh &lt;host&gt;</code> fails in your terminal, it fails here identically—same ssh, same reason</td></tr>
   <tr><td class="k"><code>mounting needs root</code></td><td>mount/unmount are the one thing needing sudo—the refusal includes the exact line to grant: <a href="/sudo/">the mount grant</a></td></tr>
-  <tr><td class="k"><code>won't work—kind mismatch</code></td><td>a file here, a folder there—named before the transfer, not after it half-runs</td></tr>
+  <tr><td class="k"><code>won't work—kind mismatch</code></td><td>a file here, a folder there—named before the transfer starts</td></tr>
   <tr><td class="k"><code>probe came back unreadable</code></td><td>an exotic userland answered strangely; stripped-down BusyBox boxes are supported, some vendor firmware refuses</td></tr>
 </table>
 
@@ -324,7 +323,7 @@ runs is what the engine planned, byte for byte.</p>
 probe proved it; a tar stream when one end lacks rsync; <code>zfs send -R
 … | zfs receive -u</code> for whole datasets (the <code>-u</code> is
 deliberate—mounting is root's on Linux, and a receive that auto-mounts
-reports failure even though the data landed). Deletes gate on verification:
+reports failure even though the data landed). Deletes wait on verification:
 <code>find | wc -l</code> on both ends, or dataset existence for receives,
 before anything destructive runs.</p>
 

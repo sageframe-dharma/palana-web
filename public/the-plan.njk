@@ -68,7 +68,7 @@ testable.</p>
 $ rsync -a -s --partial --info=progress2 /tank/media/camera/archive-2025 koan:/rpool/cold/
   runs only after the copy above is verified: $ rm -rf /tank/media/camera/archive-2025</pre>
   </div>
-  <figcaption>A move, planned. Six facts, each read from the hosts.</figcaption>
+  <figcaption>Six facts, each read from the hosts.</figcaption>
 </figure>
 
 <p><strong>What you asked, and what it actually is.</strong> The first line
@@ -93,9 +93,9 @@ destination can't be checked, the plan says that instead:
 <p><strong>Transport.</strong> The plan names the tool, execution host, and
 authentication path. More on this <a href="#transport">below</a>.</p>
 
-<p><strong>The commands.</strong> Every step that will run, verbatim, with its
-gate stated inline. The delete—the dangerous half of a move—is declared
-<em>gated</em>: it does not run until the copy is verified.</p>
+<p><strong>The commands.</strong> Every step that will run, verbatim. The
+delete—the dangerous half of a move—is marked <code>runs only after the
+copy above is verified</code>, and it does not run until it is.</p>
 </section>
 
 <section>
@@ -145,7 +145,7 @@ $ rsync -a -s --partial --info=progress2 /tank/media/camera/archive-2025 /rust/a
 
 <p>The destination is <em>another machine</em>—the plan at the
 <a href="#anatomy">top of this page</a>: a cross-host transfer, rsync running
-host-to-host, the delete gated on verification.</p>
+host-to-host, the delete waiting on verification.</p>
 
 <p>The classification is computed from dataset boundaries the Field probed:
 different facts in, different plan out.</p>
@@ -214,13 +214,13 @@ output streaming under them.</p>
 <span class="note">step 2 finished (exit 0)</span>
 <span class="note">done—every step ran and checked out</span></pre>
   </div>
-  <figcaption>The delete was gated: two count commands, one per host, ran and
-  matched before it.</figcaption>
+  <figcaption>Two count commands, one per host, ran and matched
+  before the delete.</figcaption>
 </figure>
 
 <p>The transfer finishes. Then the verification runs:
 two more commands you can read, counting what landed against
-what left. Only when the counts match does the gated delete run. (Mid-run, <kbd>⌃c</kbd> cancels; a plan that hasn't
+what left. Only when the counts match does the delete run. (Mid-run, <kbd>⌃c</kbd> cancels; a plan that hasn't
 been enacted is dismissed with <kbd>esc</kbd> and costs nothing.)</p>
 
 <p>The interface claims "these are the

@@ -8,8 +8,8 @@ description: "The dataset tree behind every pane, ten mutation verbs that compos
 
 <p class="lede">Most tools see mountpoints and stop there. pālana knows which
 directory is a dataset, plans around the boundaries, and manages the datasets
-themselves—snapshot to rollback—through the same gate as everything else:
-a plan you read before Enter.</p>
+themselves—snapshot to rollback—the same way as everything else:
+a command you read before Enter.</p>
 
 <section>
 <h2 id="boundaries">Boundaries you can see<a class="hlink" href="#boundaries">#</a></h2>
@@ -113,8 +113,8 @@ progress bar—send's own progress output, parsed. The <code>receive -u</code> l
 the dataset <em>unmounted</em>, deliberately: on Linux, mounting belongs to
 root even when the dataset's verbs are delegated, and a bare receive would
 land the data, fail the mount, and report failure for a transfer whose
-data landed. And the verification behind the gate is shaped for
-datasets: not file counts, but the destination answering that
+data landed. And the verification before the deletes is shaped for
+datasets: the destination answering that
 <code>rpool/sage/koan/kanyo</code> now exists.</p>
 </section>
 

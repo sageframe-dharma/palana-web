@@ -258,7 +258,7 @@ $ rsync -a -s --partial --info=progress2 /tank/media/camera/archive-2025 /rust/a
     the plan. Press <kbd>Z</kbd> and the pane becomes the host's dataset
     tree: create, snapshot, roll back, destroy, mount, unmount, set the
     mountpoint. Move a whole dataset between two ZFS machines and the plan
-    upgrades itself to <code>zfs snapshot</code>, then <code>zfs send -R |
+    switches to <code>zfs snapshot</code>, then <code>zfs send -R |
     ssh | zfs receive -u</code>—block-level, host to host, cleanup after
     the receive is verified. Destroy asks you to type the word. The pool
     root is off limits. Hosts without ZFS get everything else.
