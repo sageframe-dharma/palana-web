@@ -18,7 +18,7 @@ description: "The full pālana guide: install it, connect your machines, copy be
   <a href="#other-verbs">Delete, rename, create</a>
   <a href="#drag">Drag &amp; drop</a>
   <a href="#edit-remote">Edit a remote file</a>
-  <a href="#preview-shell">Preview &amp; the shell</a>
+  <a href="#preview-shell">The shell &amp; preview</a>
   <div class="group">Your machines</div>
   <a href="#the-field">See the whole field</a>
   <div class="group">ZFS</div>
@@ -47,7 +47,7 @@ description: "The full pālana guide: install it, connect your machines, copy be
 <h1>Help</h1>
 
 <p class="lede">A practical guide to the app: install it, connect hosts, move
-files, work with ZFS, and understand every plan before it runs.</p>
+files, work with ZFS, and read every command before it runs.</p>
 
 <section class="help-section" id="what-it-is">
 <h2>What pālana is<a class="hlink" href="#what-it-is">#</a></h2>
@@ -55,17 +55,18 @@ files, work with ZFS, and understand every plan before it runs.</p>
 <p>pālana is a two-pane file manager for people with servers. Either pane can
 address any machine you can reach over SSH: your NAS on the left, your media
 host on the right, or your Mac in either pane. Browse, copy, move, and rename
-across those hosts from one window.</p>
+across those hosts from one window, with a real shell on the focused host
+under the panes.</p>
 
-<p>Its central rule:
-<strong>nothing runs until you've seen it.</strong> Press the copy key and
-pālana doesn't copy—it shows you the plan: what it's about to do in plain
-words, and the exact command underneath. Press Enter, and it runs precisely
-that, with live output. Press Esc, and nothing happened.</p>
+<p>The command is on screen before it runs. Press the copy key and pālana
+doesn't copy—it shows the plan: the operation in plain words, and the exact
+command underneath. Press Enter and it runs precisely that, in the terminal
+under the panes, with live output. Press Esc and nothing runs.</p>
 
-<p>If you can use SSH, you can use pālana. Terminal users will recognize the
-vim keys; everyone else can start with <a href="/start/#the-window">the
-window, labeled</a>.</p>
+<p>If you can use SSH, you can use pālana. If you live in yazi, ranger, or
+mc, the shape is familiar—two panes, vim keys, a shell underneath. Everyone
+else can start with <a href="/start/#the-window">the window,
+labeled</a>.</p>
 </section>
 
 <section class="help-section" id="install">
@@ -227,19 +228,20 @@ theirs.</p>
 </section>
 
 <section class="help-section" id="preview-shell">
-<h2>Preview &amp; the shell<a class="hlink" href="#preview-shell">#</a></h2>
-
-<p><kbd>v</kbd> turns the right pane into a preview that follows your cursor
-in the left—text files, images, PDFs. Remote text is fetched with a bounded
-read; remote binaries show an info card instead of downloading.</p>
+<h2>The shell &amp; preview<a class="hlink" href="#preview-shell">#</a></h2>
 
 <p><kbd>⌘`</kbd> opens a real terminal on the focused host, right under your
 panes—your actual ssh, one live session per host, kept warm. The footer
-always tells you who has the keyboard, and <kbd>⌘`</kbd> hands it back. For
+always tells you who has the keyboard, and <kbd>⌘`</kbd> hands it back.
+Anything a plan shows can be pasted there instead of run with Enter. For
 quick questions without a shell, <kbd>⇧tab</kbd> arms the read keys:
 <kbd>d</kbd> <kbd>z</kbd> <kbd>s</kbd> <kbd>p</kbd> drop <code>df</code>,
 <code>zfs list</code>, <code>zpool status</code>, <code>zpool list</code>
 into the panel.</p>
+
+<p><kbd>v</kbd> turns the right pane into a preview that follows your cursor
+in the left—text files, images, PDFs. Remote text is fetched with a bounded
+read; remote binaries show an info card instead of downloading.</p>
 </section>
 
 <section class="help-section" id="the-field">
